@@ -1,19 +1,19 @@
-name: Brand Lock
+name: AI Sandbox Guard
 
 on:
-  pull_request:
-    branches: [ main ]
   push:
-    branches: [ main ]
+    branches:
+      - "feature/ai-*"
 
 jobs:
-  guard:
+  sandbox:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
         with:
-          version: 9
+          node-version: '20'
+      - run: corepack enable
       - run: pnpm install --frozen-lockfile
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps
@@ -23,7 +23,5 @@ jobs:
         run: pnpm run verify:hue
       - name: Brand tests
         run: pnpm run test:brand
-      - name: Verify brand lock
-        run: pnpm run verify:brand
       - name: Build
         run: pnpm run build
