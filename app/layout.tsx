@@ -131,7 +131,12 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="//www.googletagmanager.com" />
         
         {/* Preload critical resources */}
-        <link rel="preload" href="/waves-bg-2560.jpg" as="image" type="image/jpeg" />
+        <link
+          rel="preload"
+          href="/assets/champagne/waves/waves-bg-2560.webp"
+          as="image"
+          type="image/webp"
+        />
         
         {/* Service Worker Registration */}
         <script
