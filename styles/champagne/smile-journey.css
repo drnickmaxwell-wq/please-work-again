@@ -1,17 +1,16 @@
 .smileJourney {
   position: relative;
   isolation: isolate;
-  padding-top: 6rem;
+  padding-top: clamp(24px, 5vh, 56px);
   background-image:
     var(--smh-gradient),
-    linear-gradient(0deg, color-mix(in oklab, var(--smh-primary-magenta) 9%, transparent), transparent),
     var(--smh-waves-bg),
     var(--smh-particles-img),
     var(--smh-grain-img);
-  background-size: cover, cover, cover, cover, cover;
-  background-position: center, center, center, center, center;
-  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat;
-  background-blend-mode: normal, multiply, overlay, screen, overlay;
+  background-size: 165% 165%, cover, cover, cover;
+  background-position: 18% 38%, center, center, center;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+  background-blend-mode: normal, overlay, screen, overlay;
   color: var(--smh-text);
 }
 
@@ -23,7 +22,7 @@
   background-position: center, center;
   background-repeat: no-repeat, repeat;
   mix-blend-mode: screen, overlay;
-  opacity: var(--smh-journey-particles, 0.065);
+  opacity: .18;
 }
 
 .smileJourney > * {

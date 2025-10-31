@@ -1,21 +1,24 @@
-.footerLuxe {
-  position: relative; isolation: isolate;
-  background:
-    color-mix(in oklab, var(--smh-primary-teal) 10%, var(--smh-primary-magenta) 6%),
+.footerLuxe{
+  position:relative;
+  isolation:isolate;
+  background-image:
+    linear-gradient(180deg, color-mix(in oklab, #0B0D0F 92%, var(--smh-ink, #0B0D0F)) 0%, #0B0D0F 100%),
+    var(--smh-particles-img),
     var(--smh-grain-img);
-  background-repeat: no-repeat, repeat;
-  background-size: cover, cover;
-  background-position: center, center;
-  background-blend-mode: normal, overlay;
-  color: color-mix(in oklab, var(--smh-text) var(--smh-footer-text-boost, 96%), transparent);
+  background-repeat:no-repeat, no-repeat, repeat;
+  background-size:cover, cover, cover;
+  background-blend-mode: normal, screen, overlay;
+  color: color-mix(in oklab, var(--smh-white) 88%, transparent);
 }
-.footerLuxe::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none;
+.footerLuxe::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
   background-image: var(--smh-particles-img);
   background-size: cover; background-position: center;
   background-repeat: no-repeat; mix-blend-mode: screen;
   opacity: var(--smh-footer-particles, 0.012);
+  filter: opacity(.6);
 }
+.footerLuxe .glass, .footerLuxe .card{ background:transparent !important; }
 .footerLuxe input[type="email"], .footerLuxe input[type="text"] {
   background: color-mix(in oklab, var(--smh-white) 8%, transparent);
   border: 1px solid color-mix(in oklab, var(--champagne-keyline-gold) 55%, transparent);

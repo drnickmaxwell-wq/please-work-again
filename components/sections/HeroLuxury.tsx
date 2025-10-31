@@ -3,7 +3,7 @@ import React from "react";
 export default function HeroLuxury() {
   return (
     <section
-      className="heroLuxury relative isolate"
+      className="heroLuxury relative isolate overflow-hidden"
       aria-label="St Mary’s House Dental — Quiet Luxury Hero"
     >
       <div className="waves" aria-hidden="true" />
