@@ -1,34 +1,40 @@
 .footerLuxe {
   position: relative;
   isolation: isolate;
-  /* Manus navy-glass base, derived from tokens (no raw hex) */
   background:
     color-mix(in oklab,
-      var(--smh-primary-magenta) 8%,
-      var(--smh-primary-teal) 12%
+      var(--smh-primary-teal) 10%,
+      var(--smh-primary-magenta) 6%
     ),
-    var(--smh-particles-img),
-    var(--smh-grain-img);
-  background-repeat: no-repeat, no-repeat, repeat;
-  background-size: cover, cover, cover;
-  background-position: center, center, center;
-  background-blend-mode: normal, screen, overlay;
-  color: color-mix(in oklab, var(--smh-text) 92%, transparent);
-}
-
-/* Quiet particles in footer */
-.footerLuxe::after {
-  content: "";
-  position: absolute; inset: 0;
-  pointer-events: none;
-  background-image:
-    var(--smh-particles-img),
     var(--smh-grain-img);
   background-repeat: no-repeat, repeat;
   background-size: cover, cover;
   background-position: center, center;
-  mix-blend-mode: screen, overlay;
-  opacity: 0.04; /* calmer than hero/journey */
+  background-blend-mode: normal, overlay;
+  color: color-mix(in oklab, var(--smh-text) var(--smh-footer-text-boost, 88%), transparent);
+}
+
+.footerLuxe::after {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background-image: var(--smh-particles-img);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  mix-blend-mode: screen;
+  opacity: var(--smh-footer-particles, 0.025);
+}
+
+/* Inputs look dull on navy; give subtle frosted bed and keyline */
+.footerLuxe input[type="email"],
+.footerLuxe input[type="text"] {
+  background: color-mix(in oklab, var(--smh-white) 4%, transparent);
+  border: 1px solid color-mix(in oklab, var(--champagne-keyline-gold) 40%, transparent);
+  color: inherit;
+}
+.footerLuxe input::placeholder {
+  color: color-mix(in oklab, var(--smh-white) 55%, transparent);
 }
 
 /* Ensure inner content sits above overlays */

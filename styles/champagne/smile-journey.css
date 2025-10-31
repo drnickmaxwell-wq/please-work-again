@@ -5,14 +5,14 @@
   margin-top: -2px; /* to hide tiny gap */
   background-image:
     var(--smh-gradient),
+    linear-gradient(0deg, color-mix(in oklab, var(--smh-primary-magenta) calc(var(--smh-wave-contrast, 0.22) * 36%), transparent), transparent),
     var(--smh-waves-bg),
     var(--smh-particles-img),
     var(--smh-grain-img);
-  background-size: cover, cover, cover, cover;
-  background-position: center, center, center, center;
-  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
-  background-blend-mode: normal, overlay, screen, overlay;
-  opacity: 0.98;
+  background-size: cover, cover, cover, cover, cover;
+  background-position: center, center, center, center, center;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat;
+  background-blend-mode: normal, multiply, overlay, screen, overlay;
   color: var(--smh-text);
 }
 
@@ -34,17 +34,16 @@
 
 .smileJourney::after {
   content: "";
-  position: absolute;
-  inset: 0;
+  position: absolute; inset: 0;
+  pointer-events: none;
   background-image:
     var(--smh-particles-img),
     var(--smh-grain-img);
-  background-repeat: no-repeat, repeat;
   background-size: cover, cover;
   background-position: center, center;
+  background-repeat: no-repeat, repeat;
   mix-blend-mode: screen, overlay;
-  opacity: 0.06; /* dialed down */
-  pointer-events: none;
+  opacity: var(--smh-journey-particles, 0.07);
 }
 
 .smileJourney > * {
