@@ -63,7 +63,7 @@ export default function SmileJourney({ steps = defaultSteps }: SmileJourneyProps
   return (
     <section
       aria-labelledby="journey-hero-title"
-      className="smileJourney relative isolate journey"
+      className="smileJourney relative isolate"
       data-particles="off"
       data-wave="on"
       data-reduced-motion={prefersReducedMotion ? "true" : "false"}

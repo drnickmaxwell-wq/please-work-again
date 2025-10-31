@@ -1,6 +1,8 @@
 .smileJourney {
   position: relative;
   isolation: isolate;
+  color: var(--smh-text);
+  opacity: 0.98;
   background-image:
     var(--smh-gradient),
     var(--smh-waves-bg),
@@ -10,8 +12,37 @@
   background-position: center, center, center, center;
   background-repeat: no-repeat, no-repeat, no-repeat, repeat;
   background-blend-mode: normal, overlay, screen, overlay;
-  opacity: 0.98;
-  color: var(--smh-text);
+}
+
+.smileJourney::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  mask-image: var(--smh-hero-mask-desktop);
+  -webkit-mask-image: var(--smh-hero-mask-desktop);
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: cover;
+  -webkit-mask-size: cover;
+  background: color-mix(in oklab, var(--smh-accent-gold-soft, #F9E8C3) 22%, transparent);
+  mix-blend-mode: soft-light;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.smileJourney::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    var(--smh-particles-img),
+    var(--smh-grain-img);
+  background-repeat: no-repeat, repeat;
+  background-size: cover, cover;
+  background-position: center, center;
+  mix-blend-mode: screen, overlay;
+  opacity: 0.12;
+  pointer-events: none;
 }
 
 .smileJourney > * {
@@ -19,8 +50,23 @@
   z-index: 1;
 }
 
+@media (max-width: 640px) {
+  .smileJourney::before {
+    mask-image: var(--smh-hero-mask-mobile);
+    -webkit-mask-image: var(--smh-hero-mask-mobile);
+  }
+
+  .smileJourney::after {
+    opacity: 0.08;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .smileJourney {
     background-attachment: initial;
   }
+}
+
+:root:not(.dark) .smileJourney::before {
+  filter: blur(6px);
 }
