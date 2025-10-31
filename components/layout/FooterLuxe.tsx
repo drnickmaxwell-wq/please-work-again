@@ -43,7 +43,7 @@ const FooterLuxe = () => {
   };
 
   return (
-    <footer className="footerLuxe footer-luxe relative bg-[var(--smh-ink)] text-[var(--smh-text)]" data-footer>
+    <footer className="footerLuxe footer-luxe relative" data-footer>
       <div className="footer-luxe__surface text-[var(--smh-text)]">
         <div className="footer-luxe__rim" aria-hidden="true" />
         <div className="footer-luxe__inner">

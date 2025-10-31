@@ -1,6 +1,7 @@
 .heroLuxury {
   position: relative;
   isolation: isolate;
+  color: var(--smh-text);
   background-image:
     var(--smh-gradient),
     var(--smh-waves-bg),
@@ -10,7 +11,6 @@
   background-position: 18% 38%, center, center, center;
   background-repeat: no-repeat, no-repeat, no-repeat, repeat;
   background-blend-mode: normal, overlay, screen, overlay;
-  color: var(--smh-text);
 }
 
 .heroLuxury::before {
@@ -29,13 +29,43 @@
   pointer-events: none;
 }
 
+.heroLuxury::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    var(--smh-particles-img),
+    var(--smh-grain-img);
+  background-repeat: no-repeat, repeat;
+  background-size: cover, cover;
+  background-position: center, center;
+  mix-blend-mode: screen, overlay;
+  opacity: 0.14;
+  pointer-events: none;
+}
+
 .heroLuxury > * {
   position: relative;
   z-index: 1;
+}
+
+@media (max-width: 640px) {
+  .heroLuxury::before {
+    mask-image: var(--smh-hero-mask-mobile);
+    -webkit-mask-image: var(--smh-hero-mask-mobile);
+  }
+
+  .heroLuxury::after {
+    opacity: 0.1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .heroLuxury {
     background-attachment: initial;
   }
+}
+
+:root:not(.dark) .heroLuxury::before {
+  filter: blur(6px);
 }

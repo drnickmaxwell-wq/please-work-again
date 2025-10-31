@@ -3,8 +3,8 @@ import React from "react";
 export default function HeroLuxury() {
   return (
     <section
-      className="heroLuxury relative isolate overflow-hidden"
-      aria-label="St Mary’s House Dental – Quiet Luxury Hero"
+      className="heroLuxury relative isolate"
+      aria-label="St Mary’s House Dental — Quiet Luxury Hero"
     >
       <div className="relative z-10 mx-auto max-w-7xl px-6 py-24">
         <h1 className="font-playfair text-5xl leading-tight" style={{ color: 'var(--ink)' }}>
