@@ -1,8 +1,8 @@
 .smileJourney {
   position: relative;
   isolation: isolate;
-  color: var(--smh-text);
-  opacity: 0.98;
+  padding-top: 6rem;
+  margin-top: -2px; /* to hide tiny gap */
   background-image:
     var(--smh-gradient),
     var(--smh-waves-bg),
@@ -12,6 +12,8 @@
   background-position: center, center, center, center;
   background-repeat: no-repeat, no-repeat, no-repeat, repeat;
   background-blend-mode: normal, overlay, screen, overlay;
+  opacity: 0.98;
+  color: var(--smh-text);
 }
 
 .smileJourney::before {
