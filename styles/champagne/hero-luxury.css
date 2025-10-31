@@ -1,32 +1,32 @@
 .heroLuxury {
   position: relative;
   isolation: isolate;
-  min-height: 100vh;
+  min-height: 92vh; /* a touch shorter than full to reduce dead space */
   background-image:
     var(--smh-gradient),
+    /* add an adjustable color film above waves to increase contrast */
+    linear-gradient(0deg, color-mix(in oklab, var(--smh-primary-magenta) calc(var(--smh-wave-contrast, 0.22) * 45%), transparent), transparent),
     var(--smh-waves-bg),
     var(--smh-particles-img),
     var(--smh-grain-img);
-  background-size: 165% 165%, cover, cover, cover;
-  background-position: 18% 38%, center, center, center;
-  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
-  background-blend-mode: normal, overlay, screen, overlay;
+  background-size: 165% 165%, cover, cover, cover, cover;
+  background-position: 18% 38%, center, center, center, center;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat;
+  background-blend-mode: normal, multiply, overlay, screen, overlay;
   color: var(--smh-text);
 }
 
 .heroLuxury::before {
   content: "";
-  position: absolute;
-  inset: 0;
+  position: absolute; inset: 0;
   mask-image: var(--smh-hero-mask-desktop);
   -webkit-mask-image: var(--smh-hero-mask-desktop);
-  mask-repeat: no-repeat;
-  -webkit-mask-repeat: no-repeat;
-  mask-size: cover;
-  -webkit-mask-size: cover;
+  mask-repeat: no-repeat; -webkit-mask-repeat: no-repeat;
+  mask-size: cover; -webkit-mask-size: cover;
   background: color-mix(in oklab, var(--champagne-keyline-gold) 20%, transparent);
   mix-blend-mode: soft-light;
-  opacity: 0.75;
+  opacity: 0.7;
+  pointer-events: none;
 }
 
 .heroLuxury > * {
@@ -51,14 +51,16 @@
 
 .heroLuxury::after {
   content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 120px;
-  background: linear-gradient(to bottom, transparent 0%, color-mix(in oklab, var(--smh-primary-teal) 25%, var(--smh-primary-magenta) 25%) 100%);
-  opacity: 0.25;
-  z-index: 1;
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background-image:
+    var(--smh-particles-img),
+    var(--smh-grain-img);
+  background-size: cover, cover;
+  background-position: center, center;
+  background-repeat: no-repeat, repeat;
+  mix-blend-mode: screen, overlay;
+  opacity: var(--smh-hero-particles, 0.08);
 }
 
 @media (max-width: 640px) {
