@@ -38,6 +38,16 @@ type Diagnostics = {
   };
 };
 
+const servicesGridAssets = [
+  "/assets/champagne/icons/scan.svg",
+  "/assets/champagne/icons/implant.svg",
+  "/assets/champagne/icons/smile-curve.svg",
+  "/assets/champagne/icons/sparkle.svg",
+  "/assets/champagne/brand-polish/wave-gold-dust.png",
+  "/assets/champagne/brand-polish/glass-reflect.svg",
+  "/assets/champagne/brand-polish/wave-light-overlay.webp",
+].join(", ");
+
 function rgbToHex(s: string) {
   const m = s.match(/rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/i);
   if (!m) return s;
@@ -232,6 +242,7 @@ export default function BrandLock() {
                 <p>heroMaskImage={liveDiagnostics.heroMaskImage || "n/a"}</p>
                 <p>heroBackgroundImage={liveDiagnostics.heroBackgroundImage}</p>
                 <p>journeyBackgroundImage={liveDiagnostics.journeyBackgroundImage}</p>
+                <p>servicesGridAssets={servicesGridAssets}</p>
                 <p>
                   tuners wave={liveDiagnostics.tuners.waveContrast} heroOpacity={liveDiagnostics.tuners.heroParticlesOpacity}
                   {' '}
