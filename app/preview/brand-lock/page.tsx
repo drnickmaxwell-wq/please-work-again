@@ -5,9 +5,18 @@ import { useEffect, useRef, useState } from "react";
 
 type Diagnostics = {
   gradient: string;
-  waves: string;
+  wavesAsset: string;
   backgroundSize: string;
   backgroundPosition: string;
+  wavesBgResolved: { resolved: boolean; urlSnippet: string };
+  heroBackgroundImage: string;
+  journeyBackgroundImage: string;
+  tuners: {
+    waveContrast: string;
+    heroParticles: string;
+    journeyParticles: string;
+    footerParticles: string;
+  };
 };
 
 const normalizeGradient = (value: string) =>
@@ -30,29 +39,62 @@ export default function BrandLock() {
     const surface = surfaceRef.current;
     if (!surface) return;
 
+    const sampleBackgroundImage = (className: string) => {
+      const probe = document.createElement("section");
+      probe.className = className;
+      Object.assign(probe.style, {
+        position: "absolute",
+        width: "1px",
+        height: "1px",
+        opacity: "0",
+        visibility: "hidden",
+        pointerEvents: "none",
+      });
+      document.body.appendChild(probe);
+      const styles = getComputedStyle(probe);
+      const backgroundImage = styles.backgroundImage;
+      document.body.removeChild(probe);
+      return backgroundImage;
+    };
+
     const surfaceStyles = getComputedStyle(surface);
+    const rootStyles = getComputedStyle(document.documentElement);
 
     const backgroundImage = surfaceStyles.backgroundImage;
     const gradientMatch = backgroundImage.match(/linear-gradient\([^)]*\)/i);
     const gradient = gradientMatch ? normalizeGradient(gradientMatch[0]) : "";
 
-    const wavesField = backgroundImage.includes("wave-field.svg");
-    const wavesDots = backgroundImage.includes("wave-dots.svg");
-    const waves = wavesField && wavesDots
-      ? "wave-field.svg + wave-dots.svg"
-      : [wavesField ? "wave-field.svg" : null, wavesDots ? "wave-dots.svg" : null]
-          .filter(Boolean)
-          .join(" | ");
+    const wavesMatch = backgroundImage.match(/url\(([^)]*waves[^)]*)\)/i);
+    const wavesAsset = wavesMatch ? wavesMatch[1].replace(/"|'/g, "") : "";
 
-    console.log(`gradient=${gradient}`);
-    console.log(`waves=${waves}`);
-    console.log(`bgSize/Pos=${surfaceStyles.backgroundSize} | ${surfaceStyles.backgroundPosition}`);
+    const wavesBgToken = rootStyles.getPropertyValue("--smh-waves-bg").trim();
+    const wavesBgMatch = wavesBgToken.match(/url\(([^)]*)\)/i);
+    const wavesBgSnippet = wavesBgMatch ? wavesBgMatch[1].replace(/"|'/g, "") : "";
+
+    const heroBackgroundImage = sampleBackgroundImage(
+      `heroLuxury${particlesEnabled ? " particles" : ""}`,
+    );
+    const journeyBackgroundImage = sampleBackgroundImage(
+      `smileJourney${particlesEnabled ? " particles" : ""}`,
+    );
 
     setLiveDiagnostics({
       gradient,
-      waves,
+      wavesAsset,
       backgroundSize: surfaceStyles.backgroundSize,
       backgroundPosition: surfaceStyles.backgroundPosition,
+      wavesBgResolved: {
+        resolved: Boolean(wavesBgMatch),
+        urlSnippet: wavesBgSnippet,
+      },
+      heroBackgroundImage,
+      journeyBackgroundImage,
+      tuners: {
+        waveContrast: rootStyles.getPropertyValue("--smh-wave-contrast").trim() || "n/a",
+        heroParticles: rootStyles.getPropertyValue("--smh-hero-particles").trim() || "n/a",
+        journeyParticles: rootStyles.getPropertyValue("--smh-journey-particles").trim() || "n/a",
+        footerParticles: rootStyles.getPropertyValue("--smh-footer-particles").trim() || "n/a",
+      },
     });
   }, [particlesEnabled]);
 
@@ -80,9 +122,24 @@ export default function BrandLock() {
             {liveDiagnostics ? (
               <>
                 <p>gradient={liveDiagnostics.gradient}</p>
-                <p>waves={liveDiagnostics.waves}</p>
+                <p>wavesAsset={liveDiagnostics.wavesAsset}</p>
                 <p>
                   bgSize/Pos={liveDiagnostics.backgroundSize} | {liveDiagnostics.backgroundPosition}
+                </p>
+                <p>
+                  wavesBgTokenResolved=
+                  {`${liveDiagnostics.wavesBgResolved.resolved} (${liveDiagnostics.wavesBgResolved.urlSnippet})`}
+                </p>
+                <p>heroBackgroundImage={liveDiagnostics.heroBackgroundImage}</p>
+                <p>journeyBackgroundImage={liveDiagnostics.journeyBackgroundImage}</p>
+                <p>
+                  opacityTuners=
+                  {JSON.stringify({
+                    waveContrast: liveDiagnostics.tuners.waveContrast,
+                    hero: liveDiagnostics.tuners.heroParticles,
+                    journey: liveDiagnostics.tuners.journeyParticles,
+                    footer: liveDiagnostics.tuners.footerParticles,
+                  })}
                 </p>
               </>
             ) : (

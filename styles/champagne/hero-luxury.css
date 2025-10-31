@@ -1,32 +1,32 @@
 .heroLuxury {
   position: relative;
   isolation: isolate;
-  min-height: 100vh;
+  min-height: var(--smh-hero-height, 92vh);
   background-image:
     var(--smh-gradient),
+    /* film to lift wave contrast without raw hex */
+    linear-gradient(0deg, color-mix(in oklab, var(--smh-primary-magenta) 12%, transparent), transparent),
     var(--smh-waves-bg),
     var(--smh-particles-img),
     var(--smh-grain-img);
-  background-size: 165% 165%, cover, cover, cover;
-  background-position: 18% 38%, center, center, center;
-  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
-  background-blend-mode: normal, overlay, screen, overlay;
+  background-size: 165% 165%, cover, cover, cover, cover;
+  background-position: 18% 38%, center, center, center, center;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat;
+  background-blend-mode: normal, multiply, overlay, screen, overlay;
   color: var(--smh-text);
 }
 
-.heroLuxury::before {
+.heroLuxury::before { /* masked gold shoulder */
   content: "";
-  position: absolute;
-  inset: 0;
+  position: absolute; inset: 0;
   mask-image: var(--smh-hero-mask-desktop);
   -webkit-mask-image: var(--smh-hero-mask-desktop);
-  mask-repeat: no-repeat;
-  -webkit-mask-repeat: no-repeat;
-  mask-size: cover;
-  -webkit-mask-size: cover;
-  background: color-mix(in oklab, var(--champagne-keyline-gold) 20%, transparent);
+  mask-repeat: no-repeat; -webkit-mask-repeat: no-repeat;
+  mask-size: cover; -webkit-mask-size: cover;
+  background: color-mix(in oklab, var(--champagne-keyline-gold) 24%, transparent);
   mix-blend-mode: soft-light;
-  opacity: 0.75;
+  opacity: var(--smh-gold-shoulder, 0.70);
+  pointer-events: none;
 }
 
 .heroLuxury > * {
@@ -49,16 +49,23 @@
 
 .heroLuxury .soften-under > * { position: relative; z-index: 1; }
 
-.heroLuxury::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 120px;
-  background: linear-gradient(to bottom, transparent 0%, color-mix(in oklab, var(--smh-primary-teal) 25%, var(--smh-primary-magenta) 25%) 100%);
+.heroLuxury .handoff {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: 96px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, color-mix(in oklab, var(--smh-primary-teal) 18%, transparent) 100%);
   opacity: 0.25;
-  z-index: 1;
+  pointer-events: none;
+}
+
+.heroLuxury::after { /* particles + grain on top */
+  content: "";
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: var(--smh-particles-img), var(--smh-grain-img);
+  background-size: cover, cover;
+  background-position: center, center;
+  background-repeat: no-repeat, repeat;
+  mix-blend-mode: screen, overlay;
+  opacity: var(--smh-hero-particles, 0.085);
 }
 
 @media (max-width: 640px) {
@@ -66,18 +73,10 @@
     mask-image: var(--smh-hero-mask-mobile);
     -webkit-mask-image: var(--smh-hero-mask-mobile);
   }
-
-  .heroLuxury::after {
-    opacity: 0.1;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .heroLuxury {
     background-attachment: initial;
   }
-}
-
-:root:not(.dark) .heroLuxury::before {
-  filter: blur(6px);
 }
