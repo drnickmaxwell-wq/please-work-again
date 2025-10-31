@@ -16,7 +16,11 @@
   --brand-gold-keyline: var(--smh-accent-gold-soft);
 
   /* Optional iridescent helper */
-  --iridescent-gradient: linear-gradient(135deg, color-mix(in oklab, #C2185B 20%, white), color-mix(in oklab, #00C2C7 20%, white));
+  --iridescent-gradient: linear-gradient(
+    135deg,
+    color-mix(in oklab, #C2185B 20%, white),
+    color-mix(in oklab, #00C2C7 20%, white)
+  );
 
   /* Legacy (diagnostics/rollback only — do not use in new UI) */
   --smh-gradient-legacy: var(--smh-gradient-2stop);

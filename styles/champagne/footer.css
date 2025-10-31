@@ -7,7 +7,7 @@
     var(--smh-grain-img);
   background-size: cover, cover, cover;
   background-position: center, center, center;
-  background-repeat: no-repeat, repeat, repeat;
+  background-repeat: no-repeat, no-repeat, repeat;
   background-blend-mode: normal, screen, overlay;
   color: color-mix(in oklab, var(--smh-text) 92%, transparent);
 }

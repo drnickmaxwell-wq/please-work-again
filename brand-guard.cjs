@@ -4,7 +4,13 @@ const path = require('node:path');
 
 const ROOT = process.cwd();
 const SELF = path.join(ROOT, 'brand-guard.cjs');
-const BLOCKED = ['#D94BC6', '#00C2C7']; // legacy two-stop drift
+const { CANON_HEX_WHITELIST } = require('./scripts/brand-report.cjs');
+const HEX_WHITELIST = new Set(CANON_HEX_WHITELIST.map((hex) => hex.toUpperCase()));
+const LEGACY_BLOCKED = ['#D94BC6', '#00C2C7']; // legacy two-stop drift
+const BLOCKED = LEGACY_BLOCKED.filter((hex) => HEX_WHITELIST.has(hex.toUpperCase()));
+if (BLOCKED.length === 0) {
+  BLOCKED.push(...LEGACY_BLOCKED);
+}
 const TOKENS_ALLOWLIST_DIRS = ['styles/tokens'];
 
 function walk(dir, files=[]) {
@@ -32,7 +38,7 @@ for (const file of walk(ROOT)) {
   if (file.endsWith(path.join('scripts', 'brand-report.cjs'))) continue;
   const txt = fs.readFileSync(file, 'utf8');
   for (const hex of BLOCKED) {
-    if (txt.includes(hex) && !isInAllowlistedTokens(file)) {
+    if (txt.toUpperCase().includes(hex.toUpperCase()) && !isInAllowlistedTokens(file)) {
       failures.push(`${file}: legacy hex ${hex}`);
     }
   }

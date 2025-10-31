@@ -1,10 +1,9 @@
 :root {
-  --smh-waves-field: url("/assets/champagne/waves/wave-field.svg");
-  --smh-waves-dots: url("/assets/champagne/waves/wave-dots.svg");
+  --smh-waves-bg: url("/assets/champagne/waves/waves-bg-2560.webp");
   --smh-hero-mask-desktop: url("/assets/champagne/waves/home-hero-mask-desktop.webp");
-  --smh-hero-mask-mobile:  url("/assets/champagne/waves/home-hero-mask-mobile.webp");
-  --smh-grain-img: url("/assets/champagne/textures/film-grain.webp");
-  --smh-particles-img: url("/assets/champagne/particles/particles.webp");
+  --smh-hero-mask-mobile: url("/assets/champagne/waves/home-hero-mask-mobile.webp");
+  --smh-particles-img: url("/assets/champagne/particles/home-hero-particles.webp");
+  --smh-grain-img: url("/assets/champagne/textures/home-hero-film-grain.webp");
 }
 
 @media (max-width: 640px) {
@@ -13,34 +12,57 @@
   }
 }
 
-/* Layer order: gradient → wave mask → particles → grain → glass → content */
 .champagne-surface,
 .champagne-surface-lux {
-  background-image: var(--smh-gradient);
   position: relative;
   isolation: isolate;
+  background-image:
+    var(--smh-gradient),
+    var(--smh-waves-bg),
+    var(--smh-particles-img),
+    var(--smh-grain-img);
+  background-size: cover, cover, cover, cover;
+  background-position: center, center, center, center;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+  background-blend-mode: normal, overlay, screen, overlay;
 }
 
 .champagne-surface::before,
-.champagne-surface-lux::before { /* wave mask */
+.champagne-surface-lux::before {
   content: "";
-  position: absolute; inset: 0;
+  position: absolute;
+  inset: 0;
   mask-image: var(--smh-hero-mask-desktop);
   -webkit-mask-image: var(--smh-hero-mask-desktop);
-  mask-size: cover; -webkit-mask-size: cover;
-  background: currentColor;
-  opacity: 1;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: cover;
+  -webkit-mask-size: cover;
+  background: color-mix(in oklab, var(--smh-accent-gold-soft, #F9E8C3) 22%, transparent);
+  mix-blend-mode: soft-light;
+  opacity: 0.85;
   pointer-events: none;
 }
 
 .champagne-surface::after,
-.champagne-surface-lux::after { /* particles + grain */
+.champagne-surface-lux::after {
   content: "";
-  position: absolute; inset: 0;
-  background-image: var(--smh-particles-img), var(--smh-grain-img);
+  position: absolute;
+  inset: 0;
+  background-image:
+    var(--smh-particles-img),
+    var(--smh-grain-img);
   background-repeat: no-repeat, repeat;
   background-size: cover, cover;
-  mix-blend-mode: soft-light;
-  opacity: 0.14;
+  background-position: center, center;
+  mix-blend-mode: screen, overlay;
+  opacity: 0.28;
   pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .champagne-surface,
+  .champagne-surface-lux {
+    background-attachment: initial;
+  }
 }
