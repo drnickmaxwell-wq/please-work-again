@@ -1,0 +1,24 @@
+.footerLuxe {
+  position: relative;
+  isolation: isolate;
+  background-image:
+    var(--smh-gradient-2stop),
+    var(--smh-particles-img),
+    var(--smh-grain-img);
+  background-size: cover, cover, cover;
+  background-position: center, center, center;
+  background-repeat: no-repeat, repeat, repeat;
+  background-blend-mode: normal, screen, overlay;
+  color: color-mix(in oklab, var(--smh-text) 92%, transparent);
+}
+
+.footerLuxe > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footerLuxe {
+    background-attachment: initial;
+  }
+}
