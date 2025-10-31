@@ -1,0 +1,4 @@
+:root{
+  --smh-gold:var(--smh-accent-gold);            /* micro-accents only */
+  --smh-parallax-max:6px;
+}

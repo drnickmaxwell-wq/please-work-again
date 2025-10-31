@@ -1,0 +1,64 @@
+@layer preview-champagne.footer {
+  .footer-champagne {
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid color-mix(in oklab, var(--brand-gold) 30%, rgba(0, 0, 0, 0.75));
+    background: linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--brand-magenta) 22%, #050505 78%) 0%,
+      color-mix(in oklab, var(--brand-teal) 24%, #050505 76%) 55%,
+      color-mix(in oklab, var(--brand-gold) 28%, #050505 72%) 100%
+    );
+    color: rgba(255, 242, 222, 0.92);
+    isolation: isolate;
+    padding: 2.25rem 1.75rem;
+    gap: 1.75rem;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -30px 60px rgba(0, 0, 0, 0.45);
+  }
+
+  .footer-champagne::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--brand-gold) 100%, transparent) 45%, transparent);
+    opacity: 0.1;
+    pointer-events: none;
+  }
+
+  .footer-champagne h3 {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.9rem;
+    color: rgba(255, 237, 209, 0.82);
+  }
+
+  .footer-preview-cards {
+    display: grid;
+    gap: 1.1rem;
+  }
+
+  @media (min-width: 720px) {
+    .footer-preview-cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .footer-preview-card {
+    padding: 1.25rem 1.5rem;
+    display: grid;
+    gap: 0.5rem;
+    color: rgba(255, 249, 236, 0.88);
+  }
+
+  .footer-preview-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: rgba(255, 244, 229, 0.78);
+  }
+}

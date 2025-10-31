@@ -1,0 +1,81 @@
+@import "@/styles/tokens/smh-champagne-tokens.css";
+@import "@/styles/champagne/surface.css";
+/* glass & motion layers should come after surface */
+@import "@/styles/champagne/glass.css";
+@import "@/styles/brand/brand-motion.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  font-family: "Inter", system-ui, sans-serif;
+  background-color: var(--smh-ink);
+  color: var(--smh-text);
+  --champagne-pane: 0 2px 30px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.08);
+  --sparkle-highlight: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.55) 45%, transparent 70%);
+  --subsurface-glow-light: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(212,175,55,0.02) 100%);
+  --subsurface-glow-dark: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(212,175,55,0.03) 100%);
+  --iridescent-gradient: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--brand-teal, var(--smh-primary-teal)) 70%, white) 0%,
+    color-mix(in oklab, var(--brand-magenta, var(--smh-primary-magenta)) 70%, white) 100%
+  );
+  --card-reflection-gradient: linear-gradient(90deg, transparent 0%, rgba(212,175,55,0.1) 50%, transparent 100%);
+  --card-reflection-gradient-dark: linear-gradient(90deg, transparent 0%, rgba(212,175,55,0.15) 50%, transparent 100%);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--smh-ink);
+  color: inherit;
+  font-family: inherit;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+html {
+  background-color: var(--smh-ink);
+}
+
+a {
+  color: inherit;
+}
+
+.sticky-header{
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: transparent;
+  transition: background 200ms ease, border-color 200ms ease;
+}
+
+.header.scrolled,
+.sticky-header[data-scrolled="true"]{
+  background: color-mix(in oklab, var(--smh-ink) 72%, transparent);
+}
+
+.glass-pane {
+  background: var(--champagne-glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--champagne-keyline-gold);
+  border-radius: 18px;
+  box-shadow: var(--champagne-pane);
+}
+
+.wave {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: var(--champagne-wave, none);
+  opacity: 0.35;
+  mix-blend-mode: screen;
+}
+
+[data-reduced-motion="true"] * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}

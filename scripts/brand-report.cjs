@@ -1,0 +1,4 @@
+const CANON_GRADIENT = 'linear-gradient(135deg,#C2185B 0%,#40C4B4 60%,#D4AF37 100%)';
+const CANON_HEX_WHITELIST = ['#C2185B', '#40C4B4', '#D4AF37', '#F9E8C3'];
+
+module.exports = { CANON_GRADIENT, CANON_HEX_WHITELIST };

@@ -1,0 +1,16 @@
+.champagne-sheen {
+  position: relative;
+  --champagne-sheen-overlay:
+    radial-gradient(62% 48% at 26% 18%, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 74%),
+    radial-gradient(66% 52% at 80% 88%, rgba(255,238,219,0.45) 0%, rgba(255,238,219,0) 82%);
+}
+
+.champagne-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--champagne-sheen-overlay);
+  mix-blend-mode: screen;
+  opacity: var(--champagne-sheen-opacity);
+  pointer-events: none;
+}

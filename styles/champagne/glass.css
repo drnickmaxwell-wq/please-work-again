@@ -1,0 +1,15 @@
+.champagne-glass{
+  position: relative;
+  background-color: transparent;
+  border: 1px solid var(--smh-accent-gold);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 10px 40px rgba(0,0,0,.25);
+  border-radius: var(--radius-champagne, 18px);
+  z-index: var(--z-glass, 20);
+}
+
+.champagne-glass::before,
+.champagne-glass::after{
+  content: none !important;
+}

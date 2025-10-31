@@ -1,0 +1,11 @@
+/* TEMP shim to keep non-refactored pages readable (remove when migrated) */
+.legacy-surface {
+  background: var(--smh-ink);
+  color: var(--smh-text);
+}
+
+.legacy-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--smh-accent-gold);
+  border-radius: 16px;
+}

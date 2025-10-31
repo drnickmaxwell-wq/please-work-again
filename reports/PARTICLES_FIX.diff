@@ -1,0 +1,84 @@
+diff --git a/app/treatments/technology/page.tsx b/app/treatments/technology/page.tsx
+index 6a3b8ee..fc94bd6 100644
+--- a/app/treatments/technology/page.tsx
++++ b/app/treatments/technology/page.tsx
+@@ -47,7 +47,7 @@ export default function TechnologyPage() {
+       {/* Champagne hero wrapper using your brand tokens + wave + particles */}
+       <section id="hero" className="relative overflow-clip">
+         <BrandHeroGradient intensity="bold" clip="wave-bottom" goldDensity="med" waveOpacity={0.2} />
+-        <div className="relative z-10">
++        <div className="relative z-[2]">
+           <TechnologyHero />
+           <ScrollCue />
+         </div>
+diff --git a/components/brand/BrandHeroGradient.tsx b/components/brand/BrandHeroGradient.tsx
+index 50da8e3..38c8efc 100644
+--- a/components/brand/BrandHeroGradient.tsx
++++ b/components/brand/BrandHeroGradient.tsx
+@@ -22,17 +22,22 @@ type Props = {
+ export default function BrandHeroGradient({
+   intensity = "standard",
+   waveOpacity = 0.18,
+-  goldDensity = "low",
++  goldDensity: _goldDensity = "low",
+   clip = "none",
+ }: Props) {
+-  const particleAlpha = { low: 0.1, med: 0.14, high: 0.18 }[goldDensity];
+-  const particleOpacity = `calc(${particleAlpha} * var(--particles-enabled))`;
+   const gradOpacity = { soft: 0.20, standard: 0.32, bold: 0.42 }[intensity];
++  void _goldDensity;
+ 
+   return (
+-    <div aria-hidden className="absolute inset-0 -z-10">
++    <div aria-hidden className="absolute inset-0">
+       {/* Gradient wash */}
+-      <div className="brand-gradient brand-hue-drift" style={{ opacity: gradOpacity }} />
++      <div
++        className="brand-gradient brand-hue-drift"
++        style={{
++          opacity: gradOpacity,
++          zIndex: 0,
++        }}
++      />
+ 
+       {/* Wave mask (provide /public/waves/smh-wave-mask.svg in repo or via CDN) */}
+       <div
+@@ -40,6 +45,7 @@ export default function BrandHeroGradient({
+         style={{
+           opacity: waveOpacity,
+           backgroundImage: `url(${asset("/waves/smh-wave-mask.svg")})`,
++          zIndex: 0,
+         }}
+       />
+ 
+@@ -47,12 +53,14 @@ export default function BrandHeroGradient({
+       <div
+         className="brand-particles"
+         style={{
+-          opacity: particleOpacity,
+-          backgroundImage: `
+-            var(--brand-particles-gold, url(${asset("/textures/particles-gold.webp")})),
+-            var(--brand-particles-teal, url(${asset("/textures/particles-teal.webp")})),
+-            var(--brand-particles-magenta, url(${asset("/textures/particles-magenta.webp")}))
+-          `,
++          position: "absolute",
++          inset: 0,
++          zIndex: 1,
++          backgroundImage:
++            "url(/particles/particles-gold.webp),url(/particles/particles-teal.webp),url(/particles/particles-magenta.webp)",
++          backgroundRepeat: "repeat,repeat,repeat",
++          backgroundSize: "auto,auto,auto",
++          opacity: 0.32,
+         }}
+       />
+ 
+@@ -60,6 +68,9 @@ export default function BrandHeroGradient({
+       <div
+         className="brand-filmgrain"
+         style={{
++          position: "absolute",
++          inset: 0,
++          zIndex: 3,
+           backgroundImage: `image-set(
+             url(${asset("/textures/film-grain-desktop.webp")}) 1x
+           )`,

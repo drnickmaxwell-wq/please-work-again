@@ -1,0 +1,174 @@
+diff --git a/app/treatments/technology/page.tsx b/app/treatments/technology/page.tsx
+index fc94bd6..1e7b9c7 100644
+--- a/app/treatments/technology/page.tsx
++++ b/app/treatments/technology/page.tsx
+@@ -23,6 +23,8 @@ import "./components/technology-cta.css";
+ 
+ import ScrollCue from "./components/ScrollCue";
+ import "./components/scroll-cue.css";
++import { TreatmentGrid } from "@/components/ai24/TreatmentGrid";
++import { TestimonialCarousel } from "@/components/ai24/TestimonialCarousel";
+ 
+ export const metadata: Metadata = {
+   title: "Technology | St Mary’s House Dental Care",
+@@ -39,6 +41,45 @@ export const metadata: Metadata = {
+ };
+ 
+ export default function TechnologyPage() {
++  const tools = [
++    {
++      title: "AI Cost Estimator",
++      excerpt: "Personalised estimates based on your case.",
++      ctaLabel: "Estimate now",
++      ctaHref: "#cost",
++    },
++    {
++      title: "Treatment Time Predictor",
++      excerpt: "Get a realistic timeline from consult to results.",
++      ctaLabel: "Check timeline",
++      ctaHref: "#timeline",
++    },
++    {
++      title: "AR Smile Try-On",
++      excerpt: "Preview your smile with augmented reality.",
++      ctaLabel: "Open preview",
++      ctaHref: "#ar",
++    },
++  ];
++
++  const testimonials = [
++    {
++      quote:
++        "Absolutely brilliant service. The AI tools helped me understand exactly what to expect.",
++      name: "Emma Roberts",
++    },
++    {
++      quote:
++        "Professional, precise, and painless. Results exceeded expectations.",
++      name: "Michael Chen",
++    },
++    {
++      quote:
++        "I was nervous about dental work, but the team put me at ease. Incredible!",
++      name: "Lucy Anderson",
++    },
++  ];
++
+   return (
+     <>
+       {/* JSON-LD */}
+@@ -57,6 +98,25 @@ export default function TechnologyPage() {
+       <main className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-24 py-16">
+         <DigitalWorkflow />
+         <EquipmentGallery />
++        <section id="personalize" className="relative py-20">
++          <div className="mx-auto max-w-6xl px-4">
++            <h2 className="text-4xl md:text-5xl font-semibold iridescent-heading mb-8">
++              Personalize Your Journey
++            </h2>
++            <p className="mb-10 text-slate-600 max-w-2xl">
++              Use our AI-powered tools to get a clearer picture of your treatment plan.
++            </p>
++            <TreatmentGrid items={tools} />
++          </div>
++        </section>
++        <section id="stories" className="relative py-20">
++          <div className="mx-auto max-w-6xl px-4">
++            <h2 className="text-4xl md:text-5xl font-semibold iridescent-heading mb-10">
++              Patient Stories
++            </h2>
++            <TestimonialCarousel testimonials={testimonials} />
++          </div>
++        </section>
+         <AIInnovation />
+         <Sustainability />
+         <TechnologyCTA />
+diff --git a/components/ai24/TestimonialCarousel.tsx b/components/ai24/TestimonialCarousel.tsx
+new file mode 100644
+index 0000000..6ec32ef
+--- /dev/null
++++ b/components/ai24/TestimonialCarousel.tsx
+@@ -0,0 +1,34 @@
++type Testimonial = {
++  quote: string;
++  name: string;
++};
++
++type TestimonialCarouselProps = {
++  testimonials: Testimonial[];
++};
++
++export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps) {
++  if (!testimonials.length) {
++    return null;
++  }
++
++  return (
++    <div className="relative overflow-hidden rounded-3xl border border-slate-200/70 bg-white/70 p-8 shadow-sm backdrop-blur">
++      <div className="grid gap-12 md:grid-cols-3">
++        {testimonials.map((testimonial) => (
++          <figure key={testimonial.name} className="flex flex-col gap-6">
++            <blockquote className="text-lg leading-relaxed text-slate-700">
++              <span className="text-4xl text-sky-500">“</span>
++              {testimonial.quote}
++              <span className="text-4xl text-sky-500">”</span>
++            </blockquote>
++            <figcaption className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
++              {testimonial.name}
++            </figcaption>
++          </figure>
++        ))}
++      </div>
++      <div className="pointer-events-none absolute inset-0 hidden bg-gradient-to-r from-white via-transparent to-white/80 md:block" />
++    </div>
++  );
++}
+diff --git a/components/ai24/TreatmentGrid.tsx b/components/ai24/TreatmentGrid.tsx
+new file mode 100644
+index 0000000..e9bea35
+--- /dev/null
++++ b/components/ai24/TreatmentGrid.tsx
+@@ -0,0 +1,43 @@
++import Link from "next/link";
++
++type TreatmentGridItem = {
++  title: string;
++  excerpt: string;
++  ctaLabel: string;
++  ctaHref: string;
++};
++
++type TreatmentGridProps = {
++  items: TreatmentGridItem[];
++};
++
++export function TreatmentGrid({ items }: TreatmentGridProps) {
++  return (
++    <div className="grid gap-8 md:grid-cols-3">
++      {items.map((item) => (
++        <article
++          key={item.title}
++          className="group flex flex-col rounded-2xl border border-slate-200/70 bg-white/70 p-8 shadow-sm backdrop-blur transition hover:-translate-y-1 hover:shadow-lg"
++        >
++          <header className="mb-4">
++            <h3 className="text-2xl font-semibold text-slate-900">
++              {item.title}
++            </h3>
++          </header>
++          <p className="mb-8 text-slate-600">{item.excerpt}</p>
++          <div className="mt-auto">
++            <Link
++              href={item.ctaHref}
++              className="inline-flex items-center gap-2 font-semibold text-sky-600 transition group-hover:text-sky-700"
++            >
++              {item.ctaLabel}
++              <span aria-hidden className="transition group-hover:translate-x-1">
++                →
++              </span>
++            </Link>
++          </div>
++        </article>
++      ))}
++    </div>
++  );
++}

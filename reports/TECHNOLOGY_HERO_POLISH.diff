@@ -1,0 +1,184 @@
+diff --git a/app/treatments/technology/components/TechnologyHero.tsx b/app/treatments/technology/components/TechnologyHero.tsx
+index cde6415..dba756f 100644
+--- a/app/treatments/technology/components/TechnologyHero.tsx
++++ b/app/treatments/technology/components/TechnologyHero.tsx
+@@ -46,6 +46,19 @@ export default function TechnologyHero() {
+     <section ref={heroRef} className="technology-hero tech-hero">
+       {/* Gradient Background */}
+       <div className="hero-gradient"></div>
++
++      <div
++        className="wave-layer wave-back"
++        style={{ backgroundImage: 'url(/waves/smh-wave-mask.svg)' }}
++      />
++      <div
++        className="wave-layer wave-mid"
++        style={{ backgroundImage: 'url(/waves/smh-wave-mask.svg)' }}
++      />
++      <div
++        className="wave-layer wave-front"
++        style={{ backgroundImage: 'url(/waves/smh-wave-mask.svg)' }}
++      />
+       
+       {/* Parallax Triptych - Three wave planes */}
+       <div className="hero-wave-slow"></div>
+@@ -79,7 +92,9 @@ export default function TechnologyHero() {
+       
+       {/* Hero Content */}
+       <div className="hero-content">
+-        <h1 className="hero-title iridescent-text depth-bloom">Technology in Harmony</h1>
++        <h1 className="hero-title iridescent-text depth-bloom iridescent-heading">
++          Technology in Harmony
++        </h1>
+         
+         <p className="hero-subtitle">Where precision meets artistry</p>
+         
+diff --git a/app/treatments/technology/components/technology-hero.css b/app/treatments/technology/components/technology-hero.css
+index 15ceac3..b23ebe0 100644
+--- a/app/treatments/technology/components/technology-hero.css
++++ b/app/treatments/technology/components/technology-hero.css
+@@ -427,3 +427,131 @@
+     opacity: 0.12;
+   }
+ }
++
++/* Champagne Phase-1A Enhancements */
++.iridescent-heading {
++  position: relative;
++  background: conic-gradient(from 180deg at 50% 50%, rgba(255, 255, 255, 0.85) 0deg, rgba(64, 196, 180, 0.85) 120deg, rgba(194, 24, 91, 0.85) 240deg, rgba(212, 175, 55, 0.85) 360deg);
++  background-size: 300% 300%;
++  -webkit-background-clip: text;
++  background-clip: text;
++  color: transparent;
++  text-shadow: 0 0 30px rgba(212, 175, 55, 0.35);
++  animation: iridescentSpectral 60s linear infinite;
++}
++
++@keyframes iridescentSpectral {
++  0% {
++    background-position: 0% 50%;
++  }
++  50% {
++    background-position: 100% 50%;
++  }
++  100% {
++    background-position: 0% 50%;
++  }
++}
++
++.wave-layer {
++  position: absolute;
++  inset: -10% -15% -5%;
++  background-repeat: no-repeat;
++  background-size: 140% 120%;
++  background-position: center bottom;
++  opacity: 0.2;
++  mix-blend-mode: screen;
++  pointer-events: none;
++  z-index: 2;
++}
++
++.wave-back {
++  animation: waveBackDrift 60s linear infinite;
++  filter: blur(12px);
++  opacity: 0.18;
++}
++
++.wave-mid {
++  animation: waveMidDrift 40s linear infinite;
++  opacity: 0.24;
++}
++
++.wave-front {
++  animation: waveFrontDrift 26s linear infinite;
++  opacity: 0.32;
++}
++
++@keyframes waveBackDrift {
++  0% {
++    transform: translate3d(-4%, 0%, 0) scale(1.05);
++  }
++  50% {
++    transform: translate3d(4%, -2%, 0) scale(1.08);
++  }
++  100% {
++    transform: translate3d(-4%, 0%, 0) scale(1.05);
++  }
++}
++
++@keyframes waveMidDrift {
++  0% {
++    transform: translate3d(6%, 1%, 0) scale(1.12);
++  }
++  50% {
++    transform: translate3d(-6%, -1%, 0) scale(1.12);
++  }
++  100% {
++    transform: translate3d(6%, 1%, 0) scale(1.12);
++  }
++}
++
++@keyframes waveFrontDrift {
++  0% {
++    transform: translate3d(2%, -2%, 0) scale(1.18);
++  }
++  50% {
++    transform: translate3d(-2%, 2%, 0) scale(1.2);
++  }
++  100% {
++    transform: translate3d(2%, -2%, 0) scale(1.18);
++  }
++}
++
++.cta-primary {
++  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(249, 232, 195, 0.92) 45%, rgba(212, 175, 55, 0.95) 100%);
++  color: #2f1a12;
++  box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.5), 0 12px 30px rgba(0, 0, 0, 0.25);
++  text-shadow: 0 1px 6px rgba(255, 255, 255, 0.35);
++}
++
++.cta-primary:hover {
++  transform: translateY(-6px) scale(1.01);
++  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.6), 0 20px 45px rgba(0, 0, 0, 0.3);
++}
++
++.cta-primary:focus-visible {
++  outline: 2px solid rgba(212, 175, 55, 0.8);
++  outline-offset: 4px;
++}
++
++.cta-primary::before {
++  background: radial-gradient(circle, rgba(255, 255, 255, 0.55) 0%, rgba(212, 175, 55, 0) 70%);
++}
++
++.tech-hero::before {
++  inset: -5% -5% 0;
++  background:
++    radial-gradient(80% 70% at 15% 10%, rgba(255, 255, 255, 0.18) 0%, transparent 65%),
++    linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 45%, rgba(64, 196, 180, 0.08) 100%);
++  mix-blend-mode: screen;
++  opacity: 0.22;
++}
++
++@media (prefers-reduced-motion: reduce) {
++  .iridescent-heading,
++  .wave-back,
++  .wave-mid,
++  .wave-front {
++    animation: none !important;
++    transform: none !important;
++  }
++}
+diff --git a/styles/brand/brand-gradient.css b/styles/brand/brand-gradient.css
+index f8bf482..dee4b5f 100644
+--- a/styles/brand/brand-gradient.css
++++ b/styles/brand/brand-gradient.css
+@@ -44,3 +44,8 @@
+   translate:-120% 0; transition: translate .6s ease;
+ }
+ .btn-shimmer:hover:after, .btn-shimmer:focus-visible:after{ translate:120% 0 }
++
++.btn-champagne{
++  background:var(--smh-gradient);
++  color:#fff;
++}

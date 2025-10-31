@@ -1,0 +1,67 @@
+diff --git a/components/layout/footer.tsx b/components/layout/footer.tsx
+index 68bc574..3d55f03 100644
+--- a/components/layout/footer.tsx
++++ b/components/layout/footer.tsx
+@@ -206,15 +206,15 @@ export default function Footer() {
+               Quick Links
+             </h4>
+             <div className="space-y-2">
+-              {quickLinks.map(({ label, path }) => (
++              {quickLinks.map((link) => (
+                 <motion.a
+-                  key={label}
+-                  href={path}
++                  key={link.label}
++                  href={link.path}
+                   className="block text-slate-300 hover:text-white transition-colors duration-200"
+                   style={{ fontFamily: 'var(--font-inter), system-ui, Arial' }}
+                   whileHover={{ x: 5 }}
+                 >
+-                  {label}
++                  {link.label}
+                 </motion.a>
+               ))}
+             </div>
+@@ -230,10 +230,10 @@ export default function Footer() {
+             Our Treatments
+           </h4>
+           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+-            {treatments.map(({ label, path }) => (
++            {treatments.map((treatment) => (
+               <motion.a
+-                key={label}
+-                href={path}
++                key={treatment.label}
++                href={treatment.path}
+                 className="text-center p-3 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 hover:bg-white/10 transition-all duration-200"
+                 whileHover={{ scale: 1.05 }}
+                 whileTap={{ scale: 0.95 }}
+               >
+                 <span
+                   className="text-sm text-slate-300 hover:text-white"
+                   style={{ fontFamily: 'var(--font-inter), system-ui, Arial' }}
+                 >
+-                  {label}
++                  {treatment.label}
+                 </span>
+               </motion.a>
+             ))}
+@@ -259,14 +259,14 @@ export default function Footer() {
+           </div>
+
+           <div className="flex space-x-6 text-sm">
+-            {legalLinks.map(({ label, path }) => (
++            {legalLinks.map((link) => (
+               <a
+-                key={label}
+-                href={path}
++                key={link.label}
++                href={link.path}
+                 className="text-slate-400 hover:text-white transition-colors duration-200"
+                 style={{ fontFamily: 'var(--font-inter), system-ui, Arial' }}
+               >
+-                {label}
++                {link.label}
+               </a>
+             ))}
+           </div>

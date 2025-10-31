@@ -1,0 +1,27 @@
+name: Brand Lock
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - run: pnpm install --frozen-lockfile
+      - name: Brand Guard
+        run: pnpm brand:guard
+      - name: Verify Hue
+        run: pnpm verify:hue
+      - name: Brand Tests
+        run: pnpm test:brand
+      - name: Verify brand lock
+        run: pnpm run verify:brand
+      - name: Build preview
+        run: pnpm run build
