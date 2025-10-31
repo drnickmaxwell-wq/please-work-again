@@ -30,3 +30,7 @@ export const RESOURCES: NavLink[] = [
   { label: 'AI Smile Quiz', href: '/ai-smile-quiz', enabled: true },
   { label: 'Blog', href: '/blog', enabled: true },
 ];
+
+export const PREVIEW_NAV: NavLink[] = [
+  { label: 'Tech Strip (locked)', href: '/preview/tech-strip-locked', enabled: true },
+];
