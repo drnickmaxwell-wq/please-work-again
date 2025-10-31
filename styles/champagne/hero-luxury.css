@@ -4,15 +4,13 @@
   min-height: var(--smh-hero-height, 92vh);
   background-image:
     var(--smh-gradient),
-    /* film to lift wave contrast without raw hex */
-    linear-gradient(0deg, color-mix(in oklab, var(--smh-primary-magenta) 12%, transparent), transparent),
     var(--smh-waves-bg),
     var(--smh-particles-img),
     var(--smh-grain-img);
-  background-size: 165% 165%, cover, cover, cover, cover;
-  background-position: 18% 38%, center, center, center, center;
-  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat;
-  background-blend-mode: normal, multiply, overlay, screen, overlay;
+  background-size: 165% 165%, cover, cover, cover;
+  background-position: 18% 38%, center, center, center;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+  background-blend-mode: normal, overlay, screen, overlay;
   color: var(--smh-text);
 }
 
@@ -25,7 +23,7 @@
   mask-size: cover; -webkit-mask-size: cover;
   background: color-mix(in oklab, var(--champagne-keyline-gold) 24%, transparent);
   mix-blend-mode: soft-light;
-  opacity: var(--smh-gold-shoulder, 0.62);
+  opacity: .85;
   pointer-events: none;
 }
 
@@ -64,12 +62,14 @@
   .heroLuxury { background-attachment: initial; }
 }
 
-.heroLuxury .handoff {
-  position: absolute; left: 0; right: 0; bottom: 0;
-  height: 96px;
-  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, color-mix(in oklab, var(--smh-primary-teal) 18%, transparent) 100%);
-  opacity: 0.25;
-  pointer-events: none;
+.heroLuxury .handoff{
+  position:absolute; inset-inline:0; bottom:-1px; height:28px;
+  background:
+    radial-gradient(120% 100% at 50% -60%, color-mix(in oklab, var(--smh-accent-gold-soft) 22%, transparent) 0%, transparent 70%),
+    var(--smh-gradient);
+  mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+  pointer-events:none;
 }
 
 .heroLuxury > .waves {

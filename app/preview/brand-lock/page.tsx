@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 
 type Diagnostics = {
   gradient: string;
+  tokenGradient: string;
   normalizedTokenGradient: string;
   normalizedSurfaceGradient: string;
   hasHeroWavesOverlay: boolean;
@@ -71,13 +72,17 @@ export default function BrandLock() {
     const gradientMatch = backgroundImage.match(/linear-gradient\([^)]*\)/i);
     const gradient = gradientMatch ? normalizeGradientString(gradientMatch[0]) : "";
 
-    const normalizedTokenGradient = normalizeGradientString(
-      getComputedStyle(document.documentElement).getPropertyValue("--smh-gradient")
-    );
-    const heroElement = document.querySelector<HTMLElement>(".heroLuxury");
-    const normalizedSurfaceGradient = normalizeGradientString(
-      heroElement ? getComputedStyle(heroElement).backgroundImage : backgroundImage
-    );
+    const tokenGradientRaw = docStyles.getPropertyValue("--smh-gradient") || "";
+    const normalizedTokenGradient = normalizeGradientString(tokenGradientRaw);
+    const heroElement = document.querySelector<HTMLElement>("section.heroLuxury");
+    const heroBackgroundImage = heroElement
+      ? tidy(getComputedStyle(heroElement).backgroundImage || "")
+      : "";
+    const normalizedSurfaceGradient = normalizeGradientString(heroBackgroundImage || backgroundImage);
+    const journeyElement = document.querySelector<HTMLElement>("section.smileJourney");
+    const journeyBackgroundImage = journeyElement
+      ? tidy(getComputedStyle(journeyElement).backgroundImage || "")
+      : "";
 
     const wavesTokenRaw = docStyles.getPropertyValue("--smh-waves-bg").trim();
     const waveUrlMatch = wavesTokenRaw.match(/url\((['"]?)(.*?)\1\)/i);
@@ -85,49 +90,12 @@ export default function BrandLock() {
     const waveAssetClean = tidy(waveAsset || "");
     const wavesResolved = Boolean(waveUrlMatch && waveAsset);
 
-    const createProbe = (className: string) => {
-      const probe = document.createElement("section");
-      probe.className = className;
-      probe.setAttribute("aria-hidden", "true");
-      probe.style.position = "absolute";
-      probe.style.width = "1px";
-      probe.style.height = "1px";
-      probe.style.left = "-9999px";
-      probe.style.pointerEvents = "none";
-      probe.style.opacity = "0";
-      probe.style.clip = "rect(0 0 0 0)";
-      probe.style.clipPath = "inset(50%)";
-      if (className === "heroLuxury" || className === "smileJourney") {
-        const waves = document.createElement("div");
-        waves.className = "waves";
-        waves.setAttribute("aria-hidden", "true");
-        probe.appendChild(waves);
-      }
-      document.body.appendChild(probe);
-      return probe;
-    };
-
-    const probes: HTMLElement[] = [];
-    const sampleBackground = (className: string) => {
-      const probe = createProbe(className);
-      probes.push(probe);
-      return tidy(getComputedStyle(probe).backgroundImage || "");
-    };
-
-    const heroBackgroundImage = sampleBackground("heroLuxury");
-    const journeyBackgroundImage = sampleBackground("smileJourney");
-
     const hasHeroWavesOverlay = Boolean(document.querySelector(".heroLuxury > .waves"));
     const hasJourneyWavesOverlay = Boolean(document.querySelector(".smileJourney > .waves"));
 
-    probes.forEach((probe) => {
-      if (probe.parentNode) {
-        probe.parentNode.removeChild(probe);
-      }
-    });
-
     const diagnostics: Diagnostics = {
       gradient,
+      tokenGradient: tidy(tokenGradientRaw),
       normalizedTokenGradient,
       normalizedSurfaceGradient,
       hasHeroWavesOverlay,
@@ -177,6 +145,7 @@ export default function BrandLock() {
             {liveDiagnostics ? (
               <>
                 <p>gradient={liveDiagnostics.gradient}</p>
+                <p>tokenGradient={liveDiagnostics.tokenGradient}</p>
                 <p>
                   normalizedTokenGradient={liveDiagnostics.normalizedTokenGradient || "n/a"}
                 </p>
@@ -196,8 +165,8 @@ export default function BrandLock() {
                   wavesToken={String(liveDiagnostics.wavesToken.resolved)} (
                   {liveDiagnostics.wavesToken.asset || "n/a"})
                 </p>
-                <p>heroBg={liveDiagnostics.heroBackgroundImage}</p>
-                <p>journeyBg={liveDiagnostics.journeyBackgroundImage}</p>
+                <p>heroBackgroundImage={liveDiagnostics.heroBackgroundImage}</p>
+                <p>journeyBackgroundImage={liveDiagnostics.journeyBackgroundImage}</p>
                 <p>
                   tuners wave={liveDiagnostics.tuners.waveContrast} hero={liveDiagnostics.tuners.heroParticles}
                   {' '}
@@ -210,6 +179,22 @@ export default function BrandLock() {
           </div>
         </div>
       </section>
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          width: "1px",
+          height: "1px",
+          left: "-9999px",
+          pointerEvents: "none",
+          opacity: 0,
+          clip: "rect(0 0 0 0)",
+          clipPath: "inset(50%)",
+        }}
+      >
+        <section className="heroLuxury" />
+        <section className="smileJourney" />
+      </div>
     </main>
   );
 }

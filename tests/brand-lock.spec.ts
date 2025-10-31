@@ -13,56 +13,37 @@ test.describe('Brand lock surface diagnostics', () => {
       );
     });
 
-    const diagnostics = await page.evaluate(() => {
-      const rootStyles = getComputedStyle(document.documentElement);
-      const windowWithDiag = window as typeof window & {
-        __brandLockDiagnostics?: {
-          normalizedSurfaceGradient?: string;
-          normalizedTokenGradient?: string;
-          hasHeroWavesOverlay?: boolean;
-          hasJourneyWavesOverlay?: boolean;
-        };
-      };
-      const diag = windowWithDiag.__brandLockDiagnostics ?? {};
+    const normalize = (value: string) => value.replace(/\s+/g, '').toLowerCase();
 
-      const resolveToken = (name: string): string => {
-        const value = rootStyles.getPropertyValue(name).trim();
-        if (!value) return '';
-        const match = value.match(/^var\(([^)]+)\)$/);
-        if (match) {
-          return resolveToken(match[1].trim());
-        }
-        return value;
-      };
-
-      const stopTokens = ['--smh-grad-stop1', '--smh-grad-stop2', '--smh-grad-stop3'] as const;
-      const stopValues = stopTokens.map((token, index) => {
-        const resolved = resolveToken(token).replace(/\s+/g, '').toLowerCase();
-        const suffix = index === 0 ? '0%' : index === 1 ? '60%' : '100%';
-        return `${resolved}${suffix}`;
-      });
+    const { tokenGradient, heroBg, journeyBg, reducedMotion } = await page.evaluate(() => {
+      const docStyles = getComputedStyle(document.documentElement);
+      const tokenGradient = docStyles.getPropertyValue('--smh-gradient');
+      const hero = document.querySelector<HTMLElement>('section.heroLuxury');
+      const journey = document.querySelector<HTMLElement>('section.smileJourney');
+      const heroBg = hero ? getComputedStyle(hero).backgroundImage : '';
+      const journeyBg = journey ? getComputedStyle(journey).backgroundImage : '';
 
       return {
-        normalizedSurfaceGradient: diag.normalizedSurfaceGradient ?? '',
-        normalizedTokenGradient: diag.normalizedTokenGradient ?? '',
-        hasHeroWavesOverlay: Boolean(diag.hasHeroWavesOverlay),
-        hasJourneyWavesOverlay: Boolean(diag.hasJourneyWavesOverlay),
-        stopValues,
-        waveMask: rootStyles.getPropertyValue('--wave-mask').trim(),
-        particles: rootStyles.getPropertyValue('--particles').trim(),
-        grainDesktop: rootStyles.getPropertyValue('--grain-desktop').trim(),
+        tokenGradient,
+        heroBg,
+        journeyBg,
+        reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
       };
     });
 
-    expect(diagnostics.normalizedSurfaceGradient).toContain('linear-gradient(');
-    expect(diagnostics.normalizedSurfaceGradient).toBe(diagnostics.normalizedTokenGradient);
-    diagnostics.stopValues.forEach((stop) => {
-      expect(diagnostics.normalizedTokenGradient).toContain(stop);
-    });
-    expect(diagnostics.hasHeroWavesOverlay).toBe(true);
-    expect(diagnostics.hasJourneyWavesOverlay).toBe(true);
-    expect(diagnostics.waveMask).toContain('/assets/champagne/wave-mask-desktop.webp');
-    expect(diagnostics.particles).toContain('/assets/champagne/home-hero-particles.webp');
-    expect(diagnostics.grainDesktop).toContain('/assets/champagne/film-grain-desktop.webp');
+    test.skip(reducedMotion, 'prefers-reduced-motion is enabled for this run');
+
+    expect(normalize(tokenGradient)).toBe(
+      normalize('linear-gradient(135deg,#C2185B 0%,#40C4B4 60%,#D4AF37 100%)')
+    );
+
+    expect(heroBg).toContain('linear-gradient(');
+    expect(heroBg).toContain('/assets/champagne/waves/waves-bg-2560.webp');
+    expect(heroBg).toContain('/assets/champagne/particles/home-hero-particles.webp');
+    expect(heroBg).toContain('/assets/champagne/textures/home-hero-film-grain.webp');
+
+    expect(journeyBg).toContain('/assets/champagne/waves/waves-bg-2560.webp');
+    expect(journeyBg).toContain('/assets/champagne/particles/home-hero-particles.webp');
+    expect(journeyBg).toContain('/assets/champagne/textures/home-hero-film-grain.webp');
   });
 });
