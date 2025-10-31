@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { usePrefersReducedMotion } from "@/lib/hooks/usePrefersReducedMotion";
 
@@ -60,62 +60,34 @@ export default function SmileJourney({ steps = defaultSteps }: SmileJourneyProps
   );
 
   const prefersReducedMotion = usePrefersReducedMotion();
-  const revealContainerRef = useRef<HTMLDivElement | null>(null);
+  const [revealed, setRevealed] = useState(true);
 
   useEffect(() => {
-    const elements = revealContainerRef.current?.querySelectorAll<HTMLElement>("[data-reveal]");
-
-    if (!elements || elements.length === 0) {
-      return;
-    }
-
-    if (prefersReducedMotion) {
-      elements.forEach((element) => {
-        element.setAttribute("data-reveal", "on");
-      });
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.setAttribute("data-reveal", "on");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.2, rootMargin: "0px 0px -5% 0px" }
+    if (prefersReducedMotion) return;
+    setRevealed(false);
+    const el = document.querySelector('[data-journey-root]');
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => entry.isIntersecting && setRevealed(true)),
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.15 }
     );
-
-    elements.forEach((element) => {
-      element.setAttribute("data-reveal", "off");
-      observer.observe(element);
-    });
-
-    return () => {
-      observer.disconnect();
-    };
+    io.observe(el);
+    return () => io.disconnect();
   }, [prefersReducedMotion]);
   return (
     <section
       aria-labelledby="journey-hero-title"
       className="smileJourney relative isolate"
+      data-journey-root
+      data-revealed={revealed ? "on" : "off"}
       data-particles="off"
       data-wave="on"
       data-reduced-motion={prefersReducedMotion ? "true" : "false"}
     >
       <div className="relative isolate w-screen py-16 md:py-24">
         <div className="relative mx-auto w-full max-w-7xl px-4 md:px-6">
-          <div
-            ref={revealContainerRef}
-            className="relative z-[var(--z-content)] flex flex-col gap-12"
-            style={{ color: "var(--smh-text)" }}
-          >
-            <div
-              className="glassCard relative z-20 mx-auto mb-8 max-w-[960px] rounded-3xl px-6 py-6 md:px-8 md:py-8"
-              data-reveal={prefersReducedMotion ? "on" : "off"}
-            >
+          <div className="relative z-[var(--z-content)] flex flex-col gap-12" style={{ color: "var(--smh-text)" }}>
+            <div className="glassCard relative z-20 mx-auto mb-8 max-w-[960px] rounded-3xl px-6 py-6 md:px-8 md:py-8">
               <div className="space-y-4 text-center">
                 <h2
                   id="journey-hero-title"
@@ -140,7 +112,6 @@ export default function SmileJourney({ steps = defaultSteps }: SmileJourneyProps
                   <div key={step.title} className={connectorClass ? `relative ${connectorClass}` : undefined}>
                     <article
                       className="glassCard relative z-20 rounded-3xl px-6 py-6 md:px-8 md:py-8"
-                      data-reveal={prefersReducedMotion ? "on" : "off"}
                       tabIndex={0}
                     >
                       {iconPath && (
@@ -164,10 +135,7 @@ export default function SmileJourney({ steps = defaultSteps }: SmileJourneyProps
               })}
             </div>
 
-            <div
-              className="relative z-[var(--z-content)] text-center"
-              data-reveal={prefersReducedMotion ? "on" : "off"}
-            >
+            <div className="relative z-[var(--z-content)] text-center">
               <div className="glassCard relative z-20 rounded-3xl px-6 py-6 md:px-8 md:py-8">
                 <div className="space-y-3">
                   <h3 className="font-serif text-3xl tracking-tight">Ready to Begin?</h3>

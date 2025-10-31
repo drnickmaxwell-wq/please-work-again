@@ -41,7 +41,7 @@
   background-size: cover, cover;
   background-position: center, center;
   mix-blend-mode: screen, overlay;
-  opacity: 0.1;
+  opacity: 0.06; /* dialed down */
   pointer-events: none;
 }
 
@@ -71,21 +71,20 @@
   filter: blur(6px);
 }
 
-[data-reveal] {
-  opacity: 0;
-  transform: translateY(8px);
+[data-revealed] {
   transition: opacity 0.28s ease, transform 0.28s ease;
 }
 
-[data-reveal="on"] {
+[data-revealed="off"] {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+[data-revealed="on"] {
   opacity: 1;
   transform: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-reveal] {
-    transition-duration: 0s;
-    transform: none;
-    opacity: 1;
-  }
+  [data-revealed] { opacity: 1 !important; transform: none !important; }
 }
