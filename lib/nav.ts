@@ -6,6 +6,7 @@ export type NavLink = {
 
 export const MAIN_NAV: NavLink[] = [
   { label: 'Home', href: '/' },
+  { label: 'Signature Services', href: '/#signature-services' },
   { label: 'Treatments', href: '/treatments' },
   { label: 'Technology', href: '/treatments/technology' },
   { label: 'Contact', href: '/contact' },

@@ -14,6 +14,9 @@
   --brand-teal:    var(--smh-primary-teal);
   --brand-gold:    var(--smh-accent-gold);
   --brand-gold-keyline: var(--smh-accent-gold-soft);
+  --smh-keyline-gold: var(--brand-gold-keyline);
+  --smh-surface-ink: var(--ink);
+  --smh-surface-glass: var(--champagne-glass-bg);
 
   /* Optional iridescent helper */
   --iridescent-gradient: linear-gradient(
