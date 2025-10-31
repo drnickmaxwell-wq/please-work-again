@@ -1,14 +1,14 @@
 .smileJourney {
   position: relative;
   isolation: isolate;
-  padding-top: clamp(24px, 5vh, 56px);
+  padding-top: clamp(32px, 8vw, 40px);
   background-image:
     var(--smh-gradient),
     var(--smh-waves-bg),
     var(--smh-particles-img),
     var(--smh-grain-img);
-  background-size: 165% 165%, cover, cover, cover;
-  background-position: 18% 38%, center, center, center;
+  background-size: 165% 165%, clamp(90vw, 102vw, 115vw) auto, cover, cover;
+  background-position: center, center 38%, center, center;
   background-repeat: no-repeat, no-repeat, no-repeat, repeat;
   background-blend-mode: normal, overlay, screen, overlay;
   color: var(--smh-text);
@@ -55,7 +55,24 @@
 .smileJourney > .waves {
   position: absolute; inset: 0; pointer-events: none;
   background-image: var(--smh-waves-bg);
-  background-size: cover; background-position: center; background-repeat: no-repeat;
+  background-size: clamp(90vw, 102vw, 115vw) auto; background-position: center 38%; background-repeat: no-repeat;
   mix-blend-mode: overlay;
   opacity: var(--smh-wave-opacity-journey, 0.28);
+}
+
+@media (min-width: 48rem) {
+  .smileJourney {
+    padding-top: clamp(56px, 6vh, 72px);
+    background-position: center, center 38%, center, center;
+  }
+}
+
+@media (max-width: 48rem) {
+  .smileJourney {
+    background-position: center, center 42%, center, center;
+  }
+
+  .smileJourney > .waves {
+    background-position: center 42%;
+  }
 }
