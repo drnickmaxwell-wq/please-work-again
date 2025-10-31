@@ -1,0 +1,190 @@
+.tech-strip-locked {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: var(--smh-white);
+  padding: clamp(4rem, 8vw, 6.75rem) clamp(1.75rem, 6vw, 5rem);
+  background-image: var(--smh-gradient);
+  background-size: var(--smh-bg-size);
+  background-position: var(--smh-bg-pos);
+  mask-image: var(--smh-wave-mask-desktop);
+  -webkit-mask-image: var(--smh-wave-mask-desktop);
+  mask-size: cover;
+  -webkit-mask-size: cover;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-position: top center;
+  -webkit-mask-position: top center;
+  min-height: clamp(24rem, 32vw, 34rem);
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 640px) {
+  .tech-strip-locked {
+    padding: clamp(3.5rem, 10vw, 5rem) clamp(1.5rem, 4vw, 3rem);
+    mask-image: var(--smh-wave-mask-mobile);
+    -webkit-mask-image: var(--smh-wave-mask-mobile);
+  }
+}
+
+.tech-strip-locked__layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.tech-strip-locked__layer--particles {
+  z-index: 2;
+  background-image: var(--smh-hero-particles);
+  mix-blend-mode: screen;
+  opacity: clamp(0, var(--smh-hero-particles-opacity, 0.08), 0.1);
+}
+
+.tech-strip-locked__layer--grain {
+  z-index: 3;
+  background-image: var(--smh-hero-grain);
+  background-size: 260px 260px;
+  mix-blend-mode: soft-light;
+  opacity: clamp(0.06, var(--smh-grain-alpha, 0.06), 0.08);
+}
+
+.tech-strip-locked__brand-polish {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.tech-strip-locked__polish {
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.tech-strip-locked__polish--glass {
+  background-image: url('/assets/champagne/brand-polish/glass-reflect.svg');
+  mix-blend-mode: screen;
+  opacity: 0.4;
+}
+
+.tech-strip-locked__polish--dust {
+  background-image: url('/assets/champagne/brand-polish/wave-gold-dust.png');
+  mix-blend-mode: color-dodge;
+  opacity: 0.16;
+}
+
+.tech-strip-locked__polish--light {
+  background-image: url('/assets/champagne/brand-polish/wave-light-overlay.webp');
+  mix-blend-mode: screen;
+  opacity: 0.32;
+  animation: tech-strip-light-shift 26s ease-in-out infinite;
+}
+
+@keyframes tech-strip-light-shift {
+  0%,
+  100% {
+    transform: translateY(-2%) scale(1.03);
+  }
+  50% {
+    transform: translateY(2%) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tech-strip-locked__polish--light {
+    animation: none;
+  }
+}
+
+.tech-strip-locked__content {
+  position: relative;
+  z-index: 5;
+  width: min(64rem, 100%);
+  margin: 0 auto;
+  display: grid;
+  gap: clamp(2rem, 4vw, 3rem);
+}
+
+.tech-strip-locked__header {
+  display: grid;
+  gap: 1rem;
+  max-width: 38rem;
+}
+
+.tech-strip-locked__eyebrow {
+  font-size: 0.875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--smh-accent-gold) 65%, transparent);
+}
+
+.tech-strip-locked__header h2 {
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  line-height: 1.1;
+  font-weight: 600;
+}
+
+.tech-strip-locked__intro {
+  font-size: clamp(1.05rem, 2.3vw, 1.3rem);
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--smh-white) 92%, transparent);
+}
+
+.tech-strip-locked__grid {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  margin: 0;
+}
+
+.tech-strip-locked__item {
+  position: relative;
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  border-radius: 1.5rem;
+  background: color-mix(in srgb, var(--smh-white) 18%, transparent);
+  border: 1px solid color-mix(in srgb, var(--smh-accent-gold-soft) 65%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: grid;
+  gap: 0.75rem;
+}
+
+.tech-strip-locked__item dt {
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: color-mix(in srgb, var(--smh-accent-gold) 80%, transparent);
+}
+
+.tech-strip-locked__item dd {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--smh-white) 90%, transparent);
+}
+
+@media (max-width: 768px) {
+  .tech-strip-locked__content {
+    width: 100%;
+  }
+
+  .tech-strip-locked__header {
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .tech-strip-locked__item {
+    border-radius: 1rem;
+  }
+
+  .tech-strip-locked__item dt {
+    letter-spacing: 0.08em;
+  }
+}
