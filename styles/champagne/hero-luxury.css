@@ -7,23 +7,26 @@
     var(--smh-waves-bg),
     var(--smh-particles-img),
     var(--smh-grain-img);
-  background-size: 165% 165%, clamp(90vw, 102vw, 115vw) auto, cover, cover;
-  background-position: center, center 38%, center, center;
   background-repeat: no-repeat, no-repeat, no-repeat, repeat;
   background-blend-mode: normal, overlay, screen, overlay;
+  background-position: 50% 40%, 50% 40%, center, center;
+  background-size: 165% 165%, cover, cover, cover;
   color: var(--smh-text);
 }
 
-.heroLuxury::before { /* masked gold shoulder */
+.heroLuxury::before {
   content: "";
   position: absolute; inset: 0;
-  mask-image: var(--smh-hero-mask-desktop);
   -webkit-mask-image: var(--smh-hero-mask-desktop);
-  mask-repeat: no-repeat; -webkit-mask-repeat: no-repeat;
-  mask-size: cover; -webkit-mask-size: cover;
-  background: color-mix(in oklab, var(--champagne-keyline-gold) 24%, transparent);
+  mask-image: var(--smh-hero-mask-desktop);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+  /* Warm gold film */
+  background: color-mix(in oklab, var(--smh-accent-gold-soft) 22%, transparent);
   mix-blend-mode: soft-light;
-  opacity: .85;
+  opacity: 0.9;
   pointer-events: none;
 }
 
@@ -46,23 +49,23 @@
 }
 
 .heroLuxury .glassCard {
-  border: 1px solid var(--smh-accent-gold-soft);
-  box-shadow:
-    inset 0 1px 0 color-mix(in oklab, white 35%, transparent),
-    0 8px 40px color-mix(in oklab, black 12%, transparent);
+  outline: 1px solid color-mix(in oklab, var(--smh-accent-gold-soft) 62%, transparent);
+  box-shadow: 0 8px 40px color-mix(in oklab, black 12%, transparent);
+  backdrop-filter: blur(10px) saturate(1.05);
 }
 
 .heroLuxury .soften-under > * { position: relative; z-index: 1; }
 
-.heroLuxury::after { /* particles + grain on top */
+.heroLuxury::after {
   content: "";
-  position: absolute; inset: 0; pointer-events: none;
+  position: absolute; inset: 0;
   background-image: var(--smh-particles-img), var(--smh-grain-img);
+  background-repeat: no-repeat, repeat;
   background-size: cover, cover;
   background-position: center, center;
-  background-repeat: no-repeat, repeat;
   mix-blend-mode: screen, overlay;
   opacity: 0.16;
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -70,19 +73,18 @@
 }
 
 .heroLuxury .handoff{
-  position:absolute; inset-inline:0; bottom:-1px; height:48px;
-  background:
-    radial-gradient(120% 100% at 50% -80%, color-mix(in oklab, var(--smh-accent-gold-soft) 32%, transparent) 0%, transparent 72%),
-    linear-gradient(to bottom, color-mix(in oklab, var(--smh-accent-gold-soft) 65%, transparent), color-mix(in oklab, var(--smh-accent-gold-soft) 35%, transparent));
-  mask-image: linear-gradient(to bottom, transparent 0%, transparent 33%, black 52%, black 72%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 33%, black 52%, black 72%, transparent 100%);
+  position:absolute; left:0; right:0; bottom:-1px; height:48px;
+  --_film: color-mix(in oklab, var(--smh-accent-gold-soft) 18%, transparent);
+  background: linear-gradient(to bottom, transparent 0%, var(--_film) 28%, transparent 100%);
   pointer-events:none;
 }
 
 .heroLuxury > .waves {
   position: absolute; inset: 0; pointer-events: none;
   background-image: var(--smh-waves-bg);
-  background-size: clamp(90vw, 102vw, 115vw) auto; background-position: center 38%; background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 42%;
+  background-repeat: no-repeat;
   mix-blend-mode: overlay;
   opacity: var(--smh-wave-opacity-hero, 0.34);
 }
@@ -93,7 +95,11 @@
 
 @media (max-width: 48rem) {
   .heroLuxury {
-    background-position: center, center 42%, center, center;
+    background-position: 50% 40%, 50% 42%, center, center;
+  }
+
+  .heroLuxury::before {
+    opacity: 0.95;
   }
 
   .heroLuxury::after {
@@ -101,12 +107,10 @@
   }
 
   .heroLuxury > .waves {
-    background-position: center 42%;
+    background-position: 50% 42%;
   }
 
   .heroLuxury .handoff{
     height:40px;
-    mask-image: linear-gradient(to bottom, transparent 0%, transparent 36%, black 54%, black 74%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 36%, black 54%, black 74%, transparent 100%);
   }
 }
