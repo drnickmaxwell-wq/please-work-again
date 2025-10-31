@@ -6,8 +6,8 @@ export default function HeroLuxury() {
       className="heroLuxury relative isolate"
       aria-label="St Mary’s House Dental — Quiet Luxury Hero"
     >
-      <div className="relative z-10 mx-auto max-w-7xl px-6 py-24">
-        <h1 className="font-playfair text-5xl leading-tight" style={{ color: 'var(--ink)' }}>
+      <div className="glassCard relative z-10 mx-auto max-w-7xl px-6 py-24">
+        <h1 className="font-playfair text-5xl font-semibold leading-tight tracking-tight" style={{ color: 'var(--ink)' }}>
           Quiet luxury, 3D-first dentistry
         </h1>
         <p className="mt-4 max-w-xl text-lg" style={{ color: 'color-mix(in oklab, var(--ink) 80%, white)' }}>

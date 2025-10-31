@@ -47,45 +47,45 @@ const FooterLuxe = () => {
       <div className="footer-luxe__surface text-[var(--smh-text)]">
         <div className="footer-luxe__rim" aria-hidden="true" />
         <div className="footer-luxe__inner">
-          <div className="footer-luxe__grid">
-            <div className="footer-luxe__brand">
-              <h3>St Mary’s House Dental</h3>
-              <p>Calm, contemporary care using precision technology and a lifetime approach to oral health.</p>
-            </div>
+          <div className="footer-luxe__panel glassCard">
+            <div className="footer-luxe__grid">
+              <div className="footer-luxe__brand">
+                <h3>St Mary’s House Dental</h3>
+                <p>Calm, contemporary care using precision technology and a lifetime approach to oral health.</p>
+              </div>
 
-            <div>
-              <h4>Main</h4>
-              <ul>
-                {mainLinks.map((item) => (
-                  <li key={item.href}>
-                    <Link href={item.href}>{item.label}</Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+              <div>
+                <h4>Main</h4>
+                <ul>
+                  {mainLinks.map((item) => (
+                    <li key={item.href}>
+                      <Link href={item.href}>{item.label}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-            <div>
-              <h4>Resources</h4>
-              <ul>
-                {resourceLinks.map((item) => (
-                  <li key={item.href}>
-                    <Link href={item.href}>{item.label}</Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+              <div>
+                <h4>Resources</h4>
+                <ul>
+                  {resourceLinks.map((item) => (
+                    <li key={item.href}>
+                      <Link href={item.href}>{item.label}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-            <div className="footer-luxe__newsletter keyline-gold">
-              <h4>Join our newsletter</h4>
-              <p>Receive quarterly stories and gentle reminders curated by our clinical team.</p>
-              <form className="footer-luxe__form" onSubmit={handleSubmit} noValidate>
-                <label className="sr-only" htmlFor="footer-email">
-                  Email address
-                </label>
-                <div className="footer-luxe__field">
+              <div className="footer-luxe__newsletter keyline-gold">
+                <h4>Join our newsletter</h4>
+                <p>Receive quarterly stories and gentle reminders curated by our clinical team.</p>
+                <form className="footer-luxe__form" onSubmit={handleSubmit} noValidate>
+                  <label className="sr-only" htmlFor="footer-email">
+                    Email address
+                  </label>
                   <input
                     id="footer-email"
-                    className="footer-luxe__input"
+                    className="footer-luxe__input newsletter"
                     type="email"
                     inputMode="email"
                     name="email"
@@ -102,31 +102,31 @@ const FooterLuxe = () => {
                     placeholder="you@example.com"
                     required
                   />
-                </div>
-                <button type="submit" className="smh-btn footer-luxe__button">
-                  Subscribe
-                </button>
-                <p className="footer-luxe__feedback" data-status={status} id={feedbackId} aria-live="polite">
-                  {message}
-                </p>
-              </form>
+                  <button type="submit" className="smh-btn footer-luxe__button">
+                    Subscribe
+                  </button>
+                  <p className="footer-luxe__feedback" data-status={status} id={feedbackId} aria-live="polite">
+                    {message}
+                  </p>
+                </form>
+              </div>
             </div>
-          </div>
 
-          <div className="footer-luxe__meta">
-            <p>© {new Date().getFullYear()} St Mary’s House Dental Care. All rights reserved.</p>
-            <div className="footer-luxe__social">
-              {SOCIAL_LINKS.map((social) => (
-                <a key={social.href} href={social.href} target="_blank" rel="noreferrer noopener" aria-label={social.label}>
-                  <span aria-hidden="true">{social.short}</span>
-                </a>
-              ))}
-            </div>
-            <div className="footer-luxe__links">
-              <Link href="/privacy">Privacy</Link>
-              <Link href="/cookies">Cookies</Link>
-              <Link href="/accessibility">Accessibility</Link>
-              <Link href="/terms">Terms of Use</Link>
+            <div className="footer-luxe__meta">
+              <p>© {new Date().getFullYear()} St Mary’s House Dental Care. All rights reserved.</p>
+              <div className="footer-luxe__social">
+                {SOCIAL_LINKS.map((social) => (
+                  <a key={social.href} href={social.href} target="_blank" rel="noreferrer noopener" aria-label={social.label}>
+                    <span aria-hidden="true">{social.short}</span>
+                  </a>
+                ))}
+              </div>
+              <div className="footer-luxe__links">
+                <Link href="/privacy">Privacy</Link>
+                <Link href="/cookies">Cookies</Link>
+                <Link href="/accessibility">Accessibility</Link>
+                <Link href="/terms">Terms of Use</Link>
+              </div>
             </div>
           </div>
         </div>
@@ -177,8 +177,14 @@ const FooterLuxe = () => {
           z-index: 2;
           max-width: min(1180px, 94vw);
           margin: 0 auto;
+        }
+
+        .footer-luxe__panel {
           display: grid;
           gap: clamp(2.5rem, 4vw, 3.5rem);
+          padding: clamp(2.5rem, 4.5vw, 3.75rem);
+          border-radius: 1.75rem;
+          overflow: hidden;
         }
 
         .footer-luxe__grid {
@@ -231,43 +237,16 @@ const FooterLuxe = () => {
           gap: 0.75rem;
         }
 
-        .footer-luxe__field {
-          position: relative;
-          border-radius: 14px;
-          background: var(--footer-surface-strong);
-          box-shadow: 0 0 0 1px var(--footer-keyline-rest) inset;
-        }
-
-        .footer-luxe__field::before {
-          content: '';
-          position: absolute;
-          inset: 8px;
-          border-radius: inherit;
-          box-shadow: 0 0 0 1px var(--footer-keyline-rest);
-          pointer-events: none;
-        }
-
         .footer-luxe__input {
           width: 100%;
           padding: 0.9rem 1.15rem;
-          border: none;
-          outline: none;
-          border-radius: inherit;
-          background: var(--footer-surface-soft);
+          background: transparent;
           color: color-mix(in oklab, var(--smh-text) 88%, var(--smh-white) 12%);
           font-family: var(--font-body, 'Inter', sans-serif);
         }
 
         .footer-luxe__input::placeholder {
           color: color-mix(in oklab, var(--smh-text) 62%, transparent 38%);
-        }
-
-        .footer-luxe__field:focus-within {
-          box-shadow: 0 0 0 1px var(--footer-keyline-strong) inset;
-        }
-
-        .footer-luxe__field:focus-within::before {
-          box-shadow: 0 0 0 1px var(--footer-keyline-strong);
         }
 
         .footer-luxe__button {

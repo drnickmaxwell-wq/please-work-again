@@ -23,7 +23,7 @@
   -webkit-mask-repeat: no-repeat;
   mask-size: cover;
   -webkit-mask-size: cover;
-  background: color-mix(in oklab, var(--smh-accent-gold-soft, #F9E8C3) 22%, transparent);
+  background: color-mix(in oklab, var(--smh-accent-gold-soft, #F9E8C3) 18%, transparent);
   mix-blend-mode: soft-light;
   opacity: 0.85;
   pointer-events: none;
@@ -40,7 +40,7 @@
   background-size: cover, cover;
   background-position: center, center;
   mix-blend-mode: screen, overlay;
-  opacity: 0.14;
+  opacity: 0.12;
   pointer-events: none;
 }
 
