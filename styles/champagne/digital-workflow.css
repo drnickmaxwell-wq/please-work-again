@@ -1,0 +1,181 @@
+/* Digital Workflow — Champagne Design System v1 */
+
+.digitalWorkflow {
+  position: relative;
+  isolation: isolate;
+  background: var(--bg, #FFFFFF);
+  color: var(--ink, #0B0D0F);
+}
+
+/* Film grain texture */
+.digitalWorkflow__grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image: var(--smh-hero-grain);
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat;
+  mix-blend-mode: overlay;
+  opacity: 0.04;
+}
+
+/* Particles overlay */
+.digitalWorkflow__particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background-image: var(--smh-hero-particles);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  mix-blend-mode: screen;
+  opacity: 0.06;
+}
+
+/* Section heading */
+.digitalWorkflow__heading {
+  color: var(--ink, #0B0D0F);
+}
+
+.digitalWorkflow__subheading {
+  color: color-mix(in oklab, var(--ink) 70%, transparent);
+}
+
+/* Grid layout */
+.digitalWorkflow__grid {
+  position: relative;
+  z-index: 10;
+}
+
+/* Workflow card — glassmorphism with gold keylines */
+.digitalWorkflow__card {
+  position: relative;
+  padding: 2rem;
+  background: color-mix(in oklab, var(--ink) 3%, transparent);
+  border: 1px solid var(--smh-accent-gold-soft, #F9E8C3);
+  border-radius: 1rem;
+  backdrop-filter: blur(12px) saturate(1.05);
+  box-shadow: 
+    0 4px 16px color-mix(in oklab, black 6%, transparent),
+    inset 0 1px 0 color-mix(in oklab, white 40%, transparent);
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  will-change: transform, box-shadow;
+}
+
+/* Film grain on card */
+.digitalWorkflow__card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--smh-hero-grain);
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat;
+  mix-blend-mode: overlay;
+  opacity: 0.03;
+  border-radius: inherit;
+}
+
+.digitalWorkflow__card:hover {
+  transform: translateY(-4px);
+  border-color: var(--smh-accent-gold, #D4AF37);
+  box-shadow: 
+    0 8px 32px color-mix(in oklab, var(--smh-accent-gold) 15%, transparent),
+    inset 0 1px 0 color-mix(in oklab, white 50%, transparent);
+}
+
+.digitalWorkflow__card:focus-within {
+  outline: 2px solid var(--smh-accent-gold, #D4AF37);
+  outline-offset: 4px;
+}
+
+/* Icon wrapper */
+.digitalWorkflow__iconWrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  background: color-mix(in oklab, var(--smh-accent-gold-soft) 12%, transparent);
+  border: 1px solid var(--smh-accent-gold-soft, #F9E8C3);
+  border-radius: 0.75rem;
+  backdrop-filter: blur(8px);
+}
+
+.digitalWorkflow__icon {
+  width: 2rem;
+  height: 2rem;
+  filter: brightness(0) saturate(100%) invert(72%) sepia(28%) saturate(630%) hue-rotate(359deg) brightness(95%) contrast(87%);
+}
+
+/* Card title */
+.digitalWorkflow__cardTitle {
+  color: var(--ink, #0B0D0F);
+}
+
+/* Card description */
+.digitalWorkflow__cardDescription {
+  color: color-mix(in oklab, var(--ink) 75%, transparent);
+  line-height: 1.6;
+}
+
+/* Card link */
+.digitalWorkflow__cardLink {
+  color: var(--smh-primary-magenta, #C2185B);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.digitalWorkflow__cardLink:hover {
+  color: var(--smh-accent-gold, #D4AF37);
+}
+
+.digitalWorkflow__cardLink:focus {
+  outline: 2px solid var(--smh-accent-gold, #D4AF37);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+/* Disable animations for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .digitalWorkflow__card {
+    transition: none;
+  }
+  
+  .digitalWorkflow__card:hover {
+    transform: none;
+  }
+  
+  .digitalWorkflow__cardLink {
+    transition: none;
+  }
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 48rem) {
+  .digitalWorkflow__card {
+    padding: 1.5rem;
+  }
+  
+  .digitalWorkflow__iconWrapper {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+  
+  .digitalWorkflow__icon {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+  
+  .digitalWorkflow__cardTitle {
+    font-size: 1.5rem;
+  }
+  
+  .digitalWorkflow__particles {
+    opacity: 0.04;
+  }
+}

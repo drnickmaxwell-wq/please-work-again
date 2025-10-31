@@ -4,6 +4,9 @@
 @import "@/styles/champagne/services-grid.css";
 @import "@/styles/champagne/smile-journey.css";
 @import "@/styles/champagne/footer.css";
+@import "@/styles/champagne/technology-strip.css";
+@import "@/styles/champagne/digital-workflow.css";
+@import "@/styles/champagne/equipment-gallery.css";
 /* glass & motion layers should come after section surfaces */
 @import "@/styles/champagne/glass.css";
 @import "@/styles/brand/brand-motion.css";
