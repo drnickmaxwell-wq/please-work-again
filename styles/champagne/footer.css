@@ -15,7 +15,7 @@
   background-image: var(--smh-particles-img);
   background-size: cover; background-position: center;
   background-repeat: no-repeat; mix-blend-mode: screen;
-  opacity: var(--smh-footer-particles, 0.012);
+  opacity: var(--smh-footer-particles-opacity, 0.012);
   filter: opacity(.6);
 }
 .footerLuxe .glass, .footerLuxe .card{ background:transparent !important; }

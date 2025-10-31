@@ -43,6 +43,13 @@
   --smh-surface-bg-size: 165% 165%;
   --smh-surface-bg-position: 18% 38%;
 
+  /* Canonical asset references */
+  --smh-waves-bg: url('/assets/champagne/waves/waves-bg-2560.webp');
+  --smh-wave-mask-desktop: url('/assets/champagne/waves/wave-mask-desktop.webp');
+  --smh-wave-mask-mobile: url('/assets/champagne/waves/wave-mask-mobile.webp');
+  --smh-hero-particles: url('/assets/champagne/particles/home-hero-particles.webp');
+  --smh-hero-grain: url('/assets/champagne/textures/home-hero-film-grain.webp');
+
   /* Glass background must be LIGHTER than current */
   --champagne-glass-bg: color-mix(in oklab, var(--ink) 22%, transparent 78%);
 
@@ -82,9 +89,9 @@
   --smh-wave-contrast: 0.26;        /* wave visibility (0..1), calibrated for Manus */
   --smh-wave-opacity-hero: 0.34;    /* hero wave overlay opacity */
   --smh-wave-opacity-journey: 0.28; /* journey wave overlay opacity */
-  --smh-hero-particles: 0.075;      /* hero particles opacity */
-  --smh-journey-particles: 0.065;   /* journey particles opacity */
-  --smh-footer-particles: 0.012;    /* sparse footer flecks */
+  --smh-hero-particles-opacity: 0.075;      /* hero particles overlay opacity */
+  --smh-journey-particles-opacity: 0.065;   /* journey particles overlay opacity */
+  --smh-footer-particles-opacity: 0.012;    /* sparse footer flecks */
   --smh-footer-text-boost: 96%;     /* footer text contrast */
   --smh-hero-height: 92vh;          /* visual height target */
   --smh-gold-shoulder: 0.62;        /* masked gold shoulder opacity */

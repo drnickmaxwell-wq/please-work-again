@@ -3,6 +3,12 @@
 
 import { useEffect, useRef, useState } from "react";
 
+type TokenProbe = {
+  raw: string;
+  resolved: boolean;
+  asset: string;
+};
+
 type Diagnostics = {
   gradient: string;
   tokenGradient: string;
@@ -13,14 +19,22 @@ type Diagnostics = {
   waves: string;
   backgroundSize: string;
   backgroundPosition: string;
-  wavesToken: { resolved: boolean; asset: string };
+  tokens: {
+    wavesBg: TokenProbe;
+    waveMaskDesktop: TokenProbe;
+    waveMaskMobile: TokenProbe;
+    heroParticles: TokenProbe;
+    heroGrain: TokenProbe;
+    heroMaskDesktopAlias: TokenProbe;
+  };
   heroBackgroundImage: string;
   journeyBackgroundImage: string;
+  heroMaskImage: string;
   tuners: {
     waveContrast: string;
-    heroParticles: string;
-    journeyParticles: string;
-    footerParticles: string;
+    heroParticlesOpacity: string;
+    journeyParticlesOpacity: string;
+    footerParticlesOpacity: string;
   };
 };
 
@@ -84,11 +98,30 @@ export default function BrandLock() {
       ? tidy(getComputedStyle(journeyElement).backgroundImage || "")
       : "";
 
-    const wavesTokenRaw = docStyles.getPropertyValue("--smh-waves-bg").trim();
-    const waveUrlMatch = wavesTokenRaw.match(/url\((['"]?)(.*?)\1\)/i);
-    const waveAsset = waveUrlMatch ? waveUrlMatch[2] : wavesTokenRaw;
-    const waveAssetClean = tidy(waveAsset || "");
-    const wavesResolved = Boolean(waveUrlMatch && waveAsset);
+    const probeToken = (tokenName: string): TokenProbe => {
+      const raw = tidy(docStyles.getPropertyValue(tokenName) || "");
+      const match = raw.match(/url\((['"]?)(.*?)\1\)/i);
+      const asset = match ? tidy(match[2]) : raw;
+      return {
+        raw,
+        resolved: Boolean(match && match[2]),
+        asset,
+      };
+    };
+
+    const wavesToken = probeToken("--smh-waves-bg");
+    const waveMaskDesktopToken = probeToken("--smh-wave-mask-desktop");
+    const waveMaskMobileToken = probeToken("--smh-wave-mask-mobile");
+    const heroParticlesToken = probeToken("--smh-hero-particles");
+    const heroGrainToken = probeToken("--smh-hero-grain");
+    const heroMaskAliasToken = probeToken("--smh-hero-mask-desktop");
+
+    const surfaceBeforeStyles = getComputedStyle(surface, "::before");
+    const heroMaskImage = tidy(
+      surfaceBeforeStyles.getPropertyValue("mask-image") ||
+        surfaceBeforeStyles.getPropertyValue("-webkit-mask-image") ||
+        ""
+    );
 
     const hasHeroWavesOverlay = Boolean(document.querySelector(".heroLuxury > .waves"));
     const hasJourneyWavesOverlay = Boolean(document.querySelector(".smileJourney > .waves"));
@@ -100,17 +133,31 @@ export default function BrandLock() {
       normalizedSurfaceGradient,
       hasHeroWavesOverlay,
       hasJourneyWavesOverlay,
-      waves: waveAssetClean,
+      waves: wavesToken.asset,
       backgroundSize: surfaceStyles.backgroundSize,
       backgroundPosition: surfaceStyles.backgroundPosition,
-      wavesToken: { resolved: wavesResolved, asset: waveAssetClean },
+      tokens: {
+        wavesBg: wavesToken,
+        waveMaskDesktop: waveMaskDesktopToken,
+        waveMaskMobile: waveMaskMobileToken,
+        heroParticles: heroParticlesToken,
+        heroGrain: heroGrainToken,
+        heroMaskDesktopAlias: heroMaskAliasToken,
+      },
       heroBackgroundImage,
       journeyBackgroundImage,
+      heroMaskImage,
       tuners: {
         waveContrast: tidy(docStyles.getPropertyValue("--smh-wave-contrast") || ""),
-        heroParticles: tidy(docStyles.getPropertyValue("--smh-hero-particles") || ""),
-        journeyParticles: tidy(docStyles.getPropertyValue("--smh-journey-particles") || ""),
-        footerParticles: tidy(docStyles.getPropertyValue("--smh-footer-particles") || ""),
+        heroParticlesOpacity: tidy(
+          docStyles.getPropertyValue("--smh-hero-particles-opacity") || ""
+        ),
+        journeyParticlesOpacity: tidy(
+          docStyles.getPropertyValue("--smh-journey-particles-opacity") || ""
+        ),
+        footerParticlesOpacity: tidy(
+          docStyles.getPropertyValue("--smh-footer-particles-opacity") || ""
+        ),
       },
     };
 
@@ -162,15 +209,33 @@ export default function BrandLock() {
                   bgSize/Pos={liveDiagnostics.backgroundSize} | {liveDiagnostics.backgroundPosition}
                 </p>
                 <p>
-                  wavesToken={String(liveDiagnostics.wavesToken.resolved)} (
-                  {liveDiagnostics.wavesToken.asset || "n/a"})
+                  wavesToken={String(liveDiagnostics.tokens.wavesBg.resolved)} (
+                  {liveDiagnostics.tokens.wavesBg.asset || "n/a"})
                 </p>
+                <p>
+                  waveMaskDesktopToken={String(liveDiagnostics.tokens.waveMaskDesktop.resolved)} (
+                  {liveDiagnostics.tokens.waveMaskDesktop.asset || "n/a"})
+                </p>
+                <p>
+                  waveMaskMobileToken={String(liveDiagnostics.tokens.waveMaskMobile.resolved)} (
+                  {liveDiagnostics.tokens.waveMaskMobile.asset || "n/a"})
+                </p>
+                <p>
+                  heroParticlesToken={String(liveDiagnostics.tokens.heroParticles.resolved)} (
+                  {liveDiagnostics.tokens.heroParticles.asset || "n/a"})
+                </p>
+                <p>
+                  heroGrainToken={String(liveDiagnostics.tokens.heroGrain.resolved)} (
+                  {liveDiagnostics.tokens.heroGrain.asset || "n/a"})
+                </p>
+                <p>heroMaskAlias={liveDiagnostics.tokens.heroMaskDesktopAlias.raw || "n/a"}</p>
+                <p>heroMaskImage={liveDiagnostics.heroMaskImage || "n/a"}</p>
                 <p>heroBackgroundImage={liveDiagnostics.heroBackgroundImage}</p>
                 <p>journeyBackgroundImage={liveDiagnostics.journeyBackgroundImage}</p>
                 <p>
-                  tuners wave={liveDiagnostics.tuners.waveContrast} hero={liveDiagnostics.tuners.heroParticles}
+                  tuners wave={liveDiagnostics.tuners.waveContrast} heroOpacity={liveDiagnostics.tuners.heroParticlesOpacity}
                   {' '}
-                  journey={liveDiagnostics.tuners.journeyParticles} footer={liveDiagnostics.tuners.footerParticles}
+                  journeyOpacity={liveDiagnostics.tuners.journeyParticlesOpacity} footerOpacity={liveDiagnostics.tuners.footerParticlesOpacity}
                 </p>
               </>
             ) : (
