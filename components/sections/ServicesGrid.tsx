@@ -5,32 +5,46 @@ import "@/styles/champagne/services-grid.css";
 
 const services = [
   {
-    icon: "/assets/champagne/icons/scan.svg",
-    title: "4K Smile Scans",
-    body: "Comprehensive AI-guided diagnostics capture every nuance of your smile for precise treatment planning.",
-    href: "/treatments/3d-dentistry",
-    cta: "Explore 3D dentistry",
-  },
-  {
-    icon: "/assets/champagne/icons/implant.svg",
-    title: "Same-Day Restorations",
-    body: "Digital implant placement and handcrafted veneers delivered with meticulous, comfort-first protocols.",
+    icon: "/assets/champagne/icons/dental-implants.svg",
+    title: "Dental Implants",
+    body: "Precise, custom implants restore form & function with Champagne-level craftsmanship.",
     href: "/treatments/dental-implants",
-    cta: "View implant care",
+    cta: "See implant options",
   },
   {
-    icon: "/assets/champagne/icons/smile-curve.svg",
-    title: "Artful Cosmetics",
-    body: "Subtle composite artistry and porcelain enhancements curated to harmonise with your natural features.",
-    href: "/treatments/cosmetic",
-    cta: "Discover cosmetic options",
+    icon: "/assets/champagne/icons/same-day-crowns.svg",
+    title: "Same-Day Crowns",
+    body: "Craft and seat your crown in a single visit with digital scanning and in-house milling.",
+    href: "/treatments/3d-dentistry",
+    cta: "Explore same-day crowns",
   },
   {
-    icon: "/assets/champagne/icons/sparkle.svg",
-    title: "Champagne Whitening",
-    body: "Gentle, accelerated whitening rituals paired with tailored aftercare to keep brilliance beautifully balanced.",
-    href: "/treatments/whitening",
-    cta: "Book whitening",
+    icon: "/assets/champagne/icons/invisalign-aligners.svg",
+    title: "Invisalign & Spark Aligners",
+    body: "Subtle aligner therapies paired with orthodontic expertise to craft your perfect smile.",
+    href: "/treatments/orthodontics",
+    cta: "Start your aligner journey",
+  },
+  {
+    icon: "/assets/champagne/icons/composite-bonding.svg",
+    title: "Composite Bonding",
+    body: "Artisanal bonding and contouring to refine shape and symmetry with minimal intervention.",
+    href: "/treatments/composite-bonding",
+    cta: "Discover bonding artistry",
+  },
+  {
+    icon: "/assets/champagne/icons/hygiene-airflow.svg",
+    title: "Hygiene & Airflow",
+    body: "Advanced airflow hygiene to polish and detoxify, leaving you with a truly luminous smile.",
+    href: "/treatments/general",
+    cta: "Book a hygiene visit",
+  },
+  {
+    icon: "/assets/champagne/icons/emergency-care.svg",
+    title: "Emergency Care",
+    body: "Urgent attention with a gentle touch, restoring calm and comfort when you need it most.",
+    href: "/emergency-dentist",
+    cta: "Get emergency help",
   },
 ];
 
@@ -69,8 +83,19 @@ export default function ServicesGrid() {
 
               <Link href={service.href} className="servicesGrid__cta">
                 <span>{service.cta}</span>
-                <svg viewBox="0 0 24 24" aria-hidden="true" className="servicesGrid__ctaIcon">
-                  <path d="M5 12h14m0 0-5-5m5 5-5 5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  className="servicesGrid__ctaIcon"
+                >
+                  <path
+                    d="M5 12h14m0 0-5-5m5 5-5 5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </Link>
             </article>
