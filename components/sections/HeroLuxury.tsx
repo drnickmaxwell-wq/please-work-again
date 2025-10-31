@@ -24,6 +24,7 @@ export default function HeroLuxury() {
           </div>
         </div>
       </div>
+      <div className="handoff" aria-hidden="true" />
     </section>
   );
 }

@@ -8,6 +8,15 @@ type Diagnostics = {
   waves: string;
   backgroundSize: string;
   backgroundPosition: string;
+  wavesToken: { resolved: boolean; asset: string };
+  heroBackgroundImage: string;
+  journeyBackgroundImage: string;
+  tuners: {
+    waveContrast: string;
+    heroParticles: string;
+    journeyParticles: string;
+    footerParticles: string;
+  };
 };
 
 const normalizeGradient = (value: string) =>
@@ -21,6 +30,8 @@ const normalizeGradient = (value: string) =>
     })
     .replace(/\s+/g, "");
 
+const tidy = (value: string) => value.replace(/\s+/g, " ").trim();
+
 export default function BrandLock() {
   const surfaceRef = useRef<HTMLElement | null>(null);
   const [particlesEnabled, setParticlesEnabled] = useState(false);
@@ -31,28 +42,65 @@ export default function BrandLock() {
     if (!surface) return;
 
     const surfaceStyles = getComputedStyle(surface);
+    const docStyles = getComputedStyle(document.documentElement);
+    if (!document.body) return;
 
     const backgroundImage = surfaceStyles.backgroundImage;
     const gradientMatch = backgroundImage.match(/linear-gradient\([^)]*\)/i);
     const gradient = gradientMatch ? normalizeGradient(gradientMatch[0]) : "";
 
-    const wavesField = backgroundImage.includes("wave-field.svg");
-    const wavesDots = backgroundImage.includes("wave-dots.svg");
-    const waves = wavesField && wavesDots
-      ? "wave-field.svg + wave-dots.svg"
-      : [wavesField ? "wave-field.svg" : null, wavesDots ? "wave-dots.svg" : null]
-          .filter(Boolean)
-          .join(" | ");
+    const wavesTokenRaw = docStyles.getPropertyValue("--smh-waves-bg").trim();
+    const waveUrlMatch = wavesTokenRaw.match(/url\((['"]?)(.*?)\1\)/i);
+    const waveAsset = waveUrlMatch ? waveUrlMatch[2] : wavesTokenRaw;
+    const waveAssetClean = tidy(waveAsset || "");
+    const wavesResolved = Boolean(waveUrlMatch && waveAsset);
 
-    console.log(`gradient=${gradient}`);
-    console.log(`waves=${waves}`);
-    console.log(`bgSize/Pos=${surfaceStyles.backgroundSize} | ${surfaceStyles.backgroundPosition}`);
+    const createProbe = (className: string) => {
+      const probe = document.createElement("section");
+      probe.className = className;
+      probe.setAttribute("aria-hidden", "true");
+      probe.style.position = "absolute";
+      probe.style.width = "1px";
+      probe.style.height = "1px";
+      probe.style.left = "-9999px";
+      probe.style.pointerEvents = "none";
+      probe.style.opacity = "0";
+      probe.style.clip = "rect(0 0 0 0)";
+      probe.style.clipPath = "inset(50%)";
+      document.body.appendChild(probe);
+      return probe;
+    };
+
+    const probes: HTMLElement[] = [];
+    const sampleBackground = (className: string) => {
+      const probe = createProbe(className);
+      probes.push(probe);
+      return tidy(getComputedStyle(probe).backgroundImage || "");
+    };
+
+    const heroBackgroundImage = sampleBackground("heroLuxury");
+    const journeyBackgroundImage = sampleBackground("smileJourney");
+
+    probes.forEach((probe) => {
+      if (probe.parentNode) {
+        probe.parentNode.removeChild(probe);
+      }
+    });
 
     setLiveDiagnostics({
       gradient,
-      waves,
+      waves: waveAssetClean,
       backgroundSize: surfaceStyles.backgroundSize,
       backgroundPosition: surfaceStyles.backgroundPosition,
+      wavesToken: { resolved: wavesResolved, asset: waveAssetClean },
+      heroBackgroundImage,
+      journeyBackgroundImage,
+      tuners: {
+        waveContrast: tidy(docStyles.getPropertyValue("--smh-wave-contrast") || ""),
+        heroParticles: tidy(docStyles.getPropertyValue("--smh-hero-particles") || ""),
+        journeyParticles: tidy(docStyles.getPropertyValue("--smh-journey-particles") || ""),
+        footerParticles: tidy(docStyles.getPropertyValue("--smh-footer-particles") || ""),
+      },
     });
   }, [particlesEnabled]);
 
@@ -80,9 +128,20 @@ export default function BrandLock() {
             {liveDiagnostics ? (
               <>
                 <p>gradient={liveDiagnostics.gradient}</p>
-                <p>waves={liveDiagnostics.waves}</p>
+                <p>waves={liveDiagnostics.waves || "unresolved"}</p>
                 <p>
                   bgSize/Pos={liveDiagnostics.backgroundSize} | {liveDiagnostics.backgroundPosition}
+                </p>
+                <p>
+                  wavesToken={String(liveDiagnostics.wavesToken.resolved)} (
+                  {liveDiagnostics.wavesToken.asset || "n/a"})
+                </p>
+                <p>heroBg={liveDiagnostics.heroBackgroundImage}</p>
+                <p>journeyBg={liveDiagnostics.journeyBackgroundImage}</p>
+                <p>
+                  tuners wave={liveDiagnostics.tuners.waveContrast} hero={liveDiagnostics.tuners.heroParticles}
+                  {' '}
+                  journey={liveDiagnostics.tuners.journeyParticles} footer={liveDiagnostics.tuners.footerParticles}
                 </p>
               </>
             ) : (
