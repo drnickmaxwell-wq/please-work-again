@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 
 import { usePrefersReducedMotion } from "@/lib/hooks/usePrefersReducedMotion";
 
@@ -60,6 +60,43 @@ export default function SmileJourney({ steps = defaultSteps }: SmileJourneyProps
   );
 
   const prefersReducedMotion = usePrefersReducedMotion();
+  const revealContainerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const elements = revealContainerRef.current?.querySelectorAll<HTMLElement>("[data-reveal]");
+
+    if (!elements || elements.length === 0) {
+      return;
+    }
+
+    if (prefersReducedMotion) {
+      elements.forEach((element) => {
+        element.setAttribute("data-reveal", "on");
+      });
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.setAttribute("data-reveal", "on");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -5% 0px" }
+    );
+
+    elements.forEach((element) => {
+      element.setAttribute("data-reveal", "off");
+      observer.observe(element);
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [prefersReducedMotion]);
   return (
     <section
       aria-labelledby="journey-hero-title"
@@ -70,8 +107,15 @@ export default function SmileJourney({ steps = defaultSteps }: SmileJourneyProps
     >
       <div className="relative isolate w-screen py-16 md:py-24">
         <div className="relative mx-auto w-full max-w-7xl px-4 md:px-6">
-          <div className="relative z-[var(--z-content)] flex flex-col gap-12" style={{ color: "var(--smh-text)" }}>
-            <div className="champagne-glass relative z-20 mx-auto mb-8 max-w-[960px] p-6 md:p-8">
+          <div
+            ref={revealContainerRef}
+            className="relative z-[var(--z-content)] flex flex-col gap-12"
+            style={{ color: "var(--smh-text)" }}
+          >
+            <div
+              className="glassCard relative z-20 mx-auto mb-8 max-w-[960px] rounded-3xl px-6 py-6 md:px-8 md:py-8"
+              data-reveal={prefersReducedMotion ? "on" : "off"}
+            >
               <div className="space-y-4 text-center">
                 <h2
                   id="journey-hero-title"
@@ -94,7 +138,11 @@ export default function SmileJourney({ steps = defaultSteps }: SmileJourneyProps
                     : "";
                 return (
                   <div key={step.title} className={connectorClass ? `relative ${connectorClass}` : undefined}>
-                    <article className="champagne-glass relative z-20 p-6 md:p-8" tabIndex={0}>
+                    <article
+                      className="glassCard relative z-20 rounded-3xl px-6 py-6 md:px-8 md:py-8"
+                      data-reveal={prefersReducedMotion ? "on" : "off"}
+                      tabIndex={0}
+                    >
                       {iconPath && (
                         <div className="mb-6 flex flex-col items-center text-[color:var(--champagne-keyline-gold)]">
                           <span className="flex h-14 w-14 items-center justify-center rounded-full border border-[color:var(--champagne-keyline-gold)]">
@@ -116,8 +164,11 @@ export default function SmileJourney({ steps = defaultSteps }: SmileJourneyProps
               })}
             </div>
 
-            <div className="relative z-[var(--z-content)] text-center">
-              <div className="champagne-glass relative z-20 p-6 md:p-8">
+            <div
+              className="relative z-[var(--z-content)] text-center"
+              data-reveal={prefersReducedMotion ? "on" : "off"}
+            >
+              <div className="glassCard relative z-20 rounded-3xl px-6 py-6 md:px-8 md:py-8">
                 <div className="space-y-3">
                   <h3 className="font-serif text-3xl tracking-tight">Ready to Begin?</h3>
                   <p>Take the first step toward your perfect smile.</p>

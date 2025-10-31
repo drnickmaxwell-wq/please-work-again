@@ -24,7 +24,7 @@
   -webkit-mask-repeat: no-repeat;
   mask-size: cover;
   -webkit-mask-size: cover;
-  background: color-mix(in oklab, var(--smh-accent-gold-soft, #F9E8C3) 22%, transparent);
+  background: color-mix(in oklab, var(--smh-accent-gold-soft, #F9E8C3) 18%, transparent);
   mix-blend-mode: soft-light;
   opacity: 0.85;
   pointer-events: none;
@@ -41,7 +41,7 @@
   background-size: cover, cover;
   background-position: center, center;
   mix-blend-mode: screen, overlay;
-  opacity: 0.12;
+  opacity: 0.1;
   pointer-events: none;
 }
 
@@ -69,4 +69,23 @@
 
 :root:not(.dark) .smileJourney::before {
   filter: blur(6px);
+}
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.28s ease, transform 0.28s ease;
+}
+
+[data-reveal="on"] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    transition-duration: 0s;
+    transform: none;
+    opacity: 1;
+  }
 }
