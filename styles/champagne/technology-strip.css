@@ -1,0 +1,228 @@
+/* Technology Strip — Champagne Design System v1 */
+
+.technologyStrip {
+  position: relative;
+  isolation: isolate;
+  min-height: 80vh;
+  /* Layer stack: gradient → waves → particles → grain → content */
+  background-image: var(--smh-gradient);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: 165% 165%;
+  color: var(--smh-white, #FFFFFF);
+  overflow: hidden;
+}
+
+/* Wave mask overlay layer */
+.technologyStrip__waves {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image: var(--smh-waves-bg);
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  mix-blend-mode: overlay;
+  opacity: 0.32;
+  /* Subtle parallax effect */
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .technologyStrip__waves {
+    animation: technologyStripWaveParallax 8s ease-in-out infinite;
+  }
+}
+
+@keyframes technologyStripWaveParallax {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(2px);
+  }
+}
+
+/* Gold dust shimmer layer */
+.technologyStrip__goldDust {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background-image: url('/assets/champagne/brand-polish/wave-gold-dust.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  mix-blend-mode: screen;
+  opacity: 0.08;
+  will-change: opacity, transform;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .technologyStrip__goldDust {
+    animation: technologyStripGoldShimmer 6s ease-in-out infinite;
+  }
+}
+
+@keyframes technologyStripGoldShimmer {
+  0%, 100% {
+    opacity: 0.08;
+    transform: translateX(0px);
+  }
+  50% {
+    opacity: 0.10;
+    transform: translateX(2px);
+  }
+}
+
+/* Glass vignette overlay */
+.technologyStrip__glassReflect {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background-image: url('/assets/champagne/brand-polish/wave-light-overlay.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  mix-blend-mode: soft-light;
+  opacity: 0.15;
+}
+
+/* Film grain texture */
+.technologyStrip::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  background-image: var(--smh-hero-grain);
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat;
+  mix-blend-mode: overlay;
+  opacity: 0.07;
+}
+
+/* Content layer */
+.technologyStrip__content {
+  position: relative;
+  z-index: 10;
+}
+
+/* Eyebrow styling */
+.technologyStrip__eyebrow {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.technologyStrip__eyebrowPill {
+  display: inline-block;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--smh-white, #FFFFFF);
+  background: color-mix(in oklab, var(--smh-white) 8%, transparent);
+  border: 1px solid var(--smh-accent-gold-soft, #F9E8C3);
+  border-radius: 9999px;
+  backdrop-filter: blur(8px);
+}
+
+/* Heading styling */
+.technologyStrip__heading {
+  color: var(--smh-white, #FFFFFF);
+  text-shadow: 0 2px 12px color-mix(in oklab, black 20%, transparent);
+}
+
+/* Subline styling */
+.technologyStrip__subline {
+  color: color-mix(in oklab, var(--smh-white) 92%, transparent);
+  text-shadow: 0 1px 8px color-mix(in oklab, black 15%, transparent);
+}
+
+/* CTA Button */
+.technologyStrip__cta {
+  display: inline-block;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--smh-white, #FFFFFF);
+  background: color-mix(in oklab, var(--smh-white) 16%, transparent);
+  border: 1px solid var(--smh-accent-gold-soft, #F9E8C3);
+  border-radius: 0.5rem;
+  text-decoration: none;
+  backdrop-filter: blur(12px) saturate(1.1);
+  box-shadow: 
+    0 4px 16px color-mix(in oklab, black 20%, transparent),
+    inset 0 1px 0 color-mix(in oklab, var(--smh-white) 20%, transparent);
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  will-change: transform, box-shadow;
+}
+
+.technologyStrip__cta:hover {
+  background: color-mix(in oklab, var(--smh-white) 22%, transparent);
+  border-color: var(--smh-accent-gold, #D4AF37);
+  box-shadow: 
+    0 6px 24px color-mix(in oklab, var(--smh-accent-gold) 30%, transparent),
+    inset 0 1px 0 color-mix(in oklab, var(--smh-white) 25%, transparent);
+  transform: translateY(-2px);
+}
+
+.technologyStrip__cta:focus {
+  outline: 2px solid var(--smh-accent-gold, #D4AF37);
+  outline-offset: 4px;
+}
+
+.technologyStrip__cta:active {
+  transform: translateY(0px);
+}
+
+/* Disable animations for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .technologyStrip__waves,
+  .technologyStrip__goldDust {
+    animation: none !important;
+    transform: none !important;
+  }
+  
+  .technologyStrip__cta {
+    transition: none;
+  }
+  
+  .technologyStrip__cta:hover {
+    transform: none;
+  }
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 48rem) {
+  .technologyStrip {
+    min-height: 70vh;
+    background-size: 200% 200%;
+    background-position: 50% 50%;
+  }
+  
+  .technologyStrip__heading {
+    font-size: 2.5rem;
+  }
+  
+  .technologyStrip__subline {
+    font-size: 1rem;
+  }
+  
+  .technologyStrip__waves {
+    opacity: 0.28;
+  }
+  
+  .technologyStrip__goldDust {
+    opacity: 0.06;
+  }
+  
+  .technologyStrip::after {
+    opacity: 0.08;
+  }
+}

@@ -8,7 +8,8 @@ export const MAIN_NAV: NavLink[] = [
   { label: 'Home', href: '/' },
   { label: 'Signature Services', href: '/#signature-services' },
   { label: 'Treatments', href: '/treatments' },
-  { label: 'Technology', href: '/treatments/technology' },
+  { label: 'Technology', href: '/#technology' },
+  { label: 'Workflow', href: '/#workflow' },
   { label: 'Contact', href: '/contact' },
 ];
 
