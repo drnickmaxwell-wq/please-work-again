@@ -1,7 +1,7 @@
 .heroLuxury {
   position: relative;
   isolation: isolate;
-  color: var(--smh-text);
+  min-height: 100vh;
   background-image:
     var(--smh-gradient),
     var(--smh-waves-bg),
@@ -11,6 +11,7 @@
   background-position: 18% 38%, center, center, center;
   background-repeat: no-repeat, no-repeat, no-repeat, repeat;
   background-blend-mode: normal, overlay, screen, overlay;
+  color: var(--smh-text);
 }
 
 .heroLuxury::before {
@@ -23,25 +24,9 @@
   -webkit-mask-repeat: no-repeat;
   mask-size: cover;
   -webkit-mask-size: cover;
-  background: color-mix(in oklab, var(--smh-accent-gold-soft, #F9E8C3) 18%, transparent);
+  background: color-mix(in oklab, var(--champagne-keyline-gold) 20%, transparent);
   mix-blend-mode: soft-light;
-  opacity: 0.85;
-  pointer-events: none;
-}
-
-.heroLuxury::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    var(--smh-particles-img),
-    var(--smh-grain-img);
-  background-repeat: no-repeat, repeat;
-  background-size: cover, cover;
-  background-position: center, center;
-  mix-blend-mode: screen, overlay;
-  opacity: 0.08;
-  pointer-events: none;
+  opacity: 0.75;
 }
 
 .heroLuxury > * {
@@ -63,6 +48,18 @@
 }
 
 .heroLuxury .soften-under > * { position: relative; z-index: 1; }
+
+.heroLuxury::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent 0%, color-mix(in oklab, var(--smh-primary-teal) 25%, var(--smh-primary-magenta) 25%) 100%);
+  opacity: 0.25;
+  z-index: 1;
+}
 
 @media (max-width: 640px) {
   .heroLuxury::before {
