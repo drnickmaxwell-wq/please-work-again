@@ -23,7 +23,7 @@
   background-position: center, center;
   background-repeat: no-repeat, repeat;
   mix-blend-mode: screen, overlay;
-  opacity: var(--smh-journey-particles, 0.075);
+  opacity: var(--smh-journey-particles, 0.065);
 }
 
 .smileJourney > * {
@@ -51,4 +51,12 @@
 
 @media (prefers-reduced-motion: reduce) {
   [data-revealed] { opacity: 1 !important; transform: none !important; }
+}
+
+.smileJourney > .waves {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: var(--smh-waves-bg);
+  background-size: cover; background-position: center; background-repeat: no-repeat;
+  mix-blend-mode: overlay;
+  opacity: var(--smh-wave-opacity-journey, 0.28);
 }

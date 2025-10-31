@@ -25,7 +25,7 @@
   mask-size: cover; -webkit-mask-size: cover;
   background: color-mix(in oklab, var(--champagne-keyline-gold) 24%, transparent);
   mix-blend-mode: soft-light;
-  opacity: var(--smh-gold-shoulder, 0.70);
+  opacity: var(--smh-gold-shoulder, 0.62);
   pointer-events: none;
 }
 
@@ -57,7 +57,7 @@
   background-position: center, center;
   background-repeat: no-repeat, repeat;
   mix-blend-mode: screen, overlay;
-  opacity: var(--smh-hero-particles, 0.085);
+  opacity: var(--smh-hero-particles, 0.075);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -70,4 +70,16 @@
   background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, color-mix(in oklab, var(--smh-primary-teal) 18%, transparent) 100%);
   opacity: 0.25;
   pointer-events: none;
+}
+
+.heroLuxury > .waves {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: var(--smh-waves-bg);
+  background-size: cover; background-position: center; background-repeat: no-repeat;
+  mix-blend-mode: overlay;
+  opacity: var(--smh-wave-opacity-hero, 0.34);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroLuxury > .waves { background-attachment: initial; }
 }

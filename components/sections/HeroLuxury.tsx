@@ -6,6 +6,7 @@ export default function HeroLuxury() {
       className="heroLuxury relative isolate"
       aria-label="St Mary’s House Dental — Quiet Luxury Hero"
     >
+      <div className="waves" aria-hidden="true" />
       <div className="relative z-10 mx-auto max-w-7xl px-6 py-24">
         <div className="soften-under glassCard rounded-2xl p-8 md:p-12">
           <h1 className="font-playfair text-5xl font-semibold leading-tight tracking-tight" style={{ color: 'var(--ink)' }}>
