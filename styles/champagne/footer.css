@@ -7,18 +7,18 @@
   background-size: cover, cover;
   background-position: center, center;
   background-blend-mode: normal, overlay;
-  color: color-mix(in oklab, var(--smh-text) var(--smh-footer-text-boost, 90%), transparent);
+  color: color-mix(in oklab, var(--smh-text) var(--smh-footer-text-boost, 96%), transparent);
 }
 .footerLuxe::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
   background-image: var(--smh-particles-img);
   background-size: cover; background-position: center;
   background-repeat: no-repeat; mix-blend-mode: screen;
-  opacity: var(--smh-footer-particles, 0.02);
+  opacity: var(--smh-footer-particles, 0.012);
 }
 .footerLuxe input[type="email"], .footerLuxe input[type="text"] {
-  background: color-mix(in oklab, var(--smh-white) 5%, transparent);
-  border: 1px solid color-mix(in oklab, var(--champagne-keyline-gold) 45%, transparent);
+  background: color-mix(in oklab, var(--smh-white) 8%, transparent);
+  border: 1px solid color-mix(in oklab, var(--champagne-keyline-gold) 55%, transparent);
   color: inherit;
 }
 .footerLuxe input::placeholder {

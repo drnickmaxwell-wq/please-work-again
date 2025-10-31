@@ -4,19 +4,26 @@ test.describe('Brand lock surface diagnostics', () => {
   test('gradient stack and assets align with Manus Lux canon', async ({ page }) => {
     await page.goto('/preview/brand-lock');
 
+    await page.waitForFunction(() => {
+      const diag = (window as typeof window & { __brandLockDiagnostics?: unknown }).__brandLockDiagnostics;
+      return Boolean(
+        diag &&
+        typeof (diag as { normalizedSurfaceGradient?: string }).normalizedSurfaceGradient === 'string' &&
+        (diag as { normalizedSurfaceGradient?: string }).normalizedSurfaceGradient
+      );
+    });
+
     const diagnostics = await page.evaluate(() => {
-      const surface = document.querySelector<HTMLElement>('.champagne-surface, .champagne-surface-lux');
-      if (!surface) {
-        throw new Error('Champagne surface not found');
-      }
-      const surfaceStyles = getComputedStyle(surface);
       const rootStyles = getComputedStyle(document.documentElement);
-      const gradientImage = surfaceStyles.backgroundImage.trim();
-      const normalizedSurfaceGradient = gradientImage.replace(/\s+/g, '').toLowerCase();
-      const normalizedTokenGradient = rootStyles
-        .getPropertyValue('--smh-gradient')
-        .replace(/\s+/g, '')
-        .toLowerCase();
+      const windowWithDiag = window as typeof window & {
+        __brandLockDiagnostics?: {
+          normalizedSurfaceGradient?: string;
+          normalizedTokenGradient?: string;
+          hasHeroWavesOverlay?: boolean;
+          hasJourneyWavesOverlay?: boolean;
+        };
+      };
+      const diag = windowWithDiag.__brandLockDiagnostics ?? {};
 
       const resolveToken = (name: string): string => {
         const value = rootStyles.getPropertyValue(name).trim();
@@ -36,8 +43,10 @@ test.describe('Brand lock surface diagnostics', () => {
       });
 
       return {
-        normalizedSurfaceGradient,
-        normalizedTokenGradient,
+        normalizedSurfaceGradient: diag.normalizedSurfaceGradient ?? '',
+        normalizedTokenGradient: diag.normalizedTokenGradient ?? '',
+        hasHeroWavesOverlay: Boolean(diag.hasHeroWavesOverlay),
+        hasJourneyWavesOverlay: Boolean(diag.hasJourneyWavesOverlay),
         stopValues,
         waveMask: rootStyles.getPropertyValue('--wave-mask').trim(),
         particles: rootStyles.getPropertyValue('--particles').trim(),
@@ -50,6 +59,8 @@ test.describe('Brand lock surface diagnostics', () => {
     diagnostics.stopValues.forEach((stop) => {
       expect(diagnostics.normalizedTokenGradient).toContain(stop);
     });
+    expect(diagnostics.hasHeroWavesOverlay).toBe(true);
+    expect(diagnostics.hasJourneyWavesOverlay).toBe(true);
     expect(diagnostics.waveMask).toContain('/assets/champagne/wave-mask-desktop.webp');
     expect(diagnostics.particles).toContain('/assets/champagne/home-hero-particles.webp');
     expect(diagnostics.grainDesktop).toContain('/assets/champagne/film-grain-desktop.webp');

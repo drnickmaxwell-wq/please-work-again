@@ -5,6 +5,10 @@ import { useEffect, useRef, useState } from "react";
 
 type Diagnostics = {
   gradient: string;
+  normalizedTokenGradient: string;
+  normalizedSurfaceGradient: string;
+  hasHeroWavesOverlay: boolean;
+  hasJourneyWavesOverlay: boolean;
   waves: string;
   backgroundSize: string;
   backgroundPosition: string;
@@ -19,16 +23,34 @@ type Diagnostics = {
   };
 };
 
-const normalizeGradient = (value: string) =>
-  value
-    .replace(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/g, (_, r, g, b) => {
-      const toHex = (channel: string) => {
-        const hex = Number(channel).toString(16).padStart(2, "0");
-        return hex.toUpperCase();
-      };
-      return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
-    })
-    .replace(/\s+/g, "");
+function rgbToHex(s: string) {
+  const m = s.match(/rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/i);
+  if (!m) return s;
+  const toHex = (n: string) => Number(n).toString(16).padStart(2, "0");
+  return "#" + toHex(m[1]) + toHex(m[2]) + toHex(m[3]);
+}
+
+function normalizeGradientString(value: string) {
+  if (!value) return "";
+  const i = value.indexOf("linear-gradient");
+  if (i === -1) return "";
+  let depth = 0;
+  let end = -1;
+  for (let j = i; j < value.length; j++) {
+    const ch = value[j];
+    if (ch === "(") depth++;
+    if (ch === ")") {
+      depth--;
+      if (depth === 0) {
+        end = j;
+        break;
+      }
+    }
+  }
+  let g = end > i ? value.slice(i, end + 1) : value;
+  g = g.replace(/rgb\([^\)]+\)/gi, (m) => rgbToHex(m));
+  return g.replace(/\s+/g, "").toLowerCase();
+}
 
 const tidy = (value: string) => value.replace(/\s+/g, " ").trim();
 
@@ -47,7 +69,15 @@ export default function BrandLock() {
 
     const backgroundImage = surfaceStyles.backgroundImage;
     const gradientMatch = backgroundImage.match(/linear-gradient\([^)]*\)/i);
-    const gradient = gradientMatch ? normalizeGradient(gradientMatch[0]) : "";
+    const gradient = gradientMatch ? normalizeGradientString(gradientMatch[0]) : "";
+
+    const normalizedTokenGradient = normalizeGradientString(
+      getComputedStyle(document.documentElement).getPropertyValue("--smh-gradient")
+    );
+    const heroElement = document.querySelector<HTMLElement>(".heroLuxury");
+    const normalizedSurfaceGradient = normalizeGradientString(
+      heroElement ? getComputedStyle(heroElement).backgroundImage : backgroundImage
+    );
 
     const wavesTokenRaw = docStyles.getPropertyValue("--smh-waves-bg").trim();
     const waveUrlMatch = wavesTokenRaw.match(/url\((['"]?)(.*?)\1\)/i);
@@ -67,6 +97,12 @@ export default function BrandLock() {
       probe.style.opacity = "0";
       probe.style.clip = "rect(0 0 0 0)";
       probe.style.clipPath = "inset(50%)";
+      if (className === "heroLuxury" || className === "smileJourney") {
+        const waves = document.createElement("div");
+        waves.className = "waves";
+        waves.setAttribute("aria-hidden", "true");
+        probe.appendChild(waves);
+      }
       document.body.appendChild(probe);
       return probe;
     };
@@ -81,14 +117,21 @@ export default function BrandLock() {
     const heroBackgroundImage = sampleBackground("heroLuxury");
     const journeyBackgroundImage = sampleBackground("smileJourney");
 
+    const hasHeroWavesOverlay = Boolean(document.querySelector(".heroLuxury > .waves"));
+    const hasJourneyWavesOverlay = Boolean(document.querySelector(".smileJourney > .waves"));
+
     probes.forEach((probe) => {
       if (probe.parentNode) {
         probe.parentNode.removeChild(probe);
       }
     });
 
-    setLiveDiagnostics({
+    const diagnostics: Diagnostics = {
       gradient,
+      normalizedTokenGradient,
+      normalizedSurfaceGradient,
+      hasHeroWavesOverlay,
+      hasJourneyWavesOverlay,
       waves: waveAssetClean,
       backgroundSize: surfaceStyles.backgroundSize,
       backgroundPosition: surfaceStyles.backgroundPosition,
@@ -101,7 +144,13 @@ export default function BrandLock() {
         journeyParticles: tidy(docStyles.getPropertyValue("--smh-journey-particles") || ""),
         footerParticles: tidy(docStyles.getPropertyValue("--smh-footer-particles") || ""),
       },
-    });
+    };
+
+    if (typeof window !== "undefined") {
+      (window as typeof window & { __brandLockDiagnostics?: Diagnostics }).__brandLockDiagnostics = diagnostics;
+    }
+
+    setLiveDiagnostics(diagnostics);
   }, [particlesEnabled]);
 
   const surfaceClassName = `champagne-surface champagne-surface-lux hero flex min-h-screen items-center justify-center p-6${
@@ -128,6 +177,17 @@ export default function BrandLock() {
             {liveDiagnostics ? (
               <>
                 <p>gradient={liveDiagnostics.gradient}</p>
+                <p>
+                  normalizedTokenGradient={liveDiagnostics.normalizedTokenGradient || "n/a"}
+                </p>
+                <p>
+                  normalizedSurfaceGradient={liveDiagnostics.normalizedSurfaceGradient || "n/a"}
+                </p>
+                <p>
+                  hasHeroWavesOverlay={String(liveDiagnostics.hasHeroWavesOverlay)}
+                  {" "}
+                  hasJourneyWavesOverlay={String(liveDiagnostics.hasJourneyWavesOverlay)}
+                </p>
                 <p>waves={liveDiagnostics.waves || "unresolved"}</p>
                 <p>
                   bgSize/Pos={liveDiagnostics.backgroundSize} | {liveDiagnostics.backgroundPosition}

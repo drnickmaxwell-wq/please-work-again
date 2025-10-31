@@ -84,6 +84,7 @@ export default function SmileJourney({ steps = defaultSteps }: SmileJourneyProps
       data-wave="on"
       data-reduced-motion={prefersReducedMotion ? "true" : "false"}
     >
+      <div className="waves" aria-hidden="true" />
       <div className="relative isolate w-screen py-16 md:py-24">
         <div className="relative mx-auto w-full max-w-7xl px-4 md:px-6">
           <div className="relative z-[var(--z-content)] flex flex-col gap-12" style={{ color: "var(--smh-text)" }}>
