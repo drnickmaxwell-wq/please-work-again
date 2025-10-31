@@ -2,10 +2,9 @@
   position: relative;
   isolation: isolate;
   padding-top: 6rem;
-  margin-top: -2px; /* to hide tiny gap */
   background-image:
     var(--smh-gradient),
-    linear-gradient(0deg, color-mix(in oklab, var(--smh-primary-magenta) calc(var(--smh-wave-contrast, 0.22) * 36%), transparent), transparent),
+    linear-gradient(0deg, color-mix(in oklab, var(--smh-primary-magenta) 9%, transparent), transparent),
     var(--smh-waves-bg),
     var(--smh-particles-img),
     var(--smh-grain-img);
@@ -16,34 +15,15 @@
   color: var(--smh-text);
 }
 
-.smileJourney::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  mask-image: var(--smh-hero-mask-desktop);
-  -webkit-mask-image: var(--smh-hero-mask-desktop);
-  mask-repeat: no-repeat;
-  -webkit-mask-repeat: no-repeat;
-  mask-size: cover;
-  -webkit-mask-size: cover;
-  background: color-mix(in oklab, var(--smh-accent-gold-soft, #F9E8C3) 18%, transparent);
-  mix-blend-mode: soft-light;
-  opacity: 0.85;
-  pointer-events: none;
-}
-
 .smileJourney::after {
   content: "";
-  position: absolute; inset: 0;
-  pointer-events: none;
-  background-image:
-    var(--smh-particles-img),
-    var(--smh-grain-img);
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: var(--smh-particles-img), var(--smh-grain-img);
   background-size: cover, cover;
   background-position: center, center;
   background-repeat: no-repeat, repeat;
   mix-blend-mode: screen, overlay;
-  opacity: var(--smh-journey-particles, 0.07);
+  opacity: var(--smh-journey-particles, 0.075);
 }
 
 .smileJourney > * {
@@ -51,25 +31,8 @@
   z-index: 1;
 }
 
-@media (max-width: 640px) {
-  .smileJourney::before {
-    mask-image: var(--smh-hero-mask-mobile);
-    -webkit-mask-image: var(--smh-hero-mask-mobile);
-  }
-
-  .smileJourney::after {
-    opacity: 0.08;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .smileJourney {
-    background-attachment: initial;
-  }
-}
-
-:root:not(.dark) .smileJourney::before {
-  filter: blur(6px);
+  .smileJourney { background-attachment: initial; }
 }
 
 [data-revealed] {
