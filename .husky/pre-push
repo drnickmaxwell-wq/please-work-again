@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 pnpm run brand:guard && pnpm run verify:hue || {
-  echo "Pre-push failed. If Playwright browsers are missing run: pnpm exec playwright install --with-deps" >&2
+  echo "Pre-push failed. If Playwright browsers are missing, run: pnpm exec playwright install --with-deps" >&2
   exit 1
 }

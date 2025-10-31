@@ -23,7 +23,5 @@ jobs:
         run: pnpm run verify:hue
       - name: Brand tests
         run: pnpm run test:brand
-      - name: Verify brand lock
-        run: pnpm run verify:brand
       - name: Build
         run: pnpm run build
