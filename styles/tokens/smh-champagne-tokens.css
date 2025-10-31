@@ -1,22 +1,25 @@
 :root {
-  /* ===== Manus Lux — Canonical Hues ===== */
-  --brand-magenta: #C2185B;
-  --brand-teal:    #40C4B4;
-  --brand-gold:    #D4AF37;     /* deep gold for visuals */
-  --brand-gold-keyline: #F9E8C3;/* soft keyline gold for keylines/accents */
+  /* Core hues */
+  --smh-primary-magenta: #C2185B;
+  --smh-primary-teal:    #40C4B4;
+  --smh-accent-gold:     #D4AF37;  /* primary gold */
+  --smh-accent-gold-soft:#F9E8C3;  /* keyline/soft gold */
 
-  /* ===== Canonical Gradient (LAW) ===== */
-  --smh-gradient: linear-gradient(135deg, var(--brand-magenta) 0%, var(--brand-teal) 60%, var(--brand-gold) 100%);
+  /* Gradients */
+  --smh-gradient:        linear-gradient(135deg,#C2185B 0%,#40C4B4 60%,#D4AF37 100%);
+  --smh-gradient-2stop:  linear-gradient(135deg,#D94BC6 0%,#00C2C7 100%);
+
+  /* Brand aliases for legacy components */
+  --brand-magenta: var(--smh-primary-magenta);
+  --brand-teal:    var(--smh-primary-teal);
+  --brand-gold:    var(--smh-accent-gold);
+  --brand-gold-keyline: var(--smh-accent-gold-soft);
+
+  /* Optional iridescent helper */
+  --iridescent-gradient: linear-gradient(135deg, color-mix(in oklab, #C2185B 20%, white), color-mix(in oklab, #00C2C7 20%, white));
 
   /* Legacy (diagnostics/rollback only — do not use in new UI) */
-  --smh-gradient-legacy: linear-gradient(135deg,#D94BC6 0%,#00C2C7 100%);
-
-  /* Support gradients derived from canon (avoid raw hex outside tokens) */
-  --iridescent-gradient: linear-gradient(
-    180deg,
-    color-mix(in oklab, var(--brand-teal) 70%, white) 0%,
-    color-mix(in oklab, var(--brand-magenta) 70%, white) 100%
-  );
+  --smh-gradient-legacy: var(--smh-gradient-2stop);
 
   /* Neutrals and text */
   --ink:  #0B0D0F;
@@ -29,9 +32,6 @@
   --smh-primary-ink: var(--ink);
   --smh-white: #FFFFFF;
   --smh-gray-200: #E5E7EB;
-  --smh-primary-magenta: var(--brand-magenta);
-  --smh-primary-teal: var(--brand-teal);
-  --smh-accent-gold: var(--brand-gold);
   --smh-gold: var(--brand-gold);
   --champagne-keyline-gold: var(--brand-gold-keyline);
 
@@ -68,9 +68,9 @@
 
   /* Manus hero gradient geometry */
   --smh-grad-angle: 135deg;
-  --smh-grad-stop1: var(--brand-magenta);
-  --smh-grad-stop2: var(--brand-teal);
-  --smh-grad-stop3: var(--brand-gold);
+  --smh-grad-stop1: var(--smh-primary-magenta);
+  --smh-grad-stop2: var(--smh-primary-teal);
+  --smh-grad-stop3: var(--smh-accent-gold);
   --smh-gold-shoulder: color-mix(in oklab, var(--brand-gold) 65%, white 35%);
   --smh-bg-size: 165% 165%;
   --smh-bg-pos: 18% 38%;

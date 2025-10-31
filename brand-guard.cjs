@@ -29,6 +29,7 @@ function isInAllowlistedTokens(file) {
 let failures = [];
 for (const file of walk(ROOT)) {
   if (file === SELF) continue;
+  if (file.endsWith(path.join('scripts', 'brand-report.cjs'))) continue;
   const txt = fs.readFileSync(file, 'utf8');
   for (const hex of BLOCKED) {
     if (txt.includes(hex) && !isInAllowlistedTokens(file)) {

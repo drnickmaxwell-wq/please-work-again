@@ -45,7 +45,7 @@ export function FooterLuxe() {
   };
 
   return (
-    <footer className={styles.footer}>
+    <footer className={`${styles.footer} footerLuxe`}>
       <div className={styles.rim} aria-hidden="true" />
       <div className={styles.inner}>
         <div className={styles.grid}>

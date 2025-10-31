@@ -1,6 +1,9 @@
 @import "@/styles/tokens/smh-champagne-tokens.css";
 @import "@/styles/champagne/surface.css";
-/* glass & motion layers should come after surface */
+@import "@/styles/champagne/hero-luxury.css";
+@import "@/styles/champagne/smile-journey.css";
+@import "@/styles/champagne/footer.css";
+/* glass & motion layers should come after section surfaces */
 @import "@/styles/champagne/glass.css";
 @import "@/styles/brand/brand-motion.css";
 

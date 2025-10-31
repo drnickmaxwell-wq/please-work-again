@@ -1,13 +1,16 @@
 :root {
-  /* Canonical surface assets (paths stable; binaries uploaded separately) */
-  --grain-desktop: url("/assets/champagne/film-grain-desktop.webp");
-  --grain-mobile:  url("/assets/champagne/film-grain-mobile.webp");
-  --particles:     url("/assets/champagne/home-hero-particles.webp");
-  --wave-mask:     url("/assets/champagne/wave-mask-desktop.webp");
+  --smh-waves-field: url("/assets/champagne/waves/wave-field.svg");
+  --smh-waves-dots: url("/assets/champagne/waves/wave-dots.svg");
+  --smh-hero-mask-desktop: url("/assets/champagne/waves/home-hero-mask-desktop.webp");
+  --smh-hero-mask-mobile:  url("/assets/champagne/waves/home-hero-mask-mobile.webp");
+  --smh-grain-img: url("/assets/champagne/textures/film-grain.webp");
+  --smh-particles-img: url("/assets/champagne/particles/particles.webp");
 }
 
 @media (max-width: 640px) {
-  :root { --wave-mask: url("/assets/champagne/wave-mask-mobile.webp"); }
+  :root {
+    --smh-hero-mask-desktop: var(--smh-hero-mask-mobile);
+  }
 }
 
 /* Layer order: gradient → wave mask → particles → grain → glass → content */
@@ -22,8 +25,8 @@
 .champagne-surface-lux::before { /* wave mask */
   content: "";
   position: absolute; inset: 0;
-  mask-image: var(--wave-mask);
-  -webkit-mask-image: var(--wave-mask);
+  mask-image: var(--smh-hero-mask-desktop);
+  -webkit-mask-image: var(--smh-hero-mask-desktop);
   mask-size: cover; -webkit-mask-size: cover;
   background: currentColor;
   opacity: 1;
@@ -34,17 +37,10 @@
 .champagne-surface-lux::after { /* particles + grain */
   content: "";
   position: absolute; inset: 0;
-  background-image: var(--particles), var(--grain-desktop);
+  background-image: var(--smh-particles-img), var(--smh-grain-img);
   background-repeat: no-repeat, repeat;
   background-size: cover, cover;
   mix-blend-mode: soft-light;
   opacity: 0.14;
   pointer-events: none;
-}
-
-@media (max-width: 640px) {
-  .champagne-surface::after,
-  .champagne-surface-lux::after {
-    background-image: var(--particles), var(--grain-mobile);
-  }
 }

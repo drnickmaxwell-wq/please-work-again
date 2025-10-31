@@ -1,0 +1,27 @@
+.smileJourney {
+  position: relative;
+  isolation: isolate;
+  background-image:
+    var(--smh-gradient),
+    var(--smh-waves-field),
+    var(--smh-waves-dots),
+    var(--smh-particles-img),
+    var(--smh-grain-img);
+  background-size: cover, cover, cover, cover, cover;
+  background-position: center, center, center, center, center;
+  background-repeat: no-repeat, repeat, repeat, repeat, repeat;
+  background-blend-mode: normal, overlay, soft-light, screen, overlay;
+  opacity: 0.98;
+  color: var(--smh-text);
+}
+
+.smileJourney > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .smileJourney {
+    background-attachment: initial;
+  }
+}

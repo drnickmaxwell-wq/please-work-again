@@ -1,7 +1,7 @@
 .footer {
   position: relative;
   color: color-mix(in oklab, var(--smh-sand, var(--surface-0)) 92%, transparent);
-  background: var(--smh-footer-bg);
+  background-color: var(--smh-footer-bg, transparent);
   isolation: isolate;
 }
 
