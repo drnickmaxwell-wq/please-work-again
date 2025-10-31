@@ -40,7 +40,7 @@
   background-size: cover, cover;
   background-position: center, center;
   mix-blend-mode: screen, overlay;
-  opacity: 0.12;
+  opacity: 0.08;
   pointer-events: none;
 }
 
@@ -48,6 +48,21 @@
   position: relative;
   z-index: 1;
 }
+
+.heroLuxury .soften-under {
+  position: relative;
+}
+
+.heroLuxury .soften-under::before {
+  content: "";
+  position: absolute; inset: -12px;
+  backdrop-filter: blur(6px) saturate(0.92) contrast(0.96);
+  background: color-mix(in oklab, var(--smh-ink, #0B0D0F) 6%, transparent);
+  border-radius: inherit;
+  z-index: 0;
+}
+
+.heroLuxury .soften-under > * { position: relative; z-index: 1; }
 
 @media (max-width: 640px) {
   .heroLuxury::before {

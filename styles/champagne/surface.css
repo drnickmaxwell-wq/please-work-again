@@ -1,15 +1,12 @@
-:root {
+:root{
   --smh-waves-bg: url("/assets/champagne/waves/waves-bg-2560.webp");
   --smh-hero-mask-desktop: url("/assets/champagne/waves/home-hero-mask-desktop.webp");
   --smh-hero-mask-mobile: url("/assets/champagne/waves/home-hero-mask-mobile.webp");
   --smh-particles-img: url("/assets/champagne/particles/home-hero-particles.webp");
   --smh-grain-img: url("/assets/champagne/textures/home-hero-film-grain.webp");
 }
-
-@media (max-width: 640px) {
-  :root {
-    --smh-hero-mask-desktop: var(--smh-hero-mask-mobile);
-  }
+@media (max-width:640px){
+  :root{ --smh-hero-mask-desktop: var(--smh-hero-mask-mobile); }
 }
 
 .champagne-surface,
