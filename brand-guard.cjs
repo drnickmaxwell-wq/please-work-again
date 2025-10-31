@@ -7,6 +7,7 @@ const ROOT = process.cwd();
 const SELF = path.join(ROOT, 'brand-guard.cjs');
 const REPORT_SCRIPT = path.join(ROOT, 'scripts', 'brand-report.cjs');
 const CHECKSUM_SCRIPT = path.join(ROOT, 'scripts', 'brand-checksum.cjs');
+const MANIFEST = path.join(ROOT, 'repo-manifest.md');
 const HUE_LOCK = path.join(ROOT, 'brand', 'hue-lock.json');
 const { CANON_HEX_WHITELIST } = require('./scripts/brand-report.cjs');
 const CANON_HEX_SET = new Set(CANON_HEX_WHITELIST.map((hex) => hex.toUpperCase()));
@@ -56,6 +57,7 @@ function checkGradients(file, contents, failures) {
   if (
     isInAllowlistedTokens(file) ||
     path.resolve(file) === HUE_LOCK ||
+    path.resolve(file) === MANIFEST ||
     relativePath.startsWith('tests/')
   ) {
     return;

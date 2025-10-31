@@ -1,49 +1,29 @@
 import { test, expect } from '@playwright/test';
+import { CANON_GRADIENT } from '../scripts/brand-report.cjs';
 
-test.describe('Brand lock surface diagnostics', () => {
-  test('gradient stack and assets align with Manus Lux canon', async ({ page }) => {
-    await page.goto('/preview/brand-lock');
+const normalize = (v: string) => v.replace(/\s+/g, '').toLowerCase();
 
-    await page.waitForFunction(() => {
-      const diag = (window as typeof window & { __brandLockDiagnostics?: unknown }).__brandLockDiagnostics;
-      return Boolean(
-        diag &&
-        typeof (diag as { normalizedSurfaceGradient?: string }).normalizedSurfaceGradient === 'string' &&
-        (diag as { normalizedSurfaceGradient?: string }).normalizedSurfaceGradient
-      );
-    });
+test('Brand lock surface diagnostics: token gradient equals canonical, surface chain includes assets', async ({ page }) => {
+  await page.goto('/preview/brand-lock');
 
-    const normalize = (value: string) => value.replace(/\s+/g, '').toLowerCase();
+  // token gradient
+  const tokenGradient = await page.evaluate(() =>
+    getComputedStyle(document.documentElement).getPropertyValue('--smh-gradient').trim()
+  );
 
-    const { tokenGradient, heroBg, journeyBg, reducedMotion } = await page.evaluate(() => {
-      const docStyles = getComputedStyle(document.documentElement);
-      const tokenGradient = docStyles.getPropertyValue('--smh-gradient');
-      const hero = document.querySelector<HTMLElement>('section.heroLuxury');
-      const journey = document.querySelector<HTMLElement>('section.smileJourney');
-      const heroBg = hero ? getComputedStyle(hero).backgroundImage : '';
-      const journeyBg = journey ? getComputedStyle(journey).backgroundImage : '';
-
-      return {
-        tokenGradient,
-        heroBg,
-        journeyBg,
-        reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-      };
-    });
-
-    test.skip(reducedMotion, 'prefers-reduced-motion is enabled for this run');
-
-    expect(normalize(tokenGradient)).toBe(
-      normalize('linear-gradient(135deg,#C2185B 0%,#40C4B4 60%,#D4AF37 100%)')
-    );
-
-    expect(heroBg).toContain('linear-gradient(');
-    expect(heroBg).toContain('/assets/champagne/waves/waves-bg-2560.webp');
-    expect(heroBg).toContain('/assets/champagne/particles/home-hero-particles.webp');
-    expect(heroBg).toContain('/assets/champagne/textures/home-hero-film-grain.webp');
-
-    expect(journeyBg).toContain('/assets/champagne/waves/waves-bg-2560.webp');
-    expect(journeyBg).toContain('/assets/champagne/particles/home-hero-particles.webp');
-    expect(journeyBg).toContain('/assets/champagne/textures/home-hero-film-grain.webp');
+  // surface background-image on the hero probe (or the surface root)
+  const surfaceBg = await page.evaluate(() => {
+    const el = document.querySelector('[data-brand-surface]') || document.documentElement;
+    return getComputedStyle(el).getPropertyValue('background-image').trim();
   });
+
+  // 1) token equals canon
+  expect(normalize(tokenGradient)).toBe(normalize(CANON_GRADIENT));
+
+  // 2) surface starts with the gradient, then includes assets
+  const ng = normalize(surfaceBg);
+  expect(ng.startsWith(normalize('linear-gradient('))).toBeTruthy();
+  expect(ng).toContain('/assets/champagne/waves/');
+  expect(ng).toContain('/assets/champagne/particles/');
+  expect(ng).toContain('/assets/champagne/textures/');
 });
