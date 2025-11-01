@@ -1,0 +1,23 @@
+.sectionPorcelain {
+  background: color-mix(in oklab, var(--smh-surface-glass) 96%, transparent);
+  box-shadow: none;
+  position: relative;
+  isolation: isolate;
+  /* film grain – subtle, soft-light */
+  --porcelain-grain: var(--smh-hero-grain);
+  --porcelain-grain-opacity: 0.05;
+  --porcelain-grain-blend: soft-light;
+  /* mask off any section gradient */
+  background-image: none;
+}
+
+.sectionPorcelain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--porcelain-grain);
+  background-repeat: repeat;
+  mix-blend-mode: var(--porcelain-grain-blend);
+  opacity: var(--porcelain-grain-opacity);
+}

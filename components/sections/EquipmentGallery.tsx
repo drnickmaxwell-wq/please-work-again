@@ -25,14 +25,9 @@ export default function EquipmentGallery() {
   return (
     <section
       id="equipment"
-      className="equipmentGallery relative py-24 md:py-32"
+      className="sectionPorcelain equipmentGallery relative py-24 md:py-32"
       aria-label="Equipment Gallery"
     >
-      {/* Background gradient */}
-      <div className="equipmentGallery__gradient" aria-hidden="true" />
-      
-      {/* Film grain texture */}
-      <div className="equipmentGallery__grain" aria-hidden="true" />
       
       <div className="relative z-10 mx-auto max-w-7xl px-6">
         {/* Section heading */}

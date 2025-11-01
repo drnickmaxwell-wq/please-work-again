@@ -23,14 +23,9 @@ export default function DigitalWorkflow() {
   return (
     <section
       id="workflow"
-      className="digitalWorkflow relative py-24 md:py-32"
+      className="sectionPorcelain digitalWorkflow relative py-24 md:py-32"
       aria-label="Digital Workflow"
     >
-      {/* Film grain texture */}
-      <div className="digitalWorkflow__grain" aria-hidden="true" />
-      
-      {/* Particles overlay */}
-      <div className="digitalWorkflow__particles" aria-hidden="true" />
       
       <div className="relative z-10 mx-auto max-w-7xl px-6">
         {/* Section heading */}

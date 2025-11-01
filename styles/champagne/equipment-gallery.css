@@ -3,35 +3,7 @@
 .equipmentGallery {
   position: relative;
   isolation: isolate;
-  background: var(--bg, #FFFFFF);
   color: var(--ink, #0B0D0F);
-}
-
-/* Background gradient layer */
-.equipmentGallery .equipmentGallery__gradient {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background-image: var(--smh-gradient);
-  background-size: 165% 165%;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-  opacity: 0.03;
-}
-
-/* Film grain texture */
-.equipmentGallery .equipmentGallery__grain {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  background-image: var(--smh-hero-grain);
-  background-size: cover;
-  background-position: center;
-  background-repeat: repeat;
-  mix-blend-mode: overlay;
-  opacity: 0.04;
 }
 
 /* Section heading */
