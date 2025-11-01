@@ -1,0 +1,202 @@
+/* TEST ONLY — luxury shimmer variant for ChampagneHighlightFrozen
+   Do not commit to main design until approved. */
+:root {
+  --smh-highlight-veil-opacity: 0.25;
+  --smh-highlight-gold-opacity: 0.09;
+  --smh-highlight-parallax: 6px;
+}
+
+.champagne-highlight-frozen {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(3.5rem, 8vw, 6.5rem) 1.5rem clamp(4.5rem, 9vw, 7.5rem);
+  color: var(--smh-white);
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in oklab, var(--smh-primary-magenta) 75%, var(--smh-ink) 25%) 0%,
+      color-mix(in oklab, var(--smh-primary-teal) 75%, var(--smh-ink) 25%) 55%,
+      color-mix(in oklab, var(--smh-accent-gold) 55%, var(--smh-ink) 45%) 100%
+    );
+  box-shadow: 0 22px 70px color-mix(in oklab, var(--smh-ink) 35%, transparent);
+  border-bottom: 1px solid color-mix(in oklab, var(--smh-accent-gold-soft) 40%, transparent);
+}
+
+.champagne-highlight-frozen::after {
+  content: '';
+  position: absolute;
+  inset: -10%;
+  background: radial-gradient(
+    120% 120% at 50% 0%,
+    color-mix(in oklab, var(--smh-accent-gold-soft) 22%, transparent) 0%,
+    transparent 70%
+  );
+  opacity: var(--smh-highlight-veil-opacity);
+  pointer-events: none;
+  transform: translate3d(0, 0, 0);
+}
+
+.champagne-highlight-frozen__veil,
+.champagne-highlight-frozen__wave,
+.champagne-highlight-frozen__grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0;
+}
+
+.champagne-highlight-frozen__veil {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, var(--smh-accent-gold-soft) 35%, transparent) 48%,
+    transparent 100%
+  );
+  opacity: var(--smh-highlight-gold-opacity);
+  animation: champagneHighlightSweep 14s ease-in-out infinite;
+}
+
+.champagne-highlight-frozen__wave {
+  background-image: var(--smh-waves-bg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.28;
+  transform: translate3d(calc(var(--smh-highlight-parallax) * -1), 0, 0);
+  animation: champagneHighlightParallax 18s ease-in-out infinite alternate;
+}
+
+.champagne-highlight-frozen__grain {
+  background-image: var(--smh-hero-grain);
+  background-size: cover;
+  background-repeat: repeat;
+  opacity: 0.08;
+  mix-blend-mode: soft-light;
+}
+
+.champagne-highlight-frozen__content {
+  position: relative;
+  z-index: 1;
+  max-width: 68rem;
+  margin: 0 auto;
+  text-align: center;
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.75rem);
+}
+
+.champagne-highlight-frozen__eyebrow {
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  font-size: clamp(0.7rem, 1.6vw, 0.85rem);
+  color: color-mix(in oklab, var(--smh-white) 72%, transparent);
+}
+
+.champagne-highlight-frozen__title {
+  font-family: "Playfair Display", "Times New Roman", serif;
+  font-weight: 400;
+  font-size: clamp(2.5rem, 5vw, 3.75rem);
+  line-height: 1.1;
+  margin: 0;
+  text-shadow: 0 12px 30px color-mix(in oklab, var(--smh-ink) 45%, transparent);
+}
+
+.champagne-highlight-frozen__subline {
+  margin: 0 auto;
+  max-width: min(46ch, 90%);
+  color: color-mix(in oklab, var(--smh-white) 82%, transparent);
+  font-size: clamp(1.05rem, 2.3vw, 1.35rem);
+  line-height: 1.6;
+}
+
+.champagne-highlight-frozen__cta {
+  display: flex;
+  justify-content: center;
+}
+
+.champagne-highlight-frozen__cta-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.9rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--smh-accent-gold-soft) 55%, transparent);
+  background: color-mix(in oklab, var(--smh-ink) 35%, transparent);
+  color: var(--smh-white);
+  text-decoration: none;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: border-color 200ms ease, background 200ms ease, color 200ms ease;
+  overflow: hidden;
+}
+
+.champagne-highlight-frozen__cta-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--sparkle-highlight);
+  opacity: 0;
+  transition: opacity 250ms ease;
+}
+
+.champagne-highlight-frozen__cta-link:hover,
+.champagne-highlight-frozen__cta-link:focus-visible {
+  border-color: color-mix(in oklab, var(--smh-accent-gold) 60%, transparent);
+  background: linear-gradient(135deg, color-mix(in oklab, var(--smh-primary-magenta) 55%, transparent) 0%, color-mix(in oklab, var(--smh-primary-teal) 55%, transparent) 100%);
+  color: var(--smh-white);
+}
+
+.champagne-highlight-frozen__cta-link:hover::before,
+.champagne-highlight-frozen__cta-link:focus-visible::before {
+  opacity: 0.6;
+}
+
+.champagne-highlight-frozen__cta-link:focus-visible {
+  outline: 2px solid color-mix(in oklab, var(--smh-accent-gold) 70%, transparent);
+  outline-offset: 4px;
+}
+
+@media (max-width: 768px) {
+  .champagne-highlight-frozen {
+    padding: clamp(2.75rem, 12vw, 4.25rem) 1.25rem clamp(3.5rem, 12vw, 5.5rem);
+  }
+
+  .champagne-highlight-frozen__title {
+    font-size: clamp(2.2rem, 9vw, 3.1rem);
+  }
+
+  .champagne-highlight-frozen__subline {
+    font-size: clamp(1rem, 4vw, 1.2rem);
+  }
+}
+
+@keyframes champagneHighlightSweep {
+  0%,
+  100% {
+    transform: translate3d(-30%, 0, 0);
+  }
+  50% {
+    transform: translate3d(30%, 0, 0);
+  }
+}
+
+@keyframes champagneHighlightParallax {
+  0% {
+    transform: translate3d(calc(var(--smh-highlight-parallax) * -1), 0, 0);
+  }
+  100% {
+    transform: translate3d(var(--smh-highlight-parallax), 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .champagne-highlight-frozen__veil,
+  .champagne-highlight-frozen__wave {
+    animation: none;
+  }
+  .champagne-highlight-frozen__wave {
+    transform: none;
+  }
+}

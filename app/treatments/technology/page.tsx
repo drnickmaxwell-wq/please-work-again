@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 import BrandHeroGradient from '@/components/brand/BrandHeroGradient';
 import FaqAccordion from '@/components/faq/FaqAccordion';
+import ChampagneHighlightFrozen from '@/components/sections/ChampagneHighlightFrozen';
 
 import styles from './technology.module.css';
 
@@ -80,6 +81,13 @@ const technologyFaq = [
 export default function TechnologyPage() {
   return (
     <>
+      <ChampagneHighlightFrozen
+        eyebrow="Technology"
+        title="Precision in Harmony"
+        subline="Where artistry meets innovation under the Champagne light."
+        ctaLabel="Explore our technology"
+        ctaHref="/treatments/technology"
+      />
       <BrandHeroGradient
         intensity="bold"
         clip="wave-bottom"

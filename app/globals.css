@@ -8,6 +8,8 @@
 @import "@/styles/champagne/technology-strip.css";
 @import "@/styles/champagne/digital-workflow.css";
 @import "@/styles/champagne/equipment-gallery.css";
+@import "@/styles/champagne/champagne-highlight-frozen.css";
+@import "@/styles/champagne/champagne-highlight-test.css";
 /* glass & motion layers should come after section surfaces */
 @import "@/styles/champagne/glass.css";
 @import "@/styles/brand/brand-motion.css";
