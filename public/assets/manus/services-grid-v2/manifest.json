@@ -1,0 +1,166 @@
+{
+  "name": "Signature Services Grid v2",
+  "version": "1.0.0",
+  "type": "design-asset-drop",
+  "description": "Visual design assets for a 6-card services grid with Champagne glass treatment, gold keylines, and responsive layouts",
+  "author": "Manus AI",
+  "created": "2025-10-31",
+  "brand_system": "Champagne Design System",
+  "gradient": {
+    "angle": 135,
+    "stops": [
+      { "color": "#C2185B", "position": 0, "name": "magenta" },
+      { "color": "#40C4B4", "position": 60, "name": "turquoise" },
+      { "color": "#D4AF37", "position": 100, "name": "gold" }
+    ]
+  },
+  "assets": {
+    "icons": [
+      {
+        "filename": "dental-implants.svg",
+        "format": "SVG",
+        "size": "24x24",
+        "service": "Dental Implants",
+        "description": "Minimalist line icon representing dental implant procedure"
+      },
+      {
+        "filename": "same-day-crowns.svg",
+        "format": "SVG",
+        "size": "24x24",
+        "service": "Same-Day Crowns",
+        "description": "Star and crown icon representing premium crown service"
+      },
+      {
+        "filename": "invisalign-aligners.svg",
+        "format": "SVG",
+        "size": "24x24",
+        "service": "Invisalign & Spark Aligners",
+        "description": "Circular aligner icon with alignment markers"
+      },
+      {
+        "filename": "composite-bonding.svg",
+        "format": "SVG",
+        "size": "24x24",
+        "service": "Composite Bonding",
+        "description": "Sparkle and star icon representing cosmetic enhancement"
+      },
+      {
+        "filename": "hygiene-airflow.svg",
+        "format": "SVG",
+        "size": "24x24",
+        "service": "Hygiene & Airflow",
+        "description": "Circular cleaning icon with radial elements"
+      },
+      {
+        "filename": "emergency-care.svg",
+        "format": "SVG",
+        "size": "24x24",
+        "service": "Emergency Care",
+        "description": "Medical cross in circle representing urgent care"
+      }
+    ],
+    "screenshots": [
+      {
+        "filename": "desktop-1440x900.webp",
+        "format": "WEBP",
+        "resolution": "1440x900",
+        "device": "desktop",
+        "layout": "3-column grid (2 rows)",
+        "quality": 85,
+        "description": "Desktop layout showing 6 cards in 3x2 grid with glass morphism treatment"
+      },
+      {
+        "filename": "tablet-1024x768.webp",
+        "format": "WEBP",
+        "resolution": "1024x768",
+        "device": "tablet",
+        "layout": "2-column grid (3 rows)",
+        "quality": 85,
+        "description": "Tablet layout showing 6 cards in 2x3 grid with responsive spacing"
+      },
+      {
+        "filename": "mobile-390x844.webp",
+        "format": "WEBP",
+        "resolution": "390x844",
+        "device": "mobile",
+        "layout": "1-column stack",
+        "quality": 85,
+        "description": "Mobile layout showing 6 cards stacked vertically with touch-friendly spacing"
+      }
+    ]
+  },
+  "design_specs": {
+    "glass_treatment": {
+      "background": "frosted glass with subtle transparency",
+      "border": "1px gold accent (#D4AF37)",
+      "border_radius": "16-20px",
+      "shadow": "soft elevated shadow",
+      "backdrop_filter": "blur effect"
+    },
+    "typography": {
+      "title": "Elegant serif font (Playfair Display style)",
+      "description": "Clean sans-serif (Inter style)",
+      "color": "White with high contrast"
+    },
+    "spacing": {
+      "desktop": "24px gap between cards",
+      "tablet": "20px gap between cards",
+      "mobile": "16px gap between cards"
+    },
+    "motion": {
+      "hover": "4px lift with enhanced glow",
+      "transition": "320ms cubic-bezier(0.4, 0, 0.2, 1)",
+      "max_movement": "6px (per brand spec)"
+    }
+  },
+  "services": [
+    {
+      "id": "dental-implants",
+      "title": "Dental Implants",
+      "description": "Permanent tooth replacement solutions that restore function and confidence",
+      "icon": "dental-implants.svg"
+    },
+    {
+      "id": "same-day-crowns",
+      "title": "Same-Day Crowns",
+      "description": "Advanced digital technology delivers custom ceramic crowns in a single visit",
+      "icon": "same-day-crowns.svg"
+    },
+    {
+      "id": "invisalign-aligners",
+      "title": "Invisalign & Spark Aligners",
+      "description": "Discreet orthodontic treatment using clear aligners to straighten teeth",
+      "icon": "invisalign-aligners.svg"
+    },
+    {
+      "id": "composite-bonding",
+      "title": "Composite Bonding",
+      "description": "Artistic tooth reshaping and color correction using advanced materials",
+      "icon": "composite-bonding.svg"
+    },
+    {
+      "id": "hygiene-airflow",
+      "title": "Hygiene & Airflow",
+      "description": "Professional cleaning with cutting-edge Airflow technology",
+      "icon": "hygiene-airflow.svg"
+    },
+    {
+      "id": "emergency-care",
+      "title": "Emergency Care",
+      "description": "Immediate attention for urgent dental needs with expert care",
+      "icon": "emergency-care.svg"
+    }
+  ],
+  "usage_notes": {
+    "colors": "All colors reference Champagne Design System tokens. Screenshots use neutral grays for demonstration only.",
+    "implementation": "Assets are visual references. CSS implementation should use existing tokens from /styles/tokens/smh-champagne-tokens.css",
+    "responsive": "Layouts adapt from 3-column (desktop) to 2-column (tablet) to 1-column (mobile)",
+    "accessibility": "Icons are decorative; ensure proper ARIA labels and semantic HTML in implementation"
+  },
+  "file_structure": {
+    "icons/": "6 SVG icons (24x24 viewBox)",
+    "screenshots/": "3 WEBP layout mockups (desktop, tablet, mobile)",
+    "manifest.json": "This metadata file",
+    "README.md": "Visual documentation with thumbnails"
+  }
+}
