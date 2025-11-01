@@ -1,0 +1,83 @@
+.heroManifest {
+  position: relative;
+  isolation: isolate;
+  min-height: 52vh;
+  display: grid;
+  place-items: center;
+  padding: clamp(6rem, 8vw, 8rem) 1.5rem;
+  color: var(--smh-white, #FFFFFF);
+  background: var(--heroManifestBase, var(--smh-gradient));
+  overflow: hidden;
+}
+
+.heroManifest__layers {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hm-layer {
+  position: absolute;
+  inset: 0;
+  opacity: clamp(0, var(--opacity, 1), 1);
+  mix-blend-mode: var(--blend, normal);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.hm-layer--wave {
+  background-image: var(--smh-waves-bg);
+  -webkit-mask-image: var(--smh-wave-mask-desktop);
+  mask-image: var(--smh-wave-mask-desktop);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+  opacity: clamp(0, var(--opacity, 0.3), 0.45);
+}
+
+.hm-layer--particles {
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.hm-layer--grain {
+  background-repeat: repeat;
+  background-size: 320px 320px;
+}
+
+.hm-layer--veil {
+  background-size: cover;
+}
+
+.hm-layer--gold {
+  background-size: cover;
+}
+
+.heroManifest__contentWrap {
+  position: relative;
+  z-index: 10;
+  width: min(960px, 100%);
+}
+
+.heroManifest__content {
+  padding-inline: 1.5rem;
+}
+
+.heroManifest__content .strip__cta {
+  border-radius: 9999px;
+}
+
+@media (max-width: 48rem) {
+  .hm-layer--wave {
+    -webkit-mask-image: var(--smh-wave-mask-mobile);
+    mask-image: var(--smh-wave-mask-mobile);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hm-layer {
+    transition: none;
+  }
+}
