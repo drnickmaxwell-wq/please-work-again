@@ -15,56 +15,23 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  background-image:
-    var(--smh-gradient),
-    var(--smh-waves-bg),
-    var(--smh-particles-img),
-    var(--smh-grain-img);
-  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
-  background-size: 185% 185%, cover, cover, cover;
-  background-position: 50% 42%, center, center, center;
+  background: color-mix(in oklab, var(--smh-surface-glass) 92%, white);
   color: var(--smh-text);
   padding-block: clamp(4rem, 10vw, 7rem);
+  --smh-hero-particles-opacity: 0.06;
+  --smh-hero-grain-opacity: 0.07;
 }
 
 .servicesGrid::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--services-grid-veil-gradient);
-  mix-blend-mode: soft-light;
-  opacity: 1;
-  pointer-events: none;
+  display: none;
 }
 
 .servicesGrid::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: var(--services-grid-polish);
-  background-repeat: repeat;
-  background-size: 120%;
-  mix-blend-mode: screen;
-  opacity: var(--services-grid-polish-opacity);
-  pointer-events: none;
+  display: none;
 }
 
 .servicesGrid__backdrop {
-  position: absolute;
-  inset: 0;
-  background-image: var(--services-grid-light-overlay);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: 50% 60%;
-  -webkit-mask-image: var(--smh-wave-mask-desktop);
-  mask-image: var(--smh-wave-mask-desktop);
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: cover;
-  mask-size: cover;
-  opacity: 0.28;
-  mix-blend-mode: screen;
-  pointer-events: none;
+  display: none;
 }
 
 .servicesGrid__container {
@@ -106,6 +73,7 @@
   font-size: clamp(2.5rem, 4vw, 3.25rem);
   line-height: 1.1;
   letter-spacing: -0.01em;
+  margin-bottom: 1.5rem;
 }
 
 .servicesGrid__description {
@@ -113,6 +81,10 @@
   font-size: 1.05rem;
   line-height: 1.6;
   color: color-mix(in oklab, var(--smh-text) 82%, white);
+}
+
+.servicesGrid p {
+  line-height: 1.6;
 }
 
 .servicesGrid__layout {
@@ -128,10 +100,11 @@
   gap: 1.5rem;
   padding: clamp(1.5rem, 4vw, 2rem);
   border-radius: 1.75rem;
-  border: 1px solid color-mix(in oklab, var(--smh-keyline-gold) 52%, transparent);
-  background: color-mix(in oklab, var(--smh-surface-glass) 88%, transparent);
-  box-shadow: 0 24px 48px color-mix(in oklab, var(--smh-surface-ink) 18%, transparent);
-  transition: transform 320ms ease, box-shadow 320ms ease;
+  border: 1px solid color-mix(in oklab, var(--smh-keyline-gold) 35%, transparent);
+  background: color-mix(in oklab, var(--smh-surface-glass) 94%, white);
+  box-shadow: 0 24px 48px color-mix(in oklab, var(--smh-surface-ink) 15%, transparent);
+  backdrop-filter: blur(18px);
+  transition: transform 320ms ease, box-shadow 320ms ease, border-color 320ms ease;
 }
 
 .servicesGrid__card::before {
@@ -162,8 +135,9 @@
 
 .servicesGrid__card:hover,
 .servicesGrid__card:focus-within {
-  transform: translateY(-6px);
-  box-shadow: 0 28px 60px color-mix(in oklab, var(--smh-surface-ink) 22%, transparent);
+  transform: translateY(-4px);
+  box-shadow: 0 32px 56px color-mix(in oklab, var(--smh-surface-ink) 20%, transparent);
+  border-color: color-mix(in oklab, var(--smh-keyline-gold) 50%, transparent);
 }
 
 .servicesGrid__card:hover::after,
@@ -262,7 +236,8 @@
   .servicesGrid__card:hover,
   .servicesGrid__card:focus-within {
     transform: none;
-    box-shadow: 0 24px 48px color-mix(in oklab, var(--smh-surface-ink) 18%, transparent);
+    box-shadow: 0 24px 48px color-mix(in oklab, var(--smh-surface-ink) 15%, transparent);
+    border-color: color-mix(in oklab, var(--smh-keyline-gold) 35%, transparent);
   }
 
   .servicesGrid__card:hover::after,
@@ -278,6 +253,20 @@
   .servicesGrid__card:hover .servicesGrid__ctaIcon,
   .servicesGrid__card:focus-within .servicesGrid__ctaIcon {
     transform: none;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .servicesGrid__card {
+    border-color: color-mix(in oklab, var(--smh-keyline-gold) 50%, transparent);
+  }
+
+  .servicesGrid__eyebrow {
+    border-color: color-mix(in oklab, var(--smh-keyline-gold) 55%, transparent);
+  }
+
+  .servicesGrid__icon {
+    border-color: color-mix(in oklab, var(--smh-keyline-gold) 65%, transparent);
   }
 }
 

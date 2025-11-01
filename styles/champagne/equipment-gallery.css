@@ -3,21 +3,15 @@
 .equipmentGallery {
   position: relative;
   isolation: isolate;
-  background: var(--bg, #FFFFFF);
+  background: color-mix(in oklab, var(--smh-surface-glass) 92%, white);
   color: var(--ink, #0B0D0F);
+  --smh-hero-particles-opacity: 0.06;
+  --smh-hero-grain-opacity: 0.07;
 }
 
 /* Background gradient layer */
 .equipmentGallery__gradient {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background-image: var(--smh-gradient);
-  background-size: 165% 165%;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-  opacity: 0.03;
+  display: none;
 }
 
 /* Film grain texture */
@@ -31,16 +25,21 @@
   background-position: center;
   background-repeat: repeat;
   mix-blend-mode: overlay;
-  opacity: 0.04;
+  opacity: var(--smh-hero-grain-opacity);
 }
 
 /* Section heading */
 .equipmentGallery__heading {
   color: var(--ink, #0B0D0F);
+  margin-bottom: 1.5rem;
 }
 
 .equipmentGallery__subheading {
   color: color-mix(in oklab, var(--ink) 70%, transparent);
+}
+
+.equipmentGallery p {
+  line-height: 1.6;
 }
 
 /* Grid layout */
@@ -54,18 +53,28 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  gap: 1.5rem;
+  padding: 1.75rem;
+  border-radius: 1.25rem;
+  border: 1px solid color-mix(in oklab, var(--smh-keyline-gold) 35%, transparent);
+  background: color-mix(in oklab, var(--smh-surface-glass) 94%, white);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 24px 48px color-mix(in oklab, var(--smh-surface-ink) 15%, transparent);
+  transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), box-shadow 0.3s ease,
+    border-color 0.3s ease;
   will-change: transform;
 }
 
 .equipmentGallery__card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-4px);
+  border-color: color-mix(in oklab, var(--smh-keyline-gold) 50%, transparent);
+  box-shadow: 0 32px 56px color-mix(in oklab, var(--smh-surface-ink) 20%, transparent);
 }
 
 .equipmentGallery__card:focus-within {
   outline: 2px solid var(--smh-accent-gold, #D4AF37);
   outline-offset: 4px;
-  border-radius: 1rem;
+  border-radius: 1.25rem;
 }
 
 /* Image wrapper with gradient overlay */
@@ -75,12 +84,10 @@
   aspect-ratio: 3 / 2;
   overflow: hidden;
   border-radius: 1rem;
-  background: var(--smh-gradient);
-  background-size: 165% 165%;
-  background-position: 50% 50%;
-  box-shadow: 
-    0 4px 16px color-mix(in oklab, black 10%, transparent),
-    inset 0 0 0 1px var(--smh-accent-gold-soft, #F9E8C3);
+  background: color-mix(in oklab, var(--smh-surface-glass) 88%, white);
+  border: 1px solid color-mix(in oklab, var(--smh-keyline-gold) 35%, transparent);
+  box-shadow: 0 24px 48px color-mix(in oklab, var(--smh-surface-ink) 18%, transparent);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Gradient overlay on image */
@@ -127,9 +134,8 @@
 
 /* Hover: gold edge glow */
 .equipmentGallery__card:hover .equipmentGallery__imageWrapper {
-  box-shadow: 
-    0 8px 32px color-mix(in oklab, var(--smh-accent-gold) 25%, transparent),
-    inset 0 0 0 2px var(--smh-accent-gold, #D4AF37);
+  box-shadow: 0 32px 56px color-mix(in oklab, var(--smh-surface-ink) 22%, transparent);
+  border-color: color-mix(in oklab, var(--smh-keyline-gold) 50%, transparent);
 }
 
 .equipmentGallery__card:hover .equipmentGallery__imageWrapper::after {
@@ -166,21 +172,39 @@
   .equipmentGallery__card {
     transition: none;
   }
-  
+
   .equipmentGallery__card:hover {
     transform: none;
+    box-shadow: 0 24px 48px color-mix(in oklab, var(--smh-surface-ink) 15%, transparent);
+    border-color: color-mix(in oklab, var(--smh-keyline-gold) 35%, transparent);
   }
-  
+
   .equipmentGallery__image {
     transition: none;
   }
-  
+
+  .equipmentGallery__imageWrapper {
+    transition: none;
+  }
+
   .equipmentGallery__card:hover .equipmentGallery__image {
     transform: none;
   }
-  
+
+  .equipmentGallery__card:hover .equipmentGallery__imageWrapper {
+    box-shadow: 0 24px 48px color-mix(in oklab, var(--smh-surface-ink) 18%, transparent);
+    border-color: color-mix(in oklab, var(--smh-keyline-gold) 35%, transparent);
+  }
+
   .equipmentGallery__card:hover .equipmentGallery__imageWrapper::after {
     transition: none;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .equipmentGallery__card,
+  .equipmentGallery__imageWrapper {
+    border-color: color-mix(in oklab, var(--smh-keyline-gold) 50%, transparent);
   }
 }
 

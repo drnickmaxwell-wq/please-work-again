@@ -3,8 +3,10 @@
 .digitalWorkflow {
   position: relative;
   isolation: isolate;
-  background: var(--bg, #FFFFFF);
+  background: color-mix(in oklab, var(--smh-surface-glass) 92%, white);
   color: var(--ink, #0B0D0F);
+  --smh-hero-particles-opacity: 0.06;
+  --smh-hero-grain-opacity: 0.07;
 }
 
 /* Film grain texture */
@@ -18,7 +20,7 @@
   background-position: center;
   background-repeat: repeat;
   mix-blend-mode: overlay;
-  opacity: 0.04;
+  opacity: var(--smh-hero-grain-opacity);
 }
 
 /* Particles overlay */
@@ -32,16 +34,21 @@
   background-position: center;
   background-repeat: no-repeat;
   mix-blend-mode: screen;
-  opacity: 0.06;
+  opacity: var(--smh-hero-particles-opacity);
 }
 
 /* Section heading */
 .digitalWorkflow__heading {
   color: var(--ink, #0B0D0F);
+  margin-bottom: 1.5rem;
 }
 
 .digitalWorkflow__subheading {
   color: color-mix(in oklab, var(--ink) 70%, transparent);
+}
+
+.digitalWorkflow p {
+  line-height: 1.6;
 }
 
 /* Grid layout */
@@ -54,15 +61,14 @@
 .digitalWorkflow__card {
   position: relative;
   padding: 2rem;
-  background: color-mix(in oklab, var(--ink) 3%, transparent);
-  border: 1px solid var(--smh-accent-gold-soft, #F9E8C3);
+  background: color-mix(in oklab, var(--smh-surface-glass) 94%, white);
+  border: 1px solid color-mix(in oklab, var(--smh-keyline-gold) 35%, transparent);
   border-radius: 1rem;
-  backdrop-filter: blur(12px) saturate(1.05);
-  box-shadow: 
-    0 4px 16px color-mix(in oklab, black 6%, transparent),
-    inset 0 1px 0 color-mix(in oklab, white 40%, transparent);
-  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-  will-change: transform, box-shadow;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 24px 48px color-mix(in oklab, var(--smh-surface-ink) 15%, transparent);
+  transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), box-shadow 0.3s ease,
+    border-color 0.3s ease;
+  will-change: transform;
 }
 
 /* Film grain on card */
@@ -82,10 +88,8 @@
 
 .digitalWorkflow__card:hover {
   transform: translateY(-4px);
-  border-color: var(--smh-accent-gold, #D4AF37);
-  box-shadow: 
-    0 8px 32px color-mix(in oklab, var(--smh-accent-gold) 15%, transparent),
-    inset 0 1px 0 color-mix(in oklab, white 50%, transparent);
+  border-color: color-mix(in oklab, var(--smh-keyline-gold) 50%, transparent);
+  box-shadow: 0 32px 56px color-mix(in oklab, var(--smh-surface-ink) 20%, transparent);
 }
 
 .digitalWorkflow__card:focus-within {
@@ -100,8 +104,8 @@
   justify-content: center;
   width: 4rem;
   height: 4rem;
-  background: color-mix(in oklab, var(--smh-accent-gold-soft) 12%, transparent);
-  border: 1px solid var(--smh-accent-gold-soft, #F9E8C3);
+  background: color-mix(in oklab, var(--smh-surface-glass) 92%, white);
+  border: 1px solid color-mix(in oklab, var(--smh-keyline-gold) 35%, transparent);
   border-radius: 0.75rem;
   backdrop-filter: blur(8px);
 }
@@ -148,10 +152,22 @@
   
   .digitalWorkflow__card:hover {
     transform: none;
+    box-shadow: 0 24px 48px color-mix(in oklab, var(--smh-surface-ink) 15%, transparent);
+    border-color: color-mix(in oklab, var(--smh-keyline-gold) 35%, transparent);
   }
   
   .digitalWorkflow__cardLink {
     transition: none;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .digitalWorkflow__card {
+    border-color: color-mix(in oklab, var(--smh-keyline-gold) 50%, transparent);
+  }
+
+  .digitalWorkflow__iconWrapper {
+    border-color: color-mix(in oklab, var(--smh-keyline-gold) 45%, transparent);
   }
 }
 

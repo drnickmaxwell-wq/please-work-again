@@ -1,9 +1,9 @@
-import HeroLuxury from '@/components/sections/HeroLuxury';
-import TechnologyStrip from '@/components/sections/TechnologyStrip';
 import DigitalWorkflow from '@/components/sections/DigitalWorkflow';
 import EquipmentGallery from '@/components/sections/EquipmentGallery';
+import HeroLuxury from '@/components/sections/HeroLuxury';
 import ServicesGrid from '@/components/sections/ServicesGrid';
 import SmileJourney from '@/components/sections/SmileJourney';
+import TechnologyStrip from '@/components/sections/TechnologyStrip';
 
 export default function HomePage() {
   return (
