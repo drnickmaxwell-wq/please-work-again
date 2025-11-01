@@ -8,7 +8,7 @@
 }
 
 /* Film grain texture */
-.digitalWorkflow__grain {
+.digitalWorkflow .digitalWorkflow__grain {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -22,7 +22,7 @@
 }
 
 /* Particles overlay */
-.digitalWorkflow__particles {
+.digitalWorkflow .digitalWorkflow__particles {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -36,22 +36,22 @@
 }
 
 /* Section heading */
-.digitalWorkflow__heading {
+.digitalWorkflow .digitalWorkflow__heading {
   color: var(--ink, #0B0D0F);
 }
 
-.digitalWorkflow__subheading {
+.digitalWorkflow .digitalWorkflow__subheading {
   color: color-mix(in oklab, var(--ink) 70%, transparent);
 }
 
 /* Grid layout */
-.digitalWorkflow__grid {
+.digitalWorkflow .digitalWorkflow__grid {
   position: relative;
   z-index: 10;
 }
 
 /* Workflow card — glassmorphism with gold keylines */
-.digitalWorkflow__card {
+.digitalWorkflow .digitalWorkflow__card {
   position: relative;
   padding: 2rem;
   background: color-mix(in oklab, var(--ink) 3%, transparent);
@@ -66,7 +66,7 @@
 }
 
 /* Film grain on card */
-.digitalWorkflow__card::before {
+.digitalWorkflow .digitalWorkflow__card::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -80,7 +80,7 @@
   border-radius: inherit;
 }
 
-.digitalWorkflow__card:hover {
+.digitalWorkflow .digitalWorkflow__card:hover {
   transform: translateY(-4px);
   border-color: var(--smh-accent-gold, #D4AF37);
   box-shadow: 
@@ -88,13 +88,13 @@
     inset 0 1px 0 color-mix(in oklab, white 50%, transparent);
 }
 
-.digitalWorkflow__card:focus-within {
+.digitalWorkflow .digitalWorkflow__card:focus-within {
   outline: 2px solid var(--smh-accent-gold, #D4AF37);
   outline-offset: 4px;
 }
 
 /* Icon wrapper */
-.digitalWorkflow__iconWrapper {
+.digitalWorkflow .digitalWorkflow__iconWrapper {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -106,35 +106,35 @@
   backdrop-filter: blur(8px);
 }
 
-.digitalWorkflow__icon {
+.digitalWorkflow .digitalWorkflow__icon {
   width: 2rem;
   height: 2rem;
   filter: brightness(0) saturate(100%) invert(72%) sepia(28%) saturate(630%) hue-rotate(359deg) brightness(95%) contrast(87%);
 }
 
 /* Card title */
-.digitalWorkflow__cardTitle {
+.digitalWorkflow .digitalWorkflow__cardTitle {
   color: var(--ink, #0B0D0F);
 }
 
 /* Card description */
-.digitalWorkflow__cardDescription {
+.digitalWorkflow .digitalWorkflow__cardDescription {
   color: color-mix(in oklab, var(--ink) 75%, transparent);
   line-height: 1.6;
 }
 
 /* Card link */
-.digitalWorkflow__cardLink {
+.digitalWorkflow .digitalWorkflow__cardLink {
   color: var(--smh-primary-magenta, #C2185B);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
-.digitalWorkflow__cardLink:hover {
+.digitalWorkflow .digitalWorkflow__cardLink:hover {
   color: var(--smh-accent-gold, #D4AF37);
 }
 
-.digitalWorkflow__cardLink:focus {
+.digitalWorkflow .digitalWorkflow__cardLink:focus {
   outline: 2px solid var(--smh-accent-gold, #D4AF37);
   outline-offset: 2px;
   border-radius: 0.25rem;
@@ -142,40 +142,40 @@
 
 /* Disable animations for reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .digitalWorkflow__card {
+  .digitalWorkflow .digitalWorkflow__card {
     transition: none;
   }
   
-  .digitalWorkflow__card:hover {
+  .digitalWorkflow .digitalWorkflow__card:hover {
     transform: none;
   }
   
-  .digitalWorkflow__cardLink {
+  .digitalWorkflow .digitalWorkflow__cardLink {
     transition: none;
   }
 }
 
 /* Mobile responsive adjustments */
 @media (max-width: 48rem) {
-  .digitalWorkflow__card {
+  .digitalWorkflow .digitalWorkflow__card {
     padding: 1.5rem;
   }
   
-  .digitalWorkflow__iconWrapper {
+  .digitalWorkflow .digitalWorkflow__iconWrapper {
     width: 3.5rem;
     height: 3.5rem;
   }
   
-  .digitalWorkflow__icon {
+  .digitalWorkflow .digitalWorkflow__icon {
     width: 1.75rem;
     height: 1.75rem;
   }
   
-  .digitalWorkflow__cardTitle {
+  .digitalWorkflow .digitalWorkflow__cardTitle {
     font-size: 1.5rem;
   }
   
-  .digitalWorkflow__particles {
+  .digitalWorkflow .digitalWorkflow__particles {
     opacity: 0.04;
   }
 }
