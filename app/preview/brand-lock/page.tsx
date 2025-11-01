@@ -14,6 +14,8 @@ type Diagnostics = {
   tokenGradient: string;
   normalizedTokenGradient: string;
   normalizedSurfaceGradient: string;
+  techHeroGradient: string;
+  techHeroFiltersRemoved: boolean;
   hasHeroWavesOverlay: boolean;
   hasJourneyWavesOverlay: boolean;
   waves: string;
@@ -121,6 +123,43 @@ export default function BrandLock() {
       ? tidy(getComputedStyle(heroElement).backgroundImage || "")
       : "";
     const normalizedSurfaceGradient = normalizeGradientString(heroBackgroundImage || backgroundImage);
+    const techHeroElement = document.querySelector<HTMLElement>(".technologyStrip--techpage");
+    const techHeroStyles = techHeroElement ? getComputedStyle(techHeroElement) : null;
+    const techHeroGradient = techHeroStyles
+      ? normalizeGradientString(techHeroStyles.backgroundImage || "")
+      : "";
+    const bannedFilterTokens = ["hue-rotate", "saturate", "sepia", "contrast"];
+    const hasBannedFilterToken = (value: string) => {
+      const lower = value.toLowerCase();
+      return bannedFilterTokens.some((token) => lower.includes(token));
+    };
+    let techHeroFiltersRemoved = true;
+    if (techHeroStyles) {
+      const heroFilter = tidy(techHeroStyles.getPropertyValue("filter") || "");
+      const heroBackdrop = tidy(
+        techHeroStyles.getPropertyValue("backdrop-filter") ||
+          techHeroStyles.getPropertyValue("-webkit-backdrop-filter") ||
+          ""
+      );
+      if (hasBannedFilterToken(heroFilter) || hasBannedFilterToken(heroBackdrop)) {
+        techHeroFiltersRemoved = false;
+      }
+    }
+    if (techHeroElement) {
+      const ctaNodes = techHeroElement.querySelectorAll<HTMLElement>(".cta");
+      ctaNodes.forEach((cta) => {
+        const ctaStyles = getComputedStyle(cta);
+        const ctaFilter = tidy(ctaStyles.getPropertyValue("filter") || "");
+        const ctaBackdrop = tidy(
+          ctaStyles.getPropertyValue("backdrop-filter") ||
+            ctaStyles.getPropertyValue("-webkit-backdrop-filter") ||
+            ""
+        );
+        if (hasBannedFilterToken(ctaFilter) || hasBannedFilterToken(ctaBackdrop)) {
+          techHeroFiltersRemoved = false;
+        }
+      });
+    }
     const journeyElement = document.querySelector<HTMLElement>("section.smileJourney");
     const journeyBackgroundImage = journeyElement
       ? tidy(getComputedStyle(journeyElement).backgroundImage || "")
@@ -188,6 +227,8 @@ export default function BrandLock() {
       tokenGradient: tidy(tokenGradientRaw),
       normalizedTokenGradient,
       normalizedSurfaceGradient,
+      techHeroGradient,
+      techHeroFiltersRemoved,
       hasHeroWavesOverlay,
       hasJourneyWavesOverlay,
       waves: wavesToken.asset,
@@ -256,6 +297,10 @@ export default function BrandLock() {
                 </p>
                 <p>
                   normalizedSurfaceGradient={liveDiagnostics.normalizedSurfaceGradient || "n/a"}
+                </p>
+                <p>
+                  techHeroGradient={liveDiagnostics.techHeroGradient || "n/a"}, techHeroFiltersRemoved=
+                  {String(liveDiagnostics.techHeroFiltersRemoved)}
                 </p>
                 <p>
                   hasHeroWavesOverlay={String(liveDiagnostics.hasHeroWavesOverlay)}
