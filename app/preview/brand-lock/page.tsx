@@ -45,6 +45,17 @@ type Diagnostics = {
   };
 };
 
+const COMPONENT_PREVIEW_LINKS = [
+  {
+    href: "/preview/tech-strip-locked",
+    label: "Technology Strip — Frozen reference",
+  },
+  {
+    href: "/preview/tech-strip-clone",
+    label: "Technology Strip clone (scoped)",
+  },
+] as const;
+
 const servicesGridAssets = [
   "/assets/champagne/icons/scan.svg",
   "/assets/champagne/icons/implant.svg",
@@ -333,6 +344,34 @@ export default function BrandLock() {
         <section className="heroLuxury" />
         <section className="smileJourney" />
       </div>
+      <footer className="border-t border-[color:color-mix(in oklab,var(--smh-ink, #0B0D0F) 12%, transparent)] bg-[color:var(--smh-bg)]">
+        <div className="mx-auto flex max-w-5xl flex-col gap-6 px-6 py-12 md:flex-row md:items-start md:justify-between">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.4em] text-[color:color-mix(in oklab,var(--smh-ink, #0B0D0F) 60%, transparent)]">
+              Component Previews
+            </p>
+            <ul className="mt-4 space-y-2 text-sm text-[color:color-mix(in oklab,var(--smh-ink, #0B0D0F) 80%, transparent)]">
+              {COMPONENT_PREVIEW_LINKS.map((preview) => (
+                <li key={preview.href}>
+                  <a
+                    className="inline-flex items-center gap-2 underline-offset-4 transition hover:text-[color:var(--smh-primary-magenta)] hover:underline"
+                    href={preview.href}
+                  >
+                    <span>{preview.label}</span>
+                    <span aria-hidden="true" className="text-[color:var(--smh-primary-teal)]">
+                      ↗
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <p className="max-w-sm text-xs leading-relaxed text-[color:color-mix(in oklab,var(--smh-ink, #0B0D0F) 65%, transparent)]">
+            Snapshot routes render read-only champagne surfaces for visual QA. Use these links to validate gradient scope and
+            overlay intensity before shipping changes.
+          </p>
+        </div>
+      </footer>
     </main>
   );
 }
