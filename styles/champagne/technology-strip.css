@@ -14,7 +14,7 @@
 }
 
 /* Wave mask overlay layer */
-.technologyStrip__waves {
+.technologyStrip .technologyStrip__waves {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -30,7 +30,7 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .technologyStrip__waves {
+  .technologyStrip .technologyStrip__waves {
     animation: technologyStripWaveParallax 8s ease-in-out infinite;
   }
 }
@@ -45,7 +45,7 @@
 }
 
 /* Gold dust shimmer layer */
-.technologyStrip__goldDust {
+.technologyStrip .technologyStrip__goldDust {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -60,7 +60,7 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .technologyStrip__goldDust {
+  .technologyStrip .technologyStrip__goldDust {
     animation: technologyStripGoldShimmer 6s ease-in-out infinite;
   }
 }
@@ -77,7 +77,7 @@
 }
 
 /* Glass vignette overlay */
-.technologyStrip__glassReflect {
+.technologyStrip .technologyStrip__glassReflect {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -106,19 +106,19 @@
 }
 
 /* Content layer */
-.technologyStrip__content {
+.technologyStrip .technologyStrip__content {
   position: relative;
   z-index: 10;
 }
 
 /* Eyebrow styling */
-.technologyStrip__eyebrow {
+.technologyStrip .technologyStrip__eyebrow {
   display: inline-flex;
   justify-content: center;
   align-items: center;
 }
 
-.technologyStrip__eyebrowPill {
+.technologyStrip .technologyStrip__eyebrowPill {
   display: inline-block;
   padding: 0.5rem 1.25rem;
   font-size: 0.75rem;
@@ -133,19 +133,19 @@
 }
 
 /* Heading styling */
-.technologyStrip__heading {
+.technologyStrip .technologyStrip__heading {
   color: var(--smh-white, #FFFFFF);
   text-shadow: 0 2px 12px color-mix(in oklab, black 20%, transparent);
 }
 
 /* Subline styling */
-.technologyStrip__subline {
+.technologyStrip .technologyStrip__subline {
   color: color-mix(in oklab, var(--smh-white) 92%, transparent);
   text-shadow: 0 1px 8px color-mix(in oklab, black 15%, transparent);
 }
 
 /* CTA Button */
-.technologyStrip__cta {
+.technologyStrip .technologyStrip__cta {
   display: inline-block;
   padding: 1rem 2rem;
   font-size: 1rem;
@@ -163,7 +163,7 @@
   will-change: transform, box-shadow;
 }
 
-.technologyStrip__cta:hover {
+.technologyStrip .technologyStrip__cta:hover {
   background: color-mix(in oklab, var(--smh-white) 22%, transparent);
   border-color: var(--smh-accent-gold, #D4AF37);
   box-shadow: 
@@ -172,28 +172,28 @@
   transform: translateY(-2px);
 }
 
-.technologyStrip__cta:focus {
+.technologyStrip .technologyStrip__cta:focus {
   outline: 2px solid var(--smh-accent-gold, #D4AF37);
   outline-offset: 4px;
 }
 
-.technologyStrip__cta:active {
+.technologyStrip .technologyStrip__cta:active {
   transform: translateY(0px);
 }
 
 /* Disable animations for reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .technologyStrip__waves,
-  .technologyStrip__goldDust {
+  .technologyStrip .technologyStrip__waves,
+  .technologyStrip .technologyStrip__goldDust {
     animation: none !important;
     transform: none !important;
   }
   
-  .technologyStrip__cta {
+  .technologyStrip .technologyStrip__cta {
     transition: none;
   }
   
-  .technologyStrip__cta:hover {
+  .technologyStrip .technologyStrip__cta:hover {
     transform: none;
   }
 }
@@ -206,19 +206,19 @@
     background-position: 50% 50%;
   }
   
-  .technologyStrip__heading {
+  .technologyStrip .technologyStrip__heading {
     font-size: 2.5rem;
   }
   
-  .technologyStrip__subline {
+  .technologyStrip .technologyStrip__subline {
     font-size: 1rem;
   }
   
-  .technologyStrip__waves {
+  .technologyStrip .technologyStrip__waves {
     opacity: 0.28;
   }
   
-  .technologyStrip__goldDust {
+  .technologyStrip .technologyStrip__goldDust {
     opacity: 0.06;
   }
   

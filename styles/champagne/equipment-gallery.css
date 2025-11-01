@@ -8,7 +8,7 @@
 }
 
 /* Background gradient layer */
-.equipmentGallery__gradient {
+.equipmentGallery .equipmentGallery__gradient {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -21,7 +21,7 @@
 }
 
 /* Film grain texture */
-.equipmentGallery__grain {
+.equipmentGallery .equipmentGallery__grain {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -35,22 +35,22 @@
 }
 
 /* Section heading */
-.equipmentGallery__heading {
+.equipmentGallery .equipmentGallery__heading {
   color: var(--ink, #0B0D0F);
 }
 
-.equipmentGallery__subheading {
+.equipmentGallery .equipmentGallery__subheading {
   color: color-mix(in oklab, var(--ink) 70%, transparent);
 }
 
 /* Grid layout */
-.equipmentGallery__grid {
+.equipmentGallery .equipmentGallery__grid {
   position: relative;
   z-index: 10;
 }
 
 /* Equipment card */
-.equipmentGallery__card {
+.equipmentGallery .equipmentGallery__card {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -58,18 +58,18 @@
   will-change: transform;
 }
 
-.equipmentGallery__card:hover {
+.equipmentGallery .equipmentGallery__card:hover {
   transform: translateY(-6px);
 }
 
-.equipmentGallery__card:focus-within {
+.equipmentGallery .equipmentGallery__card:focus-within {
   outline: 2px solid var(--smh-accent-gold, #D4AF37);
   outline-offset: 4px;
   border-radius: 1rem;
 }
 
 /* Image wrapper with gradient overlay */
-.equipmentGallery__imageWrapper {
+.equipmentGallery .equipmentGallery__imageWrapper {
   position: relative;
   width: 100%;
   aspect-ratio: 3 / 2;
@@ -84,7 +84,7 @@
 }
 
 /* Gradient overlay on image */
-.equipmentGallery__imageGradient {
+.equipmentGallery .equipmentGallery__imageGradient {
   position: absolute;
   inset: 0;
   z-index: 1;
@@ -97,7 +97,7 @@
 }
 
 /* Vignette mask overlay */
-.equipmentGallery__imageVignette {
+.equipmentGallery .equipmentGallery__imageVignette {
   position: absolute;
   inset: 0;
   z-index: 2;
@@ -112,7 +112,7 @@
 }
 
 /* Image styling */
-.equipmentGallery__image {
+.equipmentGallery .equipmentGallery__image {
   position: relative;
   z-index: 0;
   width: 100%;
@@ -121,18 +121,18 @@
   transition: transform 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-.equipmentGallery__card:hover .equipmentGallery__image {
+.equipmentGallery .equipmentGallery__card:hover .equipmentGallery__image {
   transform: scale(1.05);
 }
 
 /* Hover: gold edge glow */
-.equipmentGallery__card:hover .equipmentGallery__imageWrapper {
+.equipmentGallery .equipmentGallery__card:hover .equipmentGallery__imageWrapper {
   box-shadow: 
     0 8px 32px color-mix(in oklab, var(--smh-accent-gold) 25%, transparent),
     inset 0 0 0 2px var(--smh-accent-gold, #D4AF37);
 }
 
-.equipmentGallery__card:hover .equipmentGallery__imageWrapper::after {
+.equipmentGallery .equipmentGallery__card:hover .equipmentGallery__imageWrapper::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -146,16 +146,16 @@
 }
 
 /* Labels beneath image */
-.equipmentGallery__labels {
+.equipmentGallery .equipmentGallery__labels {
   margin-top: 1rem;
   text-align: center;
 }
 
-.equipmentGallery__label {
+.equipmentGallery .equipmentGallery__label {
   color: var(--ink, #0B0D0F);
 }
 
-.equipmentGallery__sublabel {
+.equipmentGallery .equipmentGallery__sublabel {
   color: color-mix(in oklab, var(--ink) 65%, transparent);
   font-weight: 500;
   letter-spacing: 0.02em;
@@ -163,42 +163,42 @@
 
 /* Disable animations for reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .equipmentGallery__card {
+  .equipmentGallery .equipmentGallery__card {
     transition: none;
   }
   
-  .equipmentGallery__card:hover {
+  .equipmentGallery .equipmentGallery__card:hover {
     transform: none;
   }
   
-  .equipmentGallery__image {
+  .equipmentGallery .equipmentGallery__image {
     transition: none;
   }
   
-  .equipmentGallery__card:hover .equipmentGallery__image {
+  .equipmentGallery .equipmentGallery__card:hover .equipmentGallery__image {
     transform: none;
   }
   
-  .equipmentGallery__card:hover .equipmentGallery__imageWrapper::after {
+  .equipmentGallery .equipmentGallery__card:hover .equipmentGallery__imageWrapper::after {
     transition: none;
   }
 }
 
 /* Mobile responsive adjustments */
 @media (max-width: 48rem) {
-  .equipmentGallery__imageWrapper {
+  .equipmentGallery .equipmentGallery__imageWrapper {
     aspect-ratio: 4 / 3;
   }
   
-  .equipmentGallery__heading {
+  .equipmentGallery .equipmentGallery__heading {
     font-size: 2rem;
   }
   
-  .equipmentGallery__label {
+  .equipmentGallery .equipmentGallery__label {
     font-size: 1.125rem;
   }
   
-  .equipmentGallery__sublabel {
+  .equipmentGallery .equipmentGallery__sublabel {
     font-size: 0.875rem;
   }
 }
