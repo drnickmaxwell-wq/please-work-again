@@ -1,38 +1,162 @@
 {
-  "heroLayers": [
+  "component": "ChampagneHeroManifest",
+  "version": "2.0.0",
+  "description": "Manifest-driven hero with static + motion layers using St Mary's House tokens",
+  "designSystem": "St Mary's House Champagne Design System",
+  "lastUpdated": "2025-11-01",
+  
+  "layers": [
     {
-      "type": "base",
-      "src": "var(--smh-gradient)"
+      "id": 1,
+      "name": "gradient-base",
+      "type": "static",
+      "description": "Base champagne gradient from tokens",
+      "src": null,
+      "cssBackground": "var(--smh-gradient)",
+      "opacity": 1.0,
+      "blendMode": "normal",
+      "parallaxMaxPx": 0,
+      "zIndex": 1
     },
     {
-      "type": "wave",
-      "src": "var(--smh-waves-bg)",
-      "opacity": 0.32,
-      "blendMode": "screen"
+      "id": 2,
+      "name": "wave-caustics",
+      "type": "motion",
+      "description": "Subtle underwater light caustics",
+      "src": "/assets/champagne/motion/wave-caustics.webm",
+      "opacity": 0.10,
+      "blendMode": "screen",
+      "parallaxMaxPx": 2,
+      "zIndex": 2
     },
     {
-      "type": "particles",
+      "id": 3,
+      "name": "wave-mask",
+      "type": "static",
+      "description": "Wave pattern mask overlay from tokens",
+      "src": "var(--smh-wave-mask-desktop)",
+      "srcMobile": "var(--smh-wave-mask-mobile)",
+      "opacity": 0.4,
+      "blendMode": "overlay",
+      "parallaxMaxPx": 4,
+      "zIndex": 3
+    },
+    {
+      "id": 4,
+      "name": "glass-shimmer",
+      "type": "motion",
+      "description": "Elegant glass shimmer with gold highlights",
+      "src": "/assets/champagne/motion/glass-shimmer.webm",
+      "opacity": 0.12,
+      "blendMode": "screen",
+      "parallaxMaxPx": 1,
+      "zIndex": 4
+    },
+    {
+      "id": 5,
+      "name": "particles-static",
+      "type": "static",
+      "description": "Static particle texture from tokens",
       "src": "var(--smh-hero-particles)",
       "opacity": 0.08,
-      "blendMode": "screen"
+      "blendMode": "screen",
+      "parallaxMaxPx": 3,
+      "zIndex": 5,
+      "tileable": true,
+      "tileSize": "1024px 1024px"
     },
     {
-      "type": "grain",
-      "src": "var(--smh-hero-grain)",
+      "id": 6,
+      "name": "particles-drift",
+      "type": "motion",
+      "description": "Animated particles drifting slowly",
+      "src": "/assets/champagne/motion/particles-drift.webm",
       "opacity": 0.06,
-      "blendMode": "soft-light"
+      "blendMode": "screen",
+      "parallaxMaxPx": 3,
+      "zIndex": 6
     },
     {
-      "type": "veil",
-      "src": "url('/assets/champagne/brand-polish/wave-light-overlay.webp')",
-      "opacity": 0.12,
-      "blendMode": "screen"
+      "id": 7,
+      "name": "gold-dust-drift",
+      "type": "motion",
+      "description": "Sparse gold dust particles for luxury accent",
+      "src": "/assets/champagne/particles/gold-dust-drift.webm",
+      "opacity": 0.08,
+      "blendMode": "screen",
+      "parallaxMaxPx": 2,
+      "zIndex": 7
     },
     {
-      "type": "gold",
-      "src": "url('/assets/champagne/brand-polish/wave-gold-dust.png')",
-      "opacity": 0.12,
-      "blendMode": "screen"
+      "id": 8,
+      "name": "film-grain",
+      "type": "static",
+      "description": "Fine film grain texture from tokens",
+      "src": "var(--smh-hero-grain)",
+      "opacity": 0.07,
+      "blendMode": "overlay",
+      "parallaxMaxPx": 0,
+      "zIndex": 8,
+      "tileable": true,
+      "tileSize": "512px 512px"
+    },
+    {
+      "id": 9,
+      "name": "content",
+      "type": "content",
+      "description": "Hero text content and CTAs",
+      "src": null,
+      "opacity": 1.0,
+      "blendMode": "normal",
+      "parallaxMaxPx": 0,
+      "zIndex": 9
     }
-  ]
+  ],
+  
+  "tokens": {
+    "gradient": "var(--smh-gradient)",
+    "magenta": "var(--smh-primary-magenta)",
+    "teal": "var(--smh-primary-teal)",
+    "gold": "var(--smh-accent-gold)",
+    "waveMaskDesktop": "var(--smh-wave-mask-desktop)",
+    "waveMaskMobile": "var(--smh-wave-mask-mobile)",
+    "particles": "var(--smh-hero-particles)",
+    "grain": "var(--smh-hero-grain)"
+  },
+  
+  "parallax": {
+    "maxTotal": 6,
+    "unit": "px",
+    "easing": "cubic-bezier(0.65, 0, 0.35, 1)"
+  },
+  
+  "motion": {
+    "videoFormat": "webm",
+    "codec": "vp9",
+    "alphaChannel": true,
+    "fps": 24,
+    "loop": true,
+    "autoplay": true,
+    "muted": true,
+    "playsInline": true
+  },
+  
+  "accessibility": {
+    "reducedMotion": true,
+    "reducedMotionBehavior": "Hide all motion layers (wave-caustics, glass-shimmer, particles-drift, gold-dust-drift)",
+    "focusRing": "var(--smh-accent-gold)",
+    "minHitTarget": "44x44px"
+  },
+  
+  "responsive": {
+    "desktop": {
+      "minHeight": "70vh",
+      "safePadding": "96px"
+    },
+    "mobile": {
+      "minHeight": "68vh",
+      "safePadding": "80px",
+      "waveMask": "var(--smh-wave-mask-mobile)"
+    }
+  }
 }
