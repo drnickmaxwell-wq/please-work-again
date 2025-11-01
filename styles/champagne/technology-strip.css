@@ -13,6 +13,103 @@
   overflow: hidden;
 }
 
+.technologyStrip--frozen {
+  --smh-gradient: linear-gradient(calc(540deg / 4), #C2185B 0%, #40C4B4 60%, #D4AF37 100%);
+  --smh-waves-bg: url('/assets/champagne/waves/waves-bg-2560.webp');
+  --smh-wave-mask-desktop: url('/assets/champagne/waves/wave-mask-desktop.webp');
+  --smh-wave-mask-mobile: url('/assets/champagne/waves/wave-mask-mobile.webp');
+  --smh-hero-particles: url('/assets/champagne/particles/home-hero-particles.webp');
+  --smh-hero-grain: url('/assets/champagne/textures/home-hero-film-grain.webp');
+  --heroParticlesOpacity: 0.08;
+  --heroGrainOpacity: 0.07;
+  background-image: var(--smh-gradient);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: 165% 165%;
+}
+
+.technologyStrip--frozen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background-image: var(--smh-hero-particles);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+  mix-blend-mode: screen;
+  opacity: clamp(0, var(--heroParticlesOpacity, 0.08), 0.12);
+}
+
+.technologyStrip--frozen::after {
+  background-image: var(--smh-hero-grain);
+  background-repeat: repeat;
+  background-size: cover;
+  background-position: center;
+  opacity: clamp(0, var(--heroGrainOpacity, 0.07), 0.12);
+  z-index: 5;
+}
+
+.technologyStrip--frozen .strip__backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image: var(--smh-waves-bg);
+  background-size: cover;
+  background-position: 50% 60%;
+  -webkit-mask-image: var(--smh-wave-mask-desktop);
+  mask-image: var(--smh-wave-mask-desktop);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+  opacity: 0.28;
+  mix-blend-mode: screen;
+}
+
+@media (max-width: 48rem) {
+  .technologyStrip--frozen .strip__backdrop {
+    -webkit-mask-image: var(--smh-wave-mask-mobile);
+    mask-image: var(--smh-wave-mask-mobile);
+  }
+}
+
+.technologyStrip--frozen .strip__veil {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background: linear-gradient(
+    140deg,
+    color-mix(in oklab, var(--smh-accent-gold) 6%, transparent) 0%,
+    transparent 68%,
+    color-mix(in oklab, var(--smh-accent-gold) 3%, transparent) 100%
+  );
+  mix-blend-mode: soft-light;
+  opacity: 0.14;
+}
+
+.technologyStrip--frozen .technologyStrip__waves {
+  display: none;
+}
+
+.technologyStrip--frozen .technologyStrip__goldDust {
+  z-index: 4;
+}
+
+.technologyStrip--frozen .technologyStrip__glassReflect {
+  z-index: 6;
+}
+
+.technologyStrip--frozen .strip__cta,
+.technologyStrip--frozen .strip__cta * {
+  filter: none !important;
+  backdrop-filter: blur(8px);
+}
+
 /* Wave mask overlay layer */
 .technologyStrip .technologyStrip__waves {
   position: absolute;
