@@ -14,6 +14,8 @@ type Diagnostics = {
   tokenGradient: string;
   normalizedTokenGradient: string;
   normalizedSurfaceGradient: string;
+  techHeroGradient: string;
+  techHeroFiltersRemoved: boolean;
   hasHeroWavesOverlay: boolean;
   hasJourneyWavesOverlay: boolean;
   waves: string;
@@ -114,6 +116,34 @@ export default function BrandLock() {
     const journeyBackgroundImage = journeyElement
       ? tidy(getComputedStyle(journeyElement).backgroundImage || "")
       : "";
+    const techHeroElement = document.querySelector<HTMLElement>(".technologyStrip--techpage");
+    const techHeroStyles = techHeroElement ? getComputedStyle(techHeroElement) : null;
+    const techHeroGradient = techHeroStyles
+      ? normalizeGradientString(techHeroStyles.backgroundImage || "")
+      : "";
+    const hasDisallowedFilter = (value: string | null | undefined) => {
+      if (!value) return false;
+      const normalized = value.trim().toLowerCase();
+      if (!normalized || normalized === "none") return false;
+      return /(?:hue-rotate|saturate|sepia|contrast)\(/i.test(normalized);
+    };
+    const techHeroFiltersRemoved = (() => {
+      if (!techHeroStyles) return false;
+      const heroClean =
+        !hasDisallowedFilter(techHeroStyles.filter) &&
+        !hasDisallowedFilter(techHeroStyles.backdropFilter);
+      if (!heroClean) return false;
+      const ctaElements = techHeroElement
+        ? Array.from(techHeroElement.querySelectorAll<HTMLElement>(".cta, .cta *"))
+        : [];
+      return ctaElements.every((ctaEl) => {
+        const ctaStyles = getComputedStyle(ctaEl);
+        return (
+          !hasDisallowedFilter(ctaStyles.filter) &&
+          !hasDisallowedFilter(ctaStyles.backdropFilter)
+        );
+      });
+    })();
 
     const probeToken = (tokenName: string): TokenProbe => {
       const raw = tidy(docStyles.getPropertyValue(tokenName) || "");
@@ -192,6 +222,8 @@ export default function BrandLock() {
       },
       heroBackgroundImage,
       journeyBackgroundImage,
+      techHeroGradient,
+      techHeroFiltersRemoved,
       heroMaskImage,
       frozenStrip,
       tuners: {
@@ -245,6 +277,10 @@ export default function BrandLock() {
                 </p>
                 <p>
                   normalizedSurfaceGradient={liveDiagnostics.normalizedSurfaceGradient || "n/a"}
+                </p>
+                <p>techHeroGradient={liveDiagnostics.techHeroGradient || "n/a"}</p>
+                <p>
+                  techHeroFiltersRemoved={String(liveDiagnostics.techHeroFiltersRemoved)}
                 </p>
                 <p>
                   hasHeroWavesOverlay={String(liveDiagnostics.hasHeroWavesOverlay)}

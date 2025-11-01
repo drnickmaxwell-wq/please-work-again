@@ -13,6 +13,77 @@
   overflow: hidden;
 }
 
+.technologyStrip--techpage {
+  position: relative;
+  isolation: isolate;
+  --smh-gradient: linear-gradient(
+    var(--smh-grad-angle),
+    var(--smh-primary-magenta) 0%,
+    var(--smh-primary-teal) 60%,
+    var(--smh-accent-gold) 100%
+  );
+  --smh-waves-bg: url('/assets/champagne/waves/waves-bg-2560.webp');
+  --smh-hero-particles: url('/assets/champagne/particles/home-hero-particles.webp');
+  --smh-hero-grain: url('/assets/champagne/textures/home-hero-film-grain.webp');
+  --heroParticlesOpacity: 0.06;
+  --tech-veil-opacity: 0.16;
+  background-image:
+    var(--smh-gradient),
+    var(--smh-waves-bg),
+    var(--smh-hero-particles),
+    var(--smh-hero-grain);
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+  background-size: 185% 185%, cover, cover, auto;
+  background-position: 50% 42%, center, center, center;
+  background-blend-mode: normal, overlay, screen, overlay;
+  -webkit-mask-image: var(--smh-wave-mask-desktop);
+  mask-image: var(--smh-wave-mask-desktop);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+}
+
+.technologyStrip--techpage::after {
+  content: none;
+}
+
+@media (max-width: 640px) {
+  .technologyStrip--techpage {
+    -webkit-mask-image: var(--smh-wave-mask-mobile);
+    mask-image: var(--smh-wave-mask-mobile);
+  }
+}
+
+.technologyStrip--techpage .veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    140deg,
+    color-mix(in oklab, var(--smh-keyline-gold) 5%, transparent) 0%,
+    transparent 70%
+  );
+  mix-blend-mode: soft-light;
+  opacity: var(--tech-veil-opacity, 0.16);
+}
+
+.technologyStrip--techpage .cta,
+.technologyStrip--techpage .cta * {
+  filter: none !important;
+  -webkit-backdrop-filter: blur(8px) brightness(1);
+  backdrop-filter: blur(8px) brightness(1);
+}
+
+.technologyStrip--techpage .cta {
+  background: color-mix(in oklab, var(--champagne-glass-bg) 92%, transparent);
+  border: 1px solid color-mix(in oklab, var(--champagne-keyline-gold) 40%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 14px 34px rgba(0, 0, 0, 0.28);
+  color: color-mix(in oklab, var(--smh-sand, var(--surface-0)) 96%, transparent);
+}
+
 .technologyStrip--frozen {
   --smh-gradient: linear-gradient(calc(540deg / 4), #C2185B 0%, #40C4B4 60%, #D4AF37 100%);
   --smh-waves-bg: url('/assets/champagne/waves/waves-bg-2560.webp');

@@ -97,9 +97,8 @@ export default function TechnologyPage() {
         driftEnabled={champagnePhase2}
         grainOpacity={champagnePhase2 ? 0.14 : 0.1}
       >
-        <section className={`${styles.hero} hero`}>
-          <div aria-hidden="true" className="champagne-overlay champagne-wave-mask" />
-          <div aria-hidden="true" className="champagne-grain" />
+        <section className={`${styles.hero} hero technologyStrip technologyStrip--techpage`}>
+          <div aria-hidden="true" className="veil" />
           <div className={styles.heroContent}>
             <p className={styles.heroEyebrow}>Technology</p>
             <h1 className={styles.heroTitle}>Calm precision, powered by digital artistry</h1>
@@ -108,10 +107,10 @@ export default function TechnologyPage() {
               result: a smoother experience and gallery-ready finishes, all within our Shoreham-by-Sea studio.
             </p>
             <div className={styles.heroActions}>
-              <a className="smh-btn" href="#digital-workflow">
+              <a className="smh-btn cta" href="#digital-workflow">
                 Explore the workflow
               </a>
-              <a className="smh-btn bg-[var(--smh-gradient)]" href="#equipment">
+              <a className="smh-btn cta" href="#equipment">
                 View our equipment
               </a>
             </div>
