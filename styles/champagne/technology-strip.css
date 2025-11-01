@@ -1,16 +1,28 @@
 /* Technology Strip — Champagne Design System v1 */
 
+:root {
+  --tech-veil-opacity: 0.06;
+}
+
 .technologyStrip {
   position: relative;
   isolation: isolate;
   min-height: 80vh;
-  /* Layer stack: gradient → waves → particles → grain → content */
+  /* Layer stack: gradient → wave mask → particles → grain → polish → content */
   background-image: var(--smh-gradient);
   background-repeat: no-repeat;
-  background-position: 50% 50%;
-  background-size: 165% 165%;
+  background-position: var(--smh-bg-pos, 50% 50%);
+  background-size: var(--smh-bg-size, 165% 165%);
   color: var(--smh-white, #FFFFFF);
   overflow: hidden;
+  mask-image: var(--smh-wave-mask-desktop);
+  -webkit-mask-image: var(--smh-wave-mask-desktop);
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: cover;
+  -webkit-mask-size: cover;
+  mask-position: top center;
+  -webkit-mask-position: top center;
 }
 
 /* Wave mask overlay layer */
@@ -19,19 +31,31 @@
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  background-image: var(--smh-waves-bg);
-  background-size: cover;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-  mix-blend-mode: overlay;
-  opacity: 0.32;
-  /* Subtle parallax effect */
-  will-change: transform;
+  background-color: color-mix(in oklab, var(--smh-white, #FFFFFF) calc(var(--smh-wave-opacity-hero, 0.34) * 100%), transparent);
+  mix-blend-mode: soft-light;
+  opacity: clamp(0, var(--smh-wave-opacity-hero, 0.34), 0.34);
+  mask-image: var(--smh-wave-mask-desktop);
+  -webkit-mask-image: var(--smh-wave-mask-desktop);
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: cover;
+  -webkit-mask-size: cover;
+  mask-position: top center;
+  -webkit-mask-position: top center;
+  will-change: opacity, transform;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .technologyStrip .technologyStrip__waves {
     animation: technologyStripWaveParallax 8s ease-in-out infinite;
+  }
+}
+
+@media (max-width: 640px) {
+  .technologyStrip,
+  .technologyStrip .technologyStrip__waves {
+    mask-image: var(--smh-wave-mask-mobile);
+    -webkit-mask-image: var(--smh-wave-mask-mobile);
   }
 }
 
@@ -50,12 +74,12 @@
   inset: 0;
   pointer-events: none;
   z-index: 2;
-  background-image: url('/assets/champagne/brand-polish/wave-gold-dust.png');
+  background-image: var(--smh-hero-particles);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   mix-blend-mode: screen;
-  opacity: 0.08;
+  opacity: var(--tech-veil-opacity);
   will-change: opacity, transform;
 }
 
@@ -67,11 +91,11 @@
 
 @keyframes technologyStripGoldShimmer {
   0%, 100% {
-    opacity: 0.08;
+    opacity: clamp(0, var(--tech-veil-opacity), 0.08);
     transform: translateX(0px);
   }
   50% {
-    opacity: 0.10;
+    opacity: clamp(0, calc(var(--tech-veil-opacity) + 0.02), 0.08);
     transform: translateX(2px);
   }
 }
@@ -81,13 +105,13 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 3;
+  z-index: 4;
   background-image: url('/assets/champagne/brand-polish/wave-light-overlay.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   mix-blend-mode: soft-light;
-  opacity: 0.15;
+  opacity: clamp(0, calc(var(--tech-veil-opacity) + 0.02), 0.08);
 }
 
 /* Film grain texture */
@@ -96,13 +120,13 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 4;
+  z-index: 3;
   background-image: var(--smh-hero-grain);
   background-size: cover;
   background-position: center;
   background-repeat: repeat;
   mix-blend-mode: overlay;
-  opacity: 0.07;
+  opacity: clamp(0, var(--smh-grain-alpha, 0.06), 0.06);
 }
 
 /* Content layer */
@@ -155,8 +179,8 @@
   border: 1px solid var(--smh-accent-gold-soft, #F9E8C3);
   border-radius: 0.5rem;
   text-decoration: none;
-  backdrop-filter: blur(12px) saturate(1.1);
-  box-shadow: 
+  backdrop-filter: blur(12px);
+  box-shadow:
     0 4px 16px color-mix(in oklab, black 20%, transparent),
     inset 0 1px 0 color-mix(in oklab, var(--smh-white) 20%, transparent);
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
