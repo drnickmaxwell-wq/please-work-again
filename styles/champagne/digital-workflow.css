@@ -3,7 +3,6 @@
 .digitalWorkflow {
   position: relative;
   isolation: isolate;
-  background: var(--bg, #FFFFFF);
   color: var(--ink, #0B0D0F);
 }
 

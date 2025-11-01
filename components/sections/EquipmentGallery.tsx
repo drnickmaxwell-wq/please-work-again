@@ -25,7 +25,7 @@ export default function EquipmentGallery() {
   return (
     <section
       id="equipment"
-      className="equipmentGallery relative py-24 md:py-32"
+      className="sectionPorcelainLite equipmentGallery relative py-24 md:py-32"
       aria-label="Equipment Gallery"
     >
       {/* Background gradient */}

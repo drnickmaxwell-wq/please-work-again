@@ -1,0 +1,16 @@
+/* Porcelain-lite surface: white, matte, tiny grain */
+.sectionPorcelainLite {
+  position: relative;
+  isolation: isolate;
+  background: #ffffff;             /* white canvas */
+  box-shadow: none;
+}
+.sectionPorcelainLite::after {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background-image: var(--smh-hero-grain);
+  background-repeat: repeat;
+  mix-blend-mode: soft-light;
+  opacity: 0.04;                   /* ~4% — barely there */
+}

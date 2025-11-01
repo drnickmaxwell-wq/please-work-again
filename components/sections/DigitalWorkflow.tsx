@@ -23,7 +23,7 @@ export default function DigitalWorkflow() {
   return (
     <section
       id="workflow"
-      className="digitalWorkflow relative py-24 md:py-32"
+      className="sectionPorcelainLite digitalWorkflow relative py-24 md:py-32"
       aria-label="Digital Workflow"
     >
       {/* Film grain texture */}
