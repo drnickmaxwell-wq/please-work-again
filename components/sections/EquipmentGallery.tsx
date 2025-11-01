@@ -25,7 +25,7 @@ export default function EquipmentGallery() {
   return (
     <section
       id="equipment"
-      className="equipmentGallery relative py-24 md:py-32"
+      className="equipmentGallery sectionPorcelain relative py-24 md:py-32"
       aria-label="Equipment Gallery"
     >
       {/* Background gradient */}
@@ -48,7 +48,7 @@ export default function EquipmentGallery() {
         {/* Equipment cards */}
         <div className="equipmentGallery__grid grid grid-cols-1 md:grid-cols-3 gap-8">
           {equipment.map((item, index) => (
-            <div key={index} className="equipmentGallery__card">
+            <div key={index} className="equipmentGallery__card tile">
               {/* Image with gradient overlay */}
               <div className="equipmentGallery__imageWrapper">
                 <div className="equipmentGallery__imageGradient" aria-hidden="true" />

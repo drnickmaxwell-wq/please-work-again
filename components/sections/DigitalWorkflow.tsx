@@ -23,7 +23,7 @@ export default function DigitalWorkflow() {
   return (
     <section
       id="workflow"
-      className="digitalWorkflow relative py-24 md:py-32"
+      className="digitalWorkflow sectionPorcelain relative py-24 md:py-32"
       aria-label="Digital Workflow"
     >
       {/* Film grain texture */}
@@ -46,7 +46,7 @@ export default function DigitalWorkflow() {
         {/* Workflow cards */}
         <div className="digitalWorkflow__grid grid grid-cols-1 md:grid-cols-3 gap-8">
           {workflowSteps.map((step, index) => (
-            <div key={index} className="digitalWorkflow__card">
+            <div key={index} className="digitalWorkflow__card card">
               {/* Icon */}
               <div className="digitalWorkflow__iconWrapper">
                 <img 

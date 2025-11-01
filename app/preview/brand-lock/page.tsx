@@ -37,6 +37,20 @@ type Diagnostics = {
     particlesImage: string;
     grainImage: string;
   } | null;
+  porcelainApplied: {
+    workflow: boolean;
+    equipment: boolean;
+  };
+  localParticlesOpacity: {
+    workflow: {
+      hero: string;
+      footer: string;
+    };
+    equipment: {
+      hero: string;
+      footer: string;
+    };
+  };
   tuners: {
     waveContrast: string;
     heroParticlesOpacity: string;
@@ -172,6 +186,24 @@ export default function BrandLock() {
     const hasHeroWavesOverlay = Boolean(document.querySelector(".heroLuxury > .waves"));
     const hasJourneyWavesOverlay = Boolean(document.querySelector(".smileJourney > .waves"));
 
+    const workflowSection = document.querySelector<HTMLElement>(".digitalWorkflow");
+    const equipmentSection = document.querySelector<HTMLElement>(".equipmentGallery");
+    const porcelainApplied = {
+      workflow: Boolean(workflowSection?.classList.contains("sectionPorcelain")),
+      equipment: Boolean(equipmentSection?.classList.contains("sectionPorcelain")),
+    };
+
+    const readParticles = (section: HTMLElement | null) => {
+      if (!section) {
+        return { hero: "", footer: "" };
+      }
+      const sectionStyles = getComputedStyle(section);
+      return {
+        hero: tidy(sectionStyles.getPropertyValue("--heroParticlesOpacity") || ""),
+        footer: tidy(sectionStyles.getPropertyValue("--footerParticlesOpacity") || ""),
+      };
+    };
+
     const diagnostics: Diagnostics = {
       gradient,
       tokenGradient: tidy(tokenGradientRaw),
@@ -194,6 +226,11 @@ export default function BrandLock() {
       journeyBackgroundImage,
       heroMaskImage,
       frozenStrip,
+      porcelainApplied,
+      localParticlesOpacity: {
+        workflow: readParticles(workflowSection),
+        equipment: readParticles(equipmentSection),
+      },
       tuners: {
         waveContrast: tidy(docStyles.getPropertyValue("--smh-wave-contrast") || ""),
         heroParticlesOpacity: tidy(
@@ -303,6 +340,12 @@ export default function BrandLock() {
                   frozenStrip.grainImage={
                     liveDiagnostics.frozenStrip?.grainImage || "n/a"
                   }
+                </p>
+                <p>
+                  porcelainApplied={JSON.stringify(liveDiagnostics.porcelainApplied)}
+                </p>
+                <p>
+                  localParticlesOpacity={JSON.stringify(liveDiagnostics.localParticlesOpacity)}
                 </p>
                 <p>servicesGridAssets={servicesGridAssets}</p>
                 <p>

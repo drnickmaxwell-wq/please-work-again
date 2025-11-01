@@ -1,0 +1,17 @@
+.sectionPorcelain {
+  --porcelain-bg: color-mix(in oklab, var(--smh-white, #fff) 92%, var(--smh-keyline-gold) 8%);
+  --porcelain-vignette: radial-gradient(120% 85% at 50% 10%, rgba(0,0,0,.06) 0%, transparent 55%);
+  background:
+    var(--porcelain-vignette),
+    var(--smh-grain-img, url('/assets/champagne/textures/home-hero-film-grain.webp'));
+  background-repeat: no-repeat, repeat;
+  background-size: cover, auto;
+  color: var(--smh-text);
+  isolation: isolate;
+}
+
+.digitalWorkflow,
+.equipmentGallery {
+  --heroParticlesOpacity: 0.04;
+  --footerParticlesOpacity: 0.0;
+}

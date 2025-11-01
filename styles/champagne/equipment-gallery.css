@@ -3,8 +3,7 @@
 .equipmentGallery {
   position: relative;
   isolation: isolate;
-  background: var(--bg, #FFFFFF);
-  color: var(--ink, #0B0D0F);
+  color: var(--smh-text, #0B0D0F);
 }
 
 /* Background gradient layer */
@@ -13,11 +12,11 @@
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  background-image: var(--smh-gradient);
-  background-size: 165% 165%;
-  background-position: 50% 50%;
+  background: var(--porcelain-vignette);
+  background-size: cover;
+  background-position: 50% 0;
   background-repeat: no-repeat;
-  opacity: 0.03;
+  opacity: 0.25;
 }
 
 /* Film grain texture */
@@ -26,12 +25,12 @@
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  background-image: var(--smh-hero-grain);
+  background-image: var(--smh-grain-img, var(--smh-hero-grain));
   background-size: cover;
   background-position: center;
   background-repeat: repeat;
   mix-blend-mode: overlay;
-  opacity: 0.04;
+  opacity: 0.07;
 }
 
 /* Section heading */
@@ -54,12 +53,25 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.75rem 1.75rem 2rem;
+  border-radius: 1.25rem;
   transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   will-change: transform;
 }
 
+.equipmentGallery .tile {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)),
+    var(--smh-grain-img, var(--smh-hero-grain));
+  border: 1px solid color-mix(in oklab, var(--smh-keyline-gold) 35%, transparent);
+  box-shadow: 0 18px 40px color-mix(in oklab, var(--smh-surface-ink) 14%, transparent);
+  backdrop-filter: blur(16px) saturate(1.05);
+  border-radius: 1.25rem;
+}
+
 .equipmentGallery .equipmentGallery__card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-4px);
 }
 
 .equipmentGallery .equipmentGallery__card:focus-within {
@@ -75,12 +87,12 @@
   aspect-ratio: 3 / 2;
   overflow: hidden;
   border-radius: 1rem;
-  background: var(--smh-gradient);
-  background-size: 165% 165%;
+  background: color-mix(in oklab, var(--porcelain-bg, #fef9f2) 65%, transparent);
+  background-size: cover;
   background-position: 50% 50%;
-  box-shadow: 
-    0 4px 16px color-mix(in oklab, black 10%, transparent),
-    inset 0 0 0 1px var(--smh-accent-gold-soft, #F9E8C3);
+  box-shadow:
+    0 12px 36px color-mix(in oklab, var(--smh-surface-ink) 14%, transparent),
+    inset 0 0 0 1px color-mix(in oklab, var(--smh-keyline-gold) 35%, transparent);
 }
 
 /* Gradient overlay on image */
@@ -88,11 +100,9 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: var(--smh-gradient);
-  background-size: 165% 165%;
-  background-position: 50% 50%;
-  mix-blend-mode: multiply;
-  opacity: 0.15;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0.4) 100%);
+  mix-blend-mode: soft-light;
+  opacity: 0.35;
   pointer-events: none;
 }
 
@@ -127,9 +137,9 @@
 
 /* Hover: gold edge glow */
 .equipmentGallery .equipmentGallery__card:hover .equipmentGallery__imageWrapper {
-  box-shadow: 
-    0 8px 32px color-mix(in oklab, var(--smh-accent-gold) 25%, transparent),
-    inset 0 0 0 2px var(--smh-accent-gold, #D4AF37);
+  box-shadow:
+    0 20px 48px color-mix(in oklab, var(--smh-accent-gold) 18%, transparent),
+    inset 0 0 0 2px color-mix(in oklab, var(--smh-accent-gold) 45%, transparent);
 }
 
 .equipmentGallery .equipmentGallery__card:hover .equipmentGallery__imageWrapper::after {
@@ -138,9 +148,9 @@
   inset: 0;
   z-index: 3;
   border-radius: inherit;
-  box-shadow: 
-    0 0 24px color-mix(in oklab, var(--smh-accent-gold) 65%, transparent) inset;
-  opacity: 1;
+  box-shadow:
+    0 0 24px color-mix(in oklab, var(--smh-accent-gold) 45%, transparent) inset;
+  opacity: 0.9;
   pointer-events: none;
   transition: opacity 0.3s ease;
 }
@@ -149,14 +159,15 @@
 .equipmentGallery .equipmentGallery__labels {
   margin-top: 1rem;
   text-align: center;
+  color: var(--smh-text, #0B0D0F);
 }
 
 .equipmentGallery .equipmentGallery__label {
-  color: var(--ink, #0B0D0F);
+  color: color-mix(in oklab, var(--smh-text, #0B0D0F) 96%, transparent);
 }
 
 .equipmentGallery .equipmentGallery__sublabel {
-  color: color-mix(in oklab, var(--ink) 65%, transparent);
+  color: color-mix(in oklab, var(--smh-text, var(--ink)) 70%, transparent);
   font-weight: 500;
   letter-spacing: 0.02em;
 }
