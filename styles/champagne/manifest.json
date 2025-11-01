@@ -11,21 +11,15 @@
       "blendMode": "screen"
     },
     {
-      "type": "particles",
-      "src": "var(--smh-hero-particles)",
-      "opacity": 0.08,
-      "blendMode": "screen"
-    },
-    {
-      "type": "grain",
-      "src": "var(--smh-hero-grain)",
-      "opacity": 0.06,
-      "blendMode": "soft-light"
-    },
-    {
       "type": "veil",
       "src": "url('/assets/champagne/brand-polish/wave-light-overlay.webp')",
       "opacity": 0.12,
+      "blendMode": "screen"
+    },
+    {
+      "type": "particles",
+      "src": "var(--smh-hero-particles)",
+      "opacity": 0.08,
       "blendMode": "screen"
     },
     {
@@ -33,6 +27,16 @@
       "src": "url('/assets/champagne/brand-polish/wave-gold-dust.png')",
       "opacity": 0.12,
       "blendMode": "screen"
+    },
+    {
+      "type": "grain",
+      "src": "var(--smh-hero-grain)",
+      "opacity": 0.06,
+      "blendMode": "soft-light"
     }
-  ]
+  ],
+  "waveMask": {
+    "desktop": "var(--smh-wave-mask-desktop)",
+    "mobile": "var(--smh-wave-mask-mobile)"
+  }
 }
