@@ -1,38 +1,9 @@
 {
-  "heroLayers": [
-    {
-      "type": "base",
-      "src": "var(--smh-gradient)"
-    },
-    {
-      "type": "wave",
-      "src": "var(--smh-waves-bg)",
-      "opacity": 0.32,
-      "blendMode": "screen"
-    },
-    {
-      "type": "particles",
-      "src": "var(--smh-hero-particles)",
-      "opacity": 0.08,
-      "blendMode": "screen"
-    },
-    {
-      "type": "grain",
-      "src": "var(--smh-hero-grain)",
-      "opacity": 0.06,
-      "blendMode": "soft-light"
-    },
-    {
-      "type": "veil",
-      "src": "url('/assets/champagne/brand-polish/wave-light-overlay.webp')",
-      "opacity": 0.12,
-      "blendMode": "screen"
-    },
-    {
-      "type": "gold",
-      "src": "url('/assets/champagne/brand-polish/wave-gold-dust.png')",
-      "opacity": 0.12,
-      "blendMode": "screen"
-    }
-  ]
+  "layers": ["gradient", "wavesBg", "motion-caustics", "motion-shimmer", "particles", "gold-dust", "grain"],
+  "motion": {
+    "caustics": { "src": "/assets/champagne/motion/hero-caustics.webm" },
+    "shimmer":  { "src": "/assets/champagne/motion/hero-shimmer.webm" },
+    "particles":{ "src": "/assets/champagne/motion/hero-particles.webm" },
+    "gold":     { "src": "/assets/champagne/motion/gold-dust.webm" }
+  }
 }

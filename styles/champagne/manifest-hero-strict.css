@@ -1,0 +1,68 @@
+.manifestHeroStrict {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  /* base gradient from tokens (no homepage CSS) */
+  background-image: var(--smh-gradient);
+  background-size: 185% 185%;
+  background-position: 50% 42%;
+  color: #fff;
+}
+
+.mhs__mask {
+  position: relative;
+  min-height: clamp(420px, 55vw, 620px);
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  padding: clamp(2rem, 4vw, 3rem);
+  /* Wave mask clips ALL layers inside */
+  -webkit-mask-image: var(--smh-wave-mask-desktop);
+  mask-image: var(--smh-wave-mask-desktop);
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-size: cover;        mask-size: cover;
+  -webkit-mask-position: 50% 55%;  mask-position: 50% 55%;
+}
+@media (max-width: 640px) {
+  .mhs__mask {
+    -webkit-mask-image: var(--smh-wave-mask-mobile);
+    mask-image: var(--smh-wave-mask-mobile);
+  }
+}
+
+/* static waves under everything */
+.mhs__waves {
+  position: absolute; inset: 0;
+  background-image: var(--smh-waves-bg);
+  background-size: cover; background-position: 50% 60%;
+  pointer-events: none; z-index: 1;
+}
+
+/* motion layers */
+.mhs__video {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; pointer-events: none; z-index: 2;
+  filter: saturate(1) contrast(1);
+}
+.mhs__particles { opacity: .08; mix-blend-mode: screen; }
+.mhs__gold      { opacity: .12; mix-blend-mode: screen; }
+
+/* grain as token image on top of motion */
+.mhs__grain {
+  position: absolute; inset: 0; z-index: 3;
+  background-image: var(--smh-hero-grain);
+  background-size: cover; background-position: 50% 60%;
+  opacity: .06; mix-blend-mode: soft-light; pointer-events: none;
+}
+
+/* content on top */
+.mhs__content { position: relative; z-index: 4; text-align: center; max-width: 70ch; }
+.mhs__eyebrow { letter-spacing: .2em; font-size: .8rem; opacity: .9; margin-bottom: .5rem; }
+.mhs__title   { font-family: "Playfair Display", serif; font-weight: 600; font-size: clamp(1.8rem, 4vw, 3rem); margin: .25rem 0 .75rem;}
+.mhs__sub     { opacity: .9; margin-bottom: 1rem; }
+.mhs__cta     { display: inline-block; padding: .6rem 1rem; border-radius: 999px; background: rgba(0,0,0,.25); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,.25); }
+
+.mhs__diag { margin: 1rem auto; max-width: 70ch; opacity: .65; font-size: .85rem; }
+@media (prefers-reduced-motion: reduce) {
+  .mhs__video { display: none; }
+}
