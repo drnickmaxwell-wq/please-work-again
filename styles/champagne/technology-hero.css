@@ -1,0 +1,46 @@
+.technologyHero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-image:
+    var(--smh-gradient),
+    var(--smh-waves-bg),
+    var(--smh-hero-particles),
+    var(--smh-hero-grain);
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+  background-size: 180% 180%, cover, cover, cover;
+  background-position: 50% 38%, center, center, center;
+}
+
+.technologyHero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  -webkit-mask-image: var(--smh-wave-mask-desktop);
+  mask-image: var(--smh-wave-mask-desktop);
+  -webkit-mask-size: cover;
+  mask-size: cover;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  background: transparent;
+  opacity: 0.10;
+  mix-blend-mode: normal;
+}
+
+@media (max-width: 640px) {
+  .technologyHero::before {
+    -webkit-mask-image: var(--smh-wave-mask-mobile);
+    mask-image: var(--smh-wave-mask-mobile);
+  }
+}
+
+.technologyHero::after {
+  content: none;
+}
+
+/* Ensure CTAs don’t shift hue */
+.technologyHero .cta {
+  filter: none;
+  backdrop-filter: blur(8px) brightness(1.0);
+}

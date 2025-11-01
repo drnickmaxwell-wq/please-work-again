@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
-import BrandHeroGradient from '@/components/brand/BrandHeroGradient';
 import FaqAccordion from '@/components/faq/FaqAccordion';
 import ChampagneHighlightFrozen from '@/components/sections/ChampagneHighlightFrozen';
+import TechnologyHero from '@/components/sections/TechnologyHero';
 
 import styles from './technology.module.css';
 
@@ -18,8 +18,6 @@ export const metadata: Metadata = {
     type: 'website',
   },
 };
-
-const champagnePhase2 = process.env.NEXT_PUBLIC_CHAMPAGNE_PHASE2 === '1';
 
 const workflowSteps = [
   {
@@ -88,36 +86,7 @@ export default function TechnologyPage() {
         ctaLabel="Explore our technology"
         ctaHref="/treatments/technology"
       />
-      <BrandHeroGradient
-        intensity="bold"
-        clip="wave-bottom"
-        goldDensity="med"
-        waveOpacity={champagnePhase2 ? 0.24 : 0.2}
-        particles={champagnePhase2 ? 'gold' : 'none'}
-        driftEnabled={champagnePhase2}
-        grainOpacity={champagnePhase2 ? 0.14 : 0.1}
-      >
-        <section className={`${styles.hero} hero`}>
-          <div aria-hidden="true" className="champagne-overlay champagne-wave-mask" />
-          <div aria-hidden="true" className="champagne-grain" />
-          <div className={styles.heroContent}>
-            <p className={styles.heroEyebrow}>Technology</p>
-            <h1 className={styles.heroTitle}>Calm precision, powered by digital artistry</h1>
-            <p className={styles.heroCopy}>
-              Every appointment is choreographed with wave-inspired lighting, AI-guided planning, and on-site fabrication. The
-              result: a smoother experience and gallery-ready finishes, all within our Shoreham-by-Sea studio.
-            </p>
-            <div className={styles.heroActions}>
-              <a className="smh-btn" href="#digital-workflow">
-                Explore the workflow
-              </a>
-              <a className="smh-btn bg-[var(--smh-gradient)]" href="#equipment">
-                View our equipment
-              </a>
-            </div>
-          </div>
-        </section>
-      </BrandHeroGradient>
+      <TechnologyHero />
 
       <main className={styles.main}>
         <div className={styles.wrapper}>
