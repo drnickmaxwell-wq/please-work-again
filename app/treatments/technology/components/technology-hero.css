@@ -16,13 +16,30 @@
   overflow: hidden;
   will-change: transform;
   transition: transform 0.6s ease-out;
+  --smh-gradient: linear-gradient(calc(540deg / 4), #C2185B 0%, #40C4B4 60%, #D4AF37 100%);
+  --smh-waves-bg: url('/assets/champagne/waves/waves-bg-2560.webp');
+  --smh-wave-mask-desktop: url('/assets/champagne/waves/wave-mask-desktop.webp');
+  --smh-wave-mask-mobile: url('/assets/champagne/waves/wave-mask-mobile.webp');
+  --smh-hero-particles: url('/assets/champagne/particles/home-hero-particles.webp');
+  --smh-hero-grain: url('/assets/champagne/textures/home-hero-film-grain.webp');
+  --heroParticlesOpacity: 0.08;
+  --heroGrainOpacity: 0.07;
+  background-image:
+    var(--smh-gradient),
+    var(--smh-waves-bg),
+    var(--smh-hero-particles),
+    var(--smh-hero-grain);
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+  background-position: 50% 55%, 50% 60%, center, center;
+  background-size: 185% 185%, cover, cover, cover;
+  background-blend-mode: normal, overlay, screen, overlay;
 }
 
 /* Gradient Background - 135° Magenta → Turquoise → Gold */
 .hero-gradient {
   position: absolute;
   inset: 0;
-  background: var(--gradient-cta);
+  background: transparent;
   z-index: 1;
 }
 
@@ -389,6 +406,8 @@
 @media (max-width: 768px) {
   .technology-hero {
     min-height: 80vh;
+    background-position: 50% 58%, 50% 62%, center, center;
+    background-size: 200% 200%, cover, cover, cover;
   }
 
   .video-placeholder {
@@ -402,6 +421,11 @@
   .cta-primary {
     width: 100%;
   }
+
+  .tech-hero::before {
+    -webkit-mask-image: var(--smh-wave-mask-mobile);
+    mask-image: var(--smh-wave-mask-mobile);
+  }
 }
 
 
@@ -414,17 +438,40 @@
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("/brand-polish/wave-light-overlay.webp"), url("/brand-polish/glass-reflect.svg");
-  background-repeat: no-repeat, no-repeat;
-  background-size: cover, 1200px;
-  background-position: center, 80% 20%;
-  opacity: 0.18;
   pointer-events: none;
+  background-image: var(--smh-waves-bg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 60%;
+  -webkit-mask-image: var(--smh-wave-mask-desktop);
+  mask-image: var(--smh-wave-mask-desktop);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+  opacity: 0.28;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.tech-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    140deg,
+    color-mix(in oklab, var(--smh-accent-gold) 6%, transparent) 0%,
+    transparent 68%,
+    color-mix(in oklab, var(--smh-accent-gold) 3%, transparent) 100%
+  );
+  mix-blend-mode: soft-light;
+  opacity: 0.14;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .tech-hero::before {
-    opacity: 0.12;
+    opacity: 0.24;
   }
 }
 
@@ -537,14 +584,6 @@
   background: radial-gradient(circle, rgba(255, 255, 255, 0.55) 0%, rgba(212, 175, 55, 0) 70%);
 }
 
-.tech-hero::before {
-  inset: -5% -5% 0;
-  background:
-    radial-gradient(80% 70% at 15% 10%, rgba(255, 255, 255, 0.18) 0%, transparent 65%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 45%, rgba(64, 196, 180, 0.08) 100%);
-  mix-blend-mode: screen;
-  opacity: 0.22;
-}
 
 @media (prefers-reduced-motion: reduce) {
   .iridescent-heading,

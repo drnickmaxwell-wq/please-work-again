@@ -30,6 +30,13 @@ type Diagnostics = {
   heroBackgroundImage: string;
   journeyBackgroundImage: string;
   heroMaskImage: string;
+  frozenStrip: {
+    backgroundImage: string;
+    backdropImage: string;
+    backdropMask: string;
+    particlesImage: string;
+    grainImage: string;
+  } | null;
   tuners: {
     waveContrast: string;
     heroParticlesOpacity: string;
@@ -133,6 +140,35 @@ export default function BrandLock() {
         ""
     );
 
+    const frozenStripElement = document.querySelector<HTMLElement>(
+      ".technologyStrip--frozen"
+    );
+    let frozenStrip: Diagnostics["frozenStrip"] = null;
+    if (frozenStripElement) {
+      const frozenStyles = getComputedStyle(frozenStripElement);
+      const backdrop = frozenStripElement.querySelector<HTMLElement>(
+        ".strip__backdrop"
+      );
+      const backdropStyles = backdrop ? getComputedStyle(backdrop) : null;
+      const particlesStyles = getComputedStyle(frozenStripElement, "::before");
+      const grainStyles = getComputedStyle(frozenStripElement, "::after");
+
+      frozenStrip = {
+        backgroundImage: tidy(frozenStyles.backgroundImage || ""),
+        backdropImage: backdropStyles ? tidy(backdropStyles.backgroundImage || "") : "",
+        backdropMask:
+          backdropStyles
+            ? tidy(
+                backdropStyles.getPropertyValue("mask-image") ||
+                  backdropStyles.getPropertyValue("-webkit-mask-image") ||
+                  ""
+              )
+            : "",
+        particlesImage: tidy(particlesStyles.backgroundImage || ""),
+        grainImage: tidy(grainStyles.backgroundImage || ""),
+      };
+    }
+
     const hasHeroWavesOverlay = Boolean(document.querySelector(".heroLuxury > .waves"));
     const hasJourneyWavesOverlay = Boolean(document.querySelector(".smileJourney > .waves"));
 
@@ -157,6 +193,7 @@ export default function BrandLock() {
       heroBackgroundImage,
       journeyBackgroundImage,
       heroMaskImage,
+      frozenStrip,
       tuners: {
         waveContrast: tidy(docStyles.getPropertyValue("--smh-wave-contrast") || ""),
         heroParticlesOpacity: tidy(
@@ -242,6 +279,31 @@ export default function BrandLock() {
                 <p>heroMaskImage={liveDiagnostics.heroMaskImage || "n/a"}</p>
                 <p>heroBackgroundImage={liveDiagnostics.heroBackgroundImage}</p>
                 <p>journeyBackgroundImage={liveDiagnostics.journeyBackgroundImage}</p>
+                <p>
+                  frozenStrip.backgroundImage={
+                    liveDiagnostics.frozenStrip?.backgroundImage || "n/a"
+                  }
+                </p>
+                <p>
+                  frozenStrip.backdropImage={
+                    liveDiagnostics.frozenStrip?.backdropImage || "n/a"
+                  }
+                </p>
+                <p>
+                  frozenStrip.backdropMask={
+                    liveDiagnostics.frozenStrip?.backdropMask || "n/a"
+                  }
+                </p>
+                <p>
+                  frozenStrip.particlesImage={
+                    liveDiagnostics.frozenStrip?.particlesImage || "n/a"
+                  }
+                </p>
+                <p>
+                  frozenStrip.grainImage={
+                    liveDiagnostics.frozenStrip?.grainImage || "n/a"
+                  }
+                </p>
                 <p>servicesGridAssets={servicesGridAssets}</p>
                 <p>
                   tuners wave={liveDiagnostics.tuners.waveContrast} heroOpacity={liveDiagnostics.tuners.heroParticlesOpacity}

@@ -2,10 +2,16 @@ export default function TechnologyStrip() {
   return (
     <section
       id="technology"
-      className="technologyStrip relative isolate overflow-hidden"
+      className="technologyStrip technologyStrip--frozen relative isolate overflow-hidden"
       aria-label="Technology in Harmony"
     >
-      {/* Wave layer */}
+      {/* Masked wave backdrop */}
+      <div className="strip__backdrop" aria-hidden="true" />
+
+      {/* Gold veil */}
+      <div className="strip__veil" aria-hidden="true" />
+
+      {/* Legacy wave layer (retained for animation context) */}
       <div className="technologyStrip__waves" aria-hidden="true" />
       
       {/* Gold dust shimmer layer */}
@@ -34,9 +40,9 @@ export default function TechnologyStrip() {
           
           {/* CTA */}
           <div className="mt-10">
-            <a 
-              href="/treatments/technology" 
-              className="technologyStrip__cta"
+            <a
+              href="/treatments/technology"
+              className="technologyStrip__cta strip__cta"
             >
               Explore Our Digital Workflow
             </a>
