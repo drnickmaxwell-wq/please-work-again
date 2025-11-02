@@ -15,9 +15,9 @@ export type Manifest = {
 
 const manifestData = manifest as Manifest;
 
-// Motion-enabled layers are defined in the manifest for future parity but
-// intentionally omitted until Champagne motion assets are ready.
+// Split the manifest into static CSS-driven layers and motion <video> overlays.
 const staticLayers = manifestData.heroLayers.filter((layer) => !layer.motion);
+const motionLayers = manifestData.heroLayers.filter((layer) => layer.motion);
 
 const baseLayer = staticLayers.find((layer) => layer.type === 'base');
 const overlayLayers = staticLayers.filter((layer) => layer.type !== 'base');
@@ -45,6 +45,30 @@ export default function HeroManifest() {
                 backgroundImage: layer.src,
               }}
             />
+          );
+        })}
+
+        {motionLayers.map((layer, index) => {
+          const layerClass = `hm-layer hm-layer--${layer.type}`;
+
+          return (
+            <div
+              key={`${layer.type}-motion-${index}`}
+              className={layerClass}
+              style={{
+                ['--opacity' as const]: layer.opacity ?? 1,
+                ['--blend' as const]: layer.blendMode ?? 'normal',
+              }}
+            >
+              <video
+                src={layer.src}
+                autoPlay
+                loop
+                muted
+                playsInline
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            </div>
           );
         })}
       </div>

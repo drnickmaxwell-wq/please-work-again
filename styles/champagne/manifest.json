@@ -32,6 +32,59 @@
       "goldGlow": "0 0 12px rgba(212, 175, 55, 0.4), 0 0 24px rgba(212, 175, 55, 0.2)"
     }
   },
+
+  "heroLayers": [
+    {
+      "type": "base",
+      "src": "var(--smh-gradient)"
+    },
+    {
+      "type": "wave",
+      "src": "var(--smh-waves-bg)",
+      "opacity": 0.34,
+      "blendMode": "overlay"
+    },
+    {
+      "type": "veil",
+      "src": "/assets/champagne/motion/wave-caustics.webm",
+      "opacity": 0.1,
+      "blendMode": "screen",
+      "motion": true
+    },
+    {
+      "type": "veil",
+      "src": "/assets/champagne/motion/glass-shimmer.webm",
+      "opacity": 0.12,
+      "blendMode": "screen",
+      "motion": true
+    },
+    {
+      "type": "particles",
+      "src": "var(--smh-hero-particles)",
+      "opacity": 0.08,
+      "blendMode": "screen"
+    },
+    {
+      "type": "particles",
+      "src": "/assets/champagne/motion/particles-drift.webm",
+      "opacity": 0.06,
+      "blendMode": "screen",
+      "motion": true
+    },
+    {
+      "type": "gold",
+      "src": "/assets/champagne/motion/gold-dust-drift.webm",
+      "opacity": 0.08,
+      "blendMode": "screen",
+      "motion": true
+    },
+    {
+      "type": "grain",
+      "src": "var(--smh-hero-grain)",
+      "opacity": 0.07,
+      "blendMode": "overlay"
+    }
+  ],
   
   "layers": [
     {
@@ -156,7 +209,19 @@
     "loop": true,
     "autoplay": true,
     "muted": true,
-    "playsInline": true
+    "playsInline": true,
+    "caustics": {
+      "src": "/assets/champagne/motion/wave-caustics.webm"
+    },
+    "shimmer": {
+      "src": "/assets/champagne/motion/glass-shimmer.webm"
+    },
+    "particles": {
+      "src": "/assets/champagne/motion/particles-drift.webm"
+    },
+    "gold": {
+      "src": "/assets/champagne/motion/gold-dust-drift.webm"
+    }
   },
   
   "accessibility": {
